@@ -2,9 +2,7 @@
 
 ## General info
 * Further developement of [getFotballApiData](https://github.com/Vigdals/getFotballApiData)
-* takes an url
-* does an api call
-* serialize the json
+* Want to make it able to guess on games coming in the world cup in the end
 * more to come!
 
 ## Maintainers
