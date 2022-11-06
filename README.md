@@ -1,4 +1,4 @@
-<h3 align="center">vm22 guessing game</h3>
+<h3 align="center">World Cup 2022 guessing game</h3>
 
 ## General info
 * Further developement of [getFotballApiData](https://github.com/Vigdals/getFotballApiData)
