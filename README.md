@@ -1,8 +1,7 @@
-# vm22MVC
-
 <h3 align="center">vm22 guessing game</h3>
 
 ## General info
+* Further developement of [getFotballApiData](https://github.com/Vigdals/getFotballApiData)
 * takes an url
 * does an api call
 * serialize the json
