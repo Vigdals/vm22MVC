@@ -1,4 +1,4 @@
-﻿@model getAPIstuff.Models.apiModel;
+﻿@model IEnumerable<getAPIstuff.Models.kampModel>
 
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -6,5 +6,42 @@
 @{
 }
 <h1>This is the VM22 header!</h1>
-<p>@Model.Response</p>
-<p>@Model.StringResponse</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Attendance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HomeScore)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AwayScore)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Stadium)
+        </th>
+        <th></th>
+    </tr>
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Attendance)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HomeScore)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AwayScore)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Stadium)
+        </td>
+        
+    </tr>
+}

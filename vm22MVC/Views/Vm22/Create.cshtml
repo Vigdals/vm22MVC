@@ -1,8 +1,5 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model getAPIstuff.Api.ApiCall
+
 <div class="row">
     <div class="col-6">
         <div class="card">
@@ -10,7 +7,7 @@
                 <h5>Do API call</h5>
             </div>
             <div class="card-body">
-                <form>
+                <form asp-controller="Vm22" asp-action="CreateApiCall" method="post">
                     <div class="mb-3">
                         <label class="form-label">Liga (ID)</label>
                         <input type="text" class="form-control" value="690408" />
@@ -24,7 +21,7 @@
                         <input type="datetime-local" />
                     </div>
                     <div>
-                        <button class="btn btn-primary" role="button">Do API call</button>
+                        <button type="submit" class="btn btn-primary" role="button">Do API call</button>
                     </div>
                 </form>
             </div>
