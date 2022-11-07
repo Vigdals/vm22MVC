@@ -11,6 +11,10 @@ namespace getAPIstuff.Models
 {
     public class apiModel
     {
+        public apiModel()
+        {
+
+        }
         //making the model
         public apiModel(string response)
         {
@@ -19,6 +23,10 @@ namespace getAPIstuff.Models
             StringResponse = response;
         }
         public string Id { get; set; }
+        public int ligaId { get; set; }
+        public int tournamentId { get; set; }
+        public int teamId { get; set; }
+        public string date { get; set; }
         public string Url { get; set; }
         public string StringResponse { get; set; }
         public HttpResponseMessage Response { get; set; }

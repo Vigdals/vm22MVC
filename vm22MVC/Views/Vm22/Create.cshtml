@@ -1,4 +1,6 @@
-﻿@model getAPIstuff.Api.ApiCall
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+
+@model getAPIstuff.Models.apiModel
 
 <div class="row">
     <div class="col-6">
@@ -7,18 +9,22 @@
                 <h5>Do API call</h5>
             </div>
             <div class="card-body">
-                <form asp-controller="Vm22" asp-action="CreateApiCall" method="post">
+                <form asp-controller="Vm22" asp-action="Create" method="post">
                     <div class="mb-3">
                         <label class="form-label">Liga (ID)</label>
-                        <input type="text" class="form-control" value="690408" />
+                        <input asp-for="ligaId" type="text" class="form-control" value="690408" />
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Lagnamn (ID)</label>
-                        <input type="text" class="form-control" value="844" />
+                        <input asp-for="teamId" type="text" class="form-control" value="844" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Tournament (ID)</label>
+                        <input asp-for="tournamentId" type="text" class="form-control" value="56" />
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Dato (yyyy-mm-dd)</label>
-                        <input type="datetime-local" />
+                        <input asp-for="date" type="text" value="2022-11-21" />
                     </div>
                     <div>
                         <button type="submit" class="btn btn-primary" role="button">Do API call</button>
