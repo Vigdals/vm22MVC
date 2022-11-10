@@ -1,8 +1,61 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model getAPIstuff.Models.apiModel
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p></p>
+</div>
+
+<div class="row">
+    <div class="col-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>Kampdag vm22</h5>
+            </div>
+            <div class="card-body">
+                <form asp-controller="Vm22" asp-action="Create" method="post">
+                    <div class="mb-3">
+                        <label class="form-label">Dato (yyyy-mm-dd)</label>
+                        <input asp-for="date" type="text" value="2022-11-21" />
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary" role="button">Søk</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <p>This is just the footer. Some info might come here</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>Turneringskall?</h5>
+            </div>
+            <div class="card-body">
+                <form asp-controller="Vm22" asp-action="Create" method="post">
+                    <div class="mb-3">
+                        <label class="form-label">Liga (ID)</label>
+                        <input asp-for="ligaId" type="text" class="form-control" value="690408" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Lagnamn (ID)</label>
+                        <input asp-for="teamId" type="text" class="form-control" value="844" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Tournament (ID)</label>
+                        <input asp-for="tournamentId" type="text" class="form-control" value="56" />
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary" role="button">Søk</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <p>This is just the footer. Some info might come here</p>
+            </div>
+        </div>
+    </div>
 </div>
