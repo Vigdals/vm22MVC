@@ -1,4 +1,6 @@
-﻿namespace vm22MVC.Models
+﻿using getAPIstuff.Models;
+
+namespace vm22MVC.Models
 {
     public class TournamentModel
     {
@@ -6,7 +8,8 @@
         {
 
         }
-        public string fullName { get; set; }
+        public List<kampModel> kampModels { get; set; }
+        public string groupName { get; set; }
         public int yearStart { get; set; }
         public int id { get; set; }
     }

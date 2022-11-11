@@ -1,47 +1,65 @@
 ﻿@using System.ComponentModel.DataAnnotations.Schema
-@model IEnumerable<IEnumerable<getAPIstuff.Models.kampModel>>
+@model TournamentModel
 
-<p>Tippekonk!</p>
+<form asp-action="Index" asp-for="groupName">
+    <label for="groupName">Velg gruppe</label>
+    <select name="groupName" id="groupName">
+        <option value="Gruppe A">A</option>
+        <option value="Gruppe B">B</option>
+        <option value="Gruppe C">C</option>
+        <option value="Gruppe D">D</option>
+        <option value="Gruppe E">E</option>
+        <option value="Gruppe F">F</option>
+        <option value="Gruppe G">G</option>
+        <option value="Gruppe H">H</option>
+    </select>
+    <br/><br/>
+    <input type="submit" value="Hent gruppe">
+</form>
 
-@foreach (var model in Model)
-{
-    <table class="table">
+<table class="table">
+    <tr>
+        <th>
+            Tidspunkt
+        </th>
+        <th>
+            Heimelag
+        </th>
+        <th>
+            H
+        </th>
+        <th>
+            U
+        </th>
+        <th>
+            B
+        </th>
+        <th>
+            Bortelag
+        </th>
+    </tr>
+    @foreach (var item in Model.kampModels)
+    {
         <tr>
-            <th>
-                Heimelag
-            </th>
-            <th>
-                H
-            </th>
-            <th>
-                U
-            </th>
-            <th>
-                B
-            </th>
-            <th>
-                Bortelag
-            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeStamp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HomeTeam)
+            </td>
+            <td>
+                <input type="checkbox"/>
+            </td>
+            <td>
+                <input type="checkbox"/>
+            </td>
+            <td>
+                <input type="checkbox"/>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AwayTeam)
+            </td>
         </tr>
-        @foreach (var item in model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HomeTeam)
-                </td>
-                <td>
-                    <input type="checkbox" />
-                </td>
-                <td>
-                    <input type="checkbox" />
-                </td>
-                <td>
-                    <input type="checkbox" />
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AwayTeam)
-                </td>
-            </tr>
-        }
-    </table>
-}
+    }
+</table>
+

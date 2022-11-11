@@ -21,6 +21,6 @@ namespace getAPIstuff.Models
         public string AwayTeamLogo { get; set; }
         public string Stadium { get; set; }
         public string Attendance { get; set; }
-        public string Timestamp { get; set; }
+        public string TimeStamp { get; set; } 
     }
 }
