@@ -17,12 +17,12 @@
     <input type="submit" value="Hent gruppe">
 </form>
 
-<table class="table">
+<table class="table" style="width:70%">
     <tr>
-        <th>
+        <th style="width:20%">
             Tidspunkt
         </th>
-        <th>
+        <th style="width:15%">
             Heimelag
         </th>
         <th>
@@ -34,7 +34,7 @@
         <th>
             B
         </th>
-        <th>
+        <th style="width:15%">
             Bortelag
         </th>
     </tr>
@@ -45,7 +45,8 @@
                 @Html.DisplayFor(modelItem => item.TimeStamp)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.HomeTeam) @Html.DisplayFor(modelItem => item.HomeTeamLogo)
+                @Html.DisplayFor(modelItem => item.HomeTeam)
+                <img class="smallImage" src="@item.HomeTeamLogo" width="24" height="24"/>
             </td>
             <td>
                 <input type="checkbox"/>
@@ -57,7 +58,8 @@
                 <input type="checkbox"/>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AwayTeam) @Html.DisplayFor(modelItem => item.AwayTeamLogo))
+                @Html.DisplayFor(modelItem => item.AwayTeam)
+                <img class="teamImage" src="@item.AwayTeamLogo" width="24" height="24"/>
             </td>
         </tr>
     }

@@ -27,8 +27,10 @@ namespace getAPI
                     AwayTeam = (string)item.SelectToken("awayTeam.name"),
                     HomeScore = (string)item.SelectToken("result.homeScore90"),
                     AwayScore = (string)item.SelectToken("result.awayScore90"),
-                    HomeTeamLogo = (string)item.SelectToken("homeTeam.logo.url") == null ? "No logo found" : item.SelectToken("homeTeam.logo.url").ToString(),
-                    AwayTeamLogo = (string)item.SelectToken("awayTeam.logo.url") == null ? "No logo found" : item.SelectToken("awayTeam.logo.url").ToString(),
+                    HomeTeamLogo = "/images/" + (string)item.SelectToken("homeTeam.name") + ".png",
+                    AwayTeamLogo = "/images/" + (string)item.SelectToken("awayTeam.name") + ".png",
+                    //old team logo, with the errorhandler thingy
+                    //AwayTeamLogo = (string)item.SelectToken("awayTeam.logo.url") == null ? "No logo found" : item.SelectToken("awayTeam.logo.url").ToString(),
                     Stadium = (string)item.SelectToken("stadium.name"),
                     TimeStamp = (string)item.SelectToken("timestamp")
                 };
