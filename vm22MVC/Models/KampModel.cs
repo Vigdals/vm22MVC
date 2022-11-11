@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace getAPIstuff.Models
+﻿namespace getAPIstuff.Models
 {
     public class kampModel
     {
@@ -21,6 +15,6 @@ namespace getAPIstuff.Models
         public string AwayTeamLogo { get; set; }
         public string Stadium { get; set; }
         public string Attendance { get; set; }
-        public string TimeStamp { get; set; } 
+        public string TimeStamp { get; set; }
     }
 }

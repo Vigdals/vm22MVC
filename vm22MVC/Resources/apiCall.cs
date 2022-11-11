@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Net;
-using System.Net.Http.Headers;
-using getAPIstuff.Models;
+﻿using getAPIstuff.Models;
 using System.Diagnostics;
+using System.Net.Http.Headers;
 
 namespace getAPIstuff.Api
 {

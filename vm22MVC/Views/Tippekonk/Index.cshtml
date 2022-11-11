@@ -45,7 +45,7 @@
                 @Html.DisplayFor(modelItem => item.TimeStamp)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.HomeTeam)
+                @Html.DisplayFor(modelItem => item.HomeTeam) @Html.DisplayFor(modelItem => item.HomeTeamLogo)
             </td>
             <td>
                 <input type="checkbox"/>
@@ -57,7 +57,7 @@
                 <input type="checkbox"/>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AwayTeam)
+                @Html.DisplayFor(modelItem => item.AwayTeam) @Html.DisplayFor(modelItem => item.AwayTeamLogo))
             </td>
         </tr>
     }

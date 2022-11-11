@@ -1,22 +1,19 @@
-﻿using System.Diagnostics;
-using getAPI;
+﻿using getAPI;
 using getAPIstuff.Api;
 using getAPIstuff.Models;
 using Microsoft.AspNetCore.Mvc;
-using static System.Net.WebRequestMethods;
-using vm22MVC.Models;
 using Newtonsoft.Json.Linq;
+using vm22MVC.Models;
 
 namespace vm22MVC.Controllers
 {
     public class TippekonkController : Controller
     {
-        
         public IActionResult Index(string groupName)
         {
             //if groupname is empty the rest of the code will not me excecuted - kul syntax
-            if (string.IsNullOrWhiteSpace(groupName)) return View(new TournamentModel(){kampModels = new List<kampModel>()});
-
+            if (string.IsNullOrWhiteSpace(groupName)) return View(new TournamentModel() { kampModels = new List<kampModel>() });
+            //gets tournament infomation. Specially the api calls for each group. From group A to H. 
             var apiTournamentModel = new ApiCall().DoApiCall("https://api.nifs.no/tournaments/56/stages/");
             var apiTournamentReponse = apiTournamentModel.Response;
             ApiCall.CheckIfSuccess(apiTournamentReponse);
@@ -24,7 +21,7 @@ namespace vm22MVC.Controllers
             var listModel = new List<TournamentModel>();
             var jsonSerialized = new jsonConvertAndIteration().JsonSerialize(apiTournamentModel.StringResponse);
             var jToken = JToken.Parse(jsonSerialized);
-
+            //iterates through the tournament matches in 2022. Gotta change this in 2026 when next world cup is
             foreach (var item in jToken)
             {
                 if ((int)item.SelectToken("yearStart") != 2022) continue;
@@ -34,6 +31,7 @@ namespace vm22MVC.Controllers
                     yearStart = (int)item.SelectToken("yearStart"),
                     id = (int)item.SelectToken("id")
                 };
+                //Gets all matches for each group through api call
                 var TournamentMatches = new ApiCall().DoApiCall($"https://api.nifs.no/stages/{model.id}/matches/");
                 List<kampModel> kampModelsList = jsonConvertAndIteration.JsonIteration(TournamentMatches.StringResponse);
 
@@ -42,9 +40,9 @@ namespace vm22MVC.Controllers
                 listModel.Add(model);
             }
 
-            //Using Linq here med input fra drop down list:
+            //Using Linq here with input fra drop down list:
             return View(listModel.First(x => x.groupName == groupName));
-            
+
         }
     }
 }

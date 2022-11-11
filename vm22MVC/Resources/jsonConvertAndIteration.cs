@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
-using getAPIstuff.Models;
+﻿using getAPIstuff.Models;
+using Newtonsoft.Json.Linq;
 
 namespace getAPI
 {
@@ -28,6 +28,7 @@ namespace getAPI
                     HomeScore = (string)item.SelectToken("result.homeScore90"),
                     AwayScore = (string)item.SelectToken("result.awayScore90"),
                     HomeTeamLogo = (string)item.SelectToken("homeTeam.logo.url") == null ? "No logo found" : item.SelectToken("homeTeam.logo.url").ToString(),
+                    AwayTeamLogo = (string)item.SelectToken("awayTeam.logo.url") == null ? "No logo found" : item.SelectToken("awayTeam.logo.url").ToString(),
                     Stadium = (string)item.SelectToken("stadium.name"),
                     TimeStamp = (string)item.SelectToken("timestamp")
                 };

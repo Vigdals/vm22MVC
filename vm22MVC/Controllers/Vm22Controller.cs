@@ -2,8 +2,6 @@
 using getAPIstuff.Api;
 using getAPIstuff.Models;
 using Microsoft.AspNetCore.Mvc;
-using vm22MVC.Models;
-using Newtonsoft.Json;
 using vm22MVC.Service;
 
 namespace vm22MVC.Controllers
@@ -32,7 +30,7 @@ namespace vm22MVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([Bind("stagesid, teamId, tournamentId, date")]apiModel responseModel)
+        public IActionResult Create([Bind("stagesid, teamId, tournamentId, date")] apiModel responseModel)
         {
             var kampModels = _callService.DoVmApiCall(responseModel);
 

@@ -2,9 +2,6 @@
 using getAPIstuff.Api;
 using getAPIstuff.Models;
 using Microsoft.AspNetCore.Mvc;
-using vm22MVC.Models;
-using Newtonsoft.Json;
-using Microsoft.AspNetCore.Mvc;
 
 namespace vm22MVC.Controllers
 {

@@ -1,7 +1,7 @@
 ﻿using getAPI;
 using getAPIstuff.Api;
 using getAPIstuff.Models;
-using Newtonsoft.Json.Linq;
+using System.Diagnostics;
 
 namespace vm22MVC.Service
 {
@@ -13,7 +13,7 @@ namespace vm22MVC.Service
             var teamId = request.teamId;
             var tournamentId = request.tournamentId;
             var date = request.date;
-            Console.WriteLine($"LigaID er: {stagesId}. TeamID er {teamId}. Tournament id er {tournamentId}. Dato er: {date}.");
+            Debug.WriteLine($"LigaID er: {stagesId}. TeamID er {teamId}. Tournament id er {tournamentId}. Dato er: {date}.");
 
             //var apiResultAsModel = new ApiCall().DoApiCall($"https://api.nifs.no/tournaments/{tournamentId}/matches?date={date}");
             var apiResultAsModel = new ApiCall().DoApiCall($"https://api.nifs.no/stages/{stagesId}/matches/");
@@ -31,7 +31,7 @@ namespace vm22MVC.Service
             var teamId = request.teamId;
             var tournamentId = request.tournamentId;
             var date = request.date;
-            Console.WriteLine($"LigaID er: {stagesId}. TeamID er {teamId}. Tournament id er {tournamentId}. Dato er: {date}.");
+            Debug.WriteLine($"LigaID er: {stagesId}. TeamID er {teamId}. Tournament id er {tournamentId}. Dato er: {date}.");
 
             var apiResultAsModel = new ApiCall().DoApiCall($"https://api.nifs.no/stages/{stagesId}matches?teamId={teamId}");
             var response = apiResultAsModel.Response;
