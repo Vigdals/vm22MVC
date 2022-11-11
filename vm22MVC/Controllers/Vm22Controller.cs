@@ -15,7 +15,7 @@ namespace vm22MVC.Controllers
 
         public IActionResult Index()
         {
-            var apiResultAsModel = new ApiCall().DoApiCall("https://api.nifs.no/tournaments/56/matches?date=2022-11-21");
+            var apiResultAsModel = new ApiCall().DoApiCall("https://api.nifs.no/stages/683902/matches/");
             var response = apiResultAsModel.Response;
             ApiCall.CheckIfSuccess(response);
             var jsonStringed = apiResultAsModel.StringResponse;
