@@ -23,7 +23,7 @@ namespace getAPIstuff.Models
             StringResponse = response;
         }
         public string Id { get; set; }
-        public int ligaId { get; set; }
+        public int stagesid { get; set; }
         public int tournamentId { get; set; }
         public int teamId { get; set; }
         public string date { get; set; }

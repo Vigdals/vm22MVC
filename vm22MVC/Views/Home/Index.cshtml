@@ -18,6 +18,10 @@
                         <label class="form-label">Dato (yyyy-mm-dd)</label>
                         <input asp-for="date" type="text" value="2022-11-21" />
                     </div>
+                    <div class="mb-3">
+                        <label class="form-label">Tournament (ID)</label>
+                        <input asp-for="tournamentId" type="text" class="form-control" value="56" />
+                    </div>
                     <div>
                         <button type="submit" class="btn btn-primary" role="button">Søk</button>
                     </div>
@@ -37,11 +41,11 @@
             <div class="card-body">
                 <form asp-controller="Vm22" asp-action="Create" method="post">
                     <div class="mb-3">
-                        <label class="form-label">Liga (ID)</label>
-                        <input asp-for="ligaId" type="text" class="form-control" value="690408" />
+                        <label class="form-label">Liga: (Stages)</label>
+                        <input asp-for="stagesid" type="text" class="form-control" value="690408" />
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Lagnamn (ID)</label>
+                        <label class="form-label">Team name (ID)</label>
                         <input asp-for="teamId" type="text" class="form-control" value="844" />
                     </div>
                     <div class="mb-3">

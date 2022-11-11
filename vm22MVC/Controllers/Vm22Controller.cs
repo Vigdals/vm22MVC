@@ -32,7 +32,7 @@ namespace vm22MVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([Bind("ligaId, teamId, tournamentId, date")]apiModel responseModel)
+        public IActionResult Create([Bind("stagesid, teamId, tournamentId, date")]apiModel responseModel)
         {
             var kampModels = _callService.DoVmApiCall(responseModel);
 

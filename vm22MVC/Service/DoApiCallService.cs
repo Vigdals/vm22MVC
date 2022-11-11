@@ -9,10 +9,11 @@ namespace vm22MVC.Service
     {
         public List<kampModel> DoVmApiCall(apiModel request)
         {
-            var ligaId = request.ligaId;
+            var stagesid = request.stagesid;
             var teamId = request.teamId;
             var tournamentId = request.tournamentId;
             var date = request.date;
+            Console.WriteLine($"LigaID er: {stagesid}. TeamID er {teamId}. Tournament id er {tournamentId}. Dato er: {date}.");
 
             var apiResultAsModel = new ApiCall().DoApiCall($"https://api.nifs.no/tournaments/{tournamentId}/matches?date={date}");
             var response = apiResultAsModel.Response;
