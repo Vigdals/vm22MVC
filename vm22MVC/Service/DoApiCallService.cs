@@ -15,7 +15,8 @@ namespace vm22MVC.Service
             var date = request.date;
             Console.WriteLine($"LigaID er: {stagesId}. TeamID er {teamId}. Tournament id er {tournamentId}. Dato er: {date}.");
 
-            var apiResultAsModel = new ApiCall().DoApiCall($"https://api.nifs.no/tournaments/{tournamentId}/matches?date={date}");
+            //var apiResultAsModel = new ApiCall().DoApiCall($"https://api.nifs.no/tournaments/{tournamentId}/matches?date={date}");
+            var apiResultAsModel = new ApiCall().DoApiCall($"https://api.nifs.no/stages/{stagesId}/matches/");
             var response = apiResultAsModel.Response;
             ApiCall.CheckIfSuccess(response);
             var jsonStringed = apiResultAsModel.StringResponse;

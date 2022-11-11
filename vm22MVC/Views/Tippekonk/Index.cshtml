@@ -1,0 +1,47 @@
+﻿@using System.ComponentModel.DataAnnotations.Schema
+@model IEnumerable<IEnumerable<getAPIstuff.Models.kampModel>>
+
+<p>Tippekonk!</p>
+
+@foreach (var model in Model)
+{
+    <table class="table">
+        <tr>
+            <th>
+                Heimelag
+            </th>
+            <th>
+                H
+            </th>
+            <th>
+                U
+            </th>
+            <th>
+                B
+            </th>
+            <th>
+                Bortelag
+            </th>
+        </tr>
+        @foreach (var item in model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HomeTeam)
+                </td>
+                <td>
+                    <input type="checkbox" />
+                </td>
+                <td>
+                    <input type="checkbox" />
+                </td>
+                <td>
+                    <input type="checkbox" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AwayTeam)
+                </td>
+            </tr>
+        }
+    </table>
+}

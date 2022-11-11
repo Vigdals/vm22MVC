@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Net.Http.Headers;
 using getAPIstuff.Models;
+using System.Diagnostics;
 
 namespace getAPIstuff.Api
 {
@@ -33,11 +34,11 @@ namespace getAPIstuff.Api
             {
                 // Parse the response body
                 //Console.WriteLine(apiResultAsModel.StringResponse);
-                Console.WriteLine(response.StatusCode);
+                Debug.WriteLine(response.StatusCode);
             }
             else
             {
-                Console.WriteLine("Feilkode: {0} og grunnen til dette er: ({1})", (int)response.StatusCode,
+                Debug.WriteLine("Feilkode: {0} og grunnen til dette er: ({1})", (int)response.StatusCode,
                     response.ReasonPhrase);
             }
         }
