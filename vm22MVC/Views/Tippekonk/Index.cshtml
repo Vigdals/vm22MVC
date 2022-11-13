@@ -17,10 +17,11 @@
     <input type="submit" value="Hent gruppe">
 </form>
 
+<form action="submit" method="post">
 <table class="table" style="width:70%">
     <tr>
         <th style="width:20%">
-            Tidspunkt
+            Tid
         </th>
         <th style="width:15%">
             Heimelag
@@ -58,10 +59,11 @@
                 <input type="checkbox"/>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AwayTeam)
                 <img class="teamImage" src="@item.AwayTeamLogo" width="24" height="24"/>
+                @Html.DisplayFor(modelItem => item.AwayTeam)
             </td>
         </tr>
     }
 </table>
-
+<input type="submit" value="Send tipping for @Model.groupName">
+</form>
