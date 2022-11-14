@@ -21,7 +21,7 @@
     <input type="submit" value="Hent gruppe">
 </form>
 
-<form asp-action="Submit" method="post">
+<form asp-action="Submit" asp-for="tournamentModel" method="post">
     <table class="table" style="width:100%">
         <tr>
             <th style="width:20%">
@@ -43,33 +43,46 @@
                 Bortelag
             </th>
         </tr>
-        @for (int i = 0; i < Model.kampModels.Count; i++)
+        @for (var index = 0; index < Model.kampModels.Count; index++)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => Model.kampModels[i].TimeStamp)
+                    @Html.DisplayFor(modelItem => Model.kampModels[index].TimeStamp)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => Model.kampModels[i].HomeTeam)
-                    <img class="smallImage" src="@Model.kampModels[i].HomeTeamLogo" width="24" height="24" />
+                    @Html.DisplayFor(modelItem => Model.kampModels[index].HomeTeam)
+                    <img class="smallImage" src="@Model.kampModels[index].HomeTeamLogo" width="24" height="24" alt="@Html.DisplayFor(modelItem => Model.kampModels[index].HomeTeam).ToString()" />
                 </td>
                 <td>
-                    <input id="home" type="radio" name="answer-@Model.kampModels[i].HomeTeam @Model.kampModels[i].AwayTeam" value="home" asp-for="@Model.TippeModel[i].Hjemme" />
+                    @Html.RadioButtonFor(model => Model.TippeModels[index].Answer, "Home") 
                 </td>
                 <td>
-                    <input id="tie" type="radio" name="answer-@Model.kampModels[i].HomeTeam @Model.kampModels[i].AwayTeam" value="tie" asp-for="@Model.TippeModel[i].Uavgjort" />
+                    @Html.RadioButtonFor(model => Model.TippeModels[index].Answer, "Tie")
                 </td>
                 <td>
-                    <input id="away" type="radio" name="answer-@Model.kampModels[i].HomeTeam @Model.kampModels[i].AwayTeam" value="away" asp-for="@Model.TippeModel[i].Borte" />
-
+                    @Html.RadioButtonFor(model => Model.TippeModels[index].Answer, "Away")
                 </td>
                 <td>
-                    <img class="teamImage" src="@Model.kampModels[i].AwayTeamLogo" width="24" height="24" />
-                    @Html.DisplayFor(modelItem => Model.kampModels[i].AwayTeam)
+                    <img class="teamImage" src="@Model.kampModels[index].AwayTeamLogo" width="24" height="24" />
+                    @Html.DisplayFor(modelItem => Model.kampModels[index].AwayTeam)
+                </td>
+                @*Hidden td used to populate the model*@
+                <td style="display: none">
+                    <input type="text" value="@Model.kampModels[index].HomeTeam" asp-for="@Model.TippeModels[index].HjemmeLag" />
+                    <input type="text" value="@Model.kampModels[index].AwayTeam" asp-for="@Model.TippeModels[index].BorteLag"/>
+                    <input type="text" value="@Model.groupName" asp-for="@Model.TippeModels[index].Gruppe"/>
                 </td>
             </tr>
         }
     </table>
-    <input type="submit" value="Send tipping for @Model.groupName">
-    @{Debug.WriteLine("TEST ASDASD "+Model);}
+    @{
+        if (!string.IsNullOrWhiteSpace(@Model.groupName))
+        {
+            <input type="submit" value="Send tipping for @Model.groupName">
+        }
+        else
+        {
+            <input disabled="disabled" type="submit" value="Velg en gruppe for å sende inn">
+        }
+    }
 </form>
