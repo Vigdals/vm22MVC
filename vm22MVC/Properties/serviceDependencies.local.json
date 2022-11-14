@@ -8,6 +8,10 @@
       "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/vm22mvcdbserver/databases/vm22MVC_db",
       "type": "mssql.azure",
       "connectionId": "vm22ConnectionString"
+    },
+    "mssql2": {
+      "type": "mssql.local",
+      "connectionId": "ConnectionStrings:vm22MVCContextConnection"
     }
   }
 }

@@ -6,6 +6,10 @@
     "mssql1": {
       "type": "mssql",
       "connectionId": "vm22ConnectionString"
+    },
+    "mssql2": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:vm22MVCContextConnection"
     }
   }
 }
