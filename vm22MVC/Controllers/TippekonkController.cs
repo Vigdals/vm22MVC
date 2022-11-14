@@ -47,7 +47,7 @@ namespace vm22MVC.Controllers
 
         }
 
-        public IActionResult Submit([ModelBinder] TournamentModel tournamentModel)
+        public IActionResult Submit([Bind("Hjemme", "Uavgjort", "Borte")] TournamentModel tournamentModel)
         {
             foreach (var item in tournamentModel.TippeModel)
             {

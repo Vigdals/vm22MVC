@@ -1,5 +1,7 @@
 ﻿@using System.ComponentModel.DataAnnotations.Schema
+@using System.Diagnostics
 @using System.Security.Cryptography.X509Certificates
+@using getAPIstuff.Models
 @model TournamentModel
 
 <form asp-action="Index" asp-for="groupName">
@@ -41,31 +43,32 @@
                 Bortelag
             </th>
         </tr>
-        @foreach (var item in Model.kampModels)
+        @for (int i = 0; i < Model.kampModels.Count; i++)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TimeStamp)
+                    @Html.DisplayFor(modelItem => Model.kampModels[i].TimeStamp)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.HomeTeam)
-                    <img class="smallImage" src="@item.HomeTeamLogo" width="24" height="24"/>
+                    @Html.DisplayFor(modelItem => Model.kampModels[i].HomeTeam)
+                    <img class="smallImage" src="@Model.kampModels[i].HomeTeamLogo" width="24" height="24" />
                 </td>
                 <td>
-                    <input id="home" type="radio" name="answer-@item.HomeTeam @item.AwayTeam" value="home" asp-for="@Model.TippeModel.Select(x => x.Hjemme)"/>
+                    <input id="home" type="radio" name="answer-@Model.kampModels[i].HomeTeam @Model.kampModels[i].AwayTeam" value="home" asp-for="@Model.TippeModel[i].Hjemme" />
                 </td>
                 <td>
-                    <input id="tie" type="radio" name="answer-@item.HomeTeam @item.AwayTeam" value="tie" asp-for="@Model.TippeModel.Select(x => x.Uavgjort)" />
+                    <input id="tie" type="radio" name="answer-@Model.kampModels[i].HomeTeam @Model.kampModels[i].AwayTeam" value="tie" asp-for="@Model.TippeModel[i].Uavgjort" />
                 </td>
                 <td>
-                    <input id="away" type="radio" name="answer-@item.HomeTeam @item.AwayTeam" value="away" asp-for="@Model.TippeModel.Select(x => x.Borte)" />
+                    <input id="away" type="radio" name="answer-@Model.kampModels[i].HomeTeam @Model.kampModels[i].AwayTeam" value="away" asp-for="@Model.TippeModel[i].Borte" />
                 </td>
                 <td>
-                    <img class="teamImage" src="@item.AwayTeamLogo" width="24" height="24"/>
-                    @Html.DisplayFor(modelItem => item.AwayTeam)
+                    <img class="teamImage" src="@Model.kampModels[i].AwayTeamLogo" width="24" height="24" />
+                    @Html.DisplayFor(modelItem => Model.kampModels[i].AwayTeam)
                 </td>
             </tr>
         }
     </table>
     <input type="submit" value="Send tipping for @Model.groupName">
+    @{Debug.WriteLine(Model);}
 </form>
