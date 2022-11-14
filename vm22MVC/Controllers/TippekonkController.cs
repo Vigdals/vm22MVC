@@ -62,5 +62,9 @@ namespace vm22MVC.Controllers
             var gruppe = tournamentModel.TippeModels.FirstOrDefault()?.Gruppe;
             return RedirectToAction("Index", new { groupName = gruppe});
         }
+        public IActionResult Leaderboard()
+        {
+            return View();
+        }
     }
 }

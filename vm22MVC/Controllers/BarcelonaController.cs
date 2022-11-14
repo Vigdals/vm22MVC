@@ -12,7 +12,7 @@ namespace vm22MVC.Controllers
             //All matches of one group in vm22
             //var apiResultAsModel = new ApiCall().DoApiCall("https://api.nifs.no/stages/683902/matches/");
             //all the matches of barcelona
-            var apiResultAsModel = new ApiCall().DoApiCall("https://api.nifs.no/stages/690408/matches?teamId=844");
+            var apiResultAsModel = new ApiCall().DoApiCall("https://api.nifs.no/stages/690408/matches?");
             var response = apiResultAsModel.Response;
             ApiCall.CheckIfSuccess(response);
             var jsonStringed = apiResultAsModel.StringResponse;

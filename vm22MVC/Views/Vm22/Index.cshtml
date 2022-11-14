@@ -10,16 +10,19 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Attendance)
+            Heimelag
         </th>
         <th>
             @Html.DisplayNameFor(model => model.HomeScore)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.AwayScore)
+        </th>
+        <th>
+            Bortelag
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Attendance)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Stadium)
@@ -29,16 +32,21 @@
     @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.HomeTeam)
+                <img class="smallImage" src="@item.HomeTeamLogo" width="24" height="24" alt="@item.HomeTeamLogo" />
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Attendance)
-            </td>
-            <td>
+             <td>
                 @Html.DisplayFor(modelItem => item.HomeScore)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AwayScore)
+            </td>
+            <td>
+                <img class="teamImage" src="@item.AwayTeamLogo" width="24" height="24" alt="@item.AwayTeamLogo"/>
+                @Html.DisplayFor(modelItem => item.AwayTeam)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Attendance)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Stadium)
