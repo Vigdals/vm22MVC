@@ -6,7 +6,7 @@
 
 <form asp-action="Index" asp-for="groupName">
     <label for="groupName">Velg gruppe</label>
-    <select name="groupName" id="groupName">
+    <select name="groupName" id="groupName">s
         <option value="Gruppe A">A</option>
         <option value="Gruppe B">B</option>
         <option value="Gruppe C">C</option>
@@ -15,7 +15,7 @@
         <option value="Gruppe F">F</option>
         <option value="Gruppe G">G</option>
         <option value="Gruppe H">H</option>
-        <option value="Sluttspill">Sluttspel</option>
+        @*<option value="Sluttspill">Sluttspel</option>*@
     </select>
     <br/><br/>
     <input type="submit" value="Hent gruppe">
