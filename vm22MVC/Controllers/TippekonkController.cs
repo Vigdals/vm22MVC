@@ -47,14 +47,16 @@ namespace vm22MVC.Controllers
 
         }
 
-        public IActionResult Submit([Bind("Hjemme", "Uavgjort", "Borte")] TournamentModel tournamentModel)
+        public IActionResult Submit([FromForm] TournamentModel tournamentModel)
         {
-            foreach (var item in tournamentModel.TippeModel)
+            foreach (var item in tournamentModel.TippeModels)
             {
-                Debug.WriteLine(item.Hjemme);
+                Debug.WriteLine(item.Answer);
             }
-            
-            return RedirectToAction("Index");
+
+            //Gets the group name of the current form and redirects to the index with the group name as a parameter
+            var gruppe = tournamentModel.TippeModels.FirstOrDefault()?.Gruppe;
+            return RedirectToAction("Index", new { groupName = gruppe});
         }
     }
 }
