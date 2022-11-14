@@ -19,7 +19,7 @@ namespace vm22MVC.Controllers
         }
         public IActionResult Tippekonk(TournamentModel tournamentModel)
         {
-            @Debug.WriteLine($"Brukernavn {tournamentModel.GruppeNavn} og gruppenamn er {tournamentModel.BrukerNavn}");
+            @Debug.WriteLine($"Brukernavn {tournamentModel.BrukerNavn} og gruppenamn er {tournamentModel.GruppeNavn}");
             return View("~/Views/Tippekonk/Index.cshtml");
         }
 
