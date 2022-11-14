@@ -47,9 +47,13 @@ namespace vm22MVC.Controllers
 
         }
 
-        public IActionResult Submit([ModelBinder] List<TippeModel> tippeModel)
+        public IActionResult Submit([ModelBinder] TournamentModel tournamentModel)
         {
-            Debug.WriteLine(tippeModel.ToString());
+            foreach (var item in tournamentModel.TippeModel)
+            {
+                Debug.WriteLine(item.Hjemme);
+            }
+            
             return RedirectToAction("Index");
         }
     }
