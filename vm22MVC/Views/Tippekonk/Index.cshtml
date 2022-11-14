@@ -20,52 +20,52 @@
 </form>
 
 <form asp-action="Submit" method="post">
-<table class="table" style="width:70%">
-    <tr>
-        <th style="width:20%">
-            Tid
-        </th>
-        <th style="width:15%">
-            Heimelag
-        </th>
-        <th>
-            H
-        </th>
-        <th>
-            U
-        </th>
-        <th>
-            B
-        </th>
-        <th style="width:15%">
-            Bortelag
-        </th>
-    </tr>
-    @foreach (var item in Model.kampModels)
-    {
+    <table class="table" style="width:100%">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TimeStamp)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HomeTeam)
-                <img class="smallImage" src="@item.HomeTeamLogo" width="24" height="24"/>
-            </td>
-            <td>
-                    <input id="home" type="radio" name="answer-@item.HomeTeam-@item.AwayTeam" value="home" asp-for="@Model.TippeModel.Select(x => x.Hjemme)"/>
-            </td>
-            <td>
-                    <input id="tie" type="radio" name="answer-@item.HomeTeam-@item.AwayTeam" value="tie" asp-for="@Model.TippeModel.Select(x => x.Uavgjort)" />
-            </td>
-            <td>
-                    <input id="away" type="radio" name="answer-@item.HomeTeam-@item.AwayTeam" value="away" asp-for="@Model.TippeModel.Select(x => x.Borte)" />
-            </td>
-            <td>
-                <img class="teamImage" src="@item.AwayTeamLogo" width="24" height="24"/>
-                @Html.DisplayFor(modelItem => item.AwayTeam)
-            </td>
+            <th style="width:20%">
+                Tid
+            </th>
+            <th style="width:15%">
+                Heimelag
+            </th>
+            <th>
+                H
+            </th>
+            <th>
+                U
+            </th>
+            <th>
+                B
+            </th>
+            <th style="width:15%">
+                Bortelag
+            </th>
         </tr>
-    }
-</table>
-<input type="submit" value="Send tipping for @Model.groupName">
+        @foreach (var item in Model.kampModels)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeStamp)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HomeTeam)
+                    <img class="smallImage" src="@item.HomeTeamLogo" width="24" height="24"/>
+                </td>
+                <td>
+                    <input id="home" type="radio" name="answer-@item.HomeTeam @item.AwayTeam" value="home" asp-for="@Model.TippeModel.Select(x => x.Hjemme)"/>
+                </td>
+                <td>
+                    <input id="tie" type="radio" name="answer-@item.HomeTeam @item.AwayTeam" value="tie" asp-for="@Model.TippeModel.Select(x => x.Uavgjort)" />
+                </td>
+                <td>
+                    <input id="away" type="radio" name="answer-@item.HomeTeam @item.AwayTeam" value="away" asp-for="@Model.TippeModel.Select(x => x.Borte)" />
+                </td>
+                <td>
+                    <img class="teamImage" src="@item.AwayTeamLogo" width="24" height="24"/>
+                    @Html.DisplayFor(modelItem => item.AwayTeam)
+                </td>
+            </tr>
+        }
+    </table>
+    <input type="submit" value="Send tipping for @Model.groupName">
 </form>
