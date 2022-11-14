@@ -61,6 +61,7 @@
                 </td>
                 <td>
                     <input id="away" type="radio" name="answer-@Model.kampModels[i].HomeTeam @Model.kampModels[i].AwayTeam" value="away" asp-for="@Model.TippeModel[i].Borte" />
+
                 </td>
                 <td>
                     <img class="teamImage" src="@Model.kampModels[i].AwayTeamLogo" width="24" height="24" />
@@ -70,5 +71,5 @@
         }
     </table>
     <input type="submit" value="Send tipping for @Model.groupName">
-    @{Debug.WriteLine(Model);}
+    @{Debug.WriteLine("TEST ASDASD "+Model);}
 </form>

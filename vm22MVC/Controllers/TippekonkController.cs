@@ -47,13 +47,12 @@ namespace vm22MVC.Controllers
 
         }
 
-        public IActionResult Submit([Bind("Hjemme", "Uavgjort", "Borte")] TournamentModel tournamentModel)
+        public IActionResult Submit([ModelBinder] TournamentModel tournamentModel)
         {
             foreach (var item in tournamentModel.TippeModel)
             {
                 Debug.WriteLine(item.Hjemme);
             }
-            
             return RedirectToAction("Index");
         }
     }
