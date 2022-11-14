@@ -1,6 +1,6 @@
 <h3 align="center">World Cup 2022 guessing game</h3>
 
-##ToDo
+## ToDo
 * Make a proper login and user admin control panel
 * Connect index site (brukernamn og gruppenamn) with tippecontroller
 * Connect tipping to the sql database
