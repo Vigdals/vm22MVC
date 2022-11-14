@@ -6,6 +6,7 @@ namespace vm22MVC.Models
     {
         public TournamentModel()
         {
+
         }
 
         public List<kampModel> kampModels { get; set; }
@@ -13,5 +14,7 @@ namespace vm22MVC.Models
         public int yearStart { get; set; }
         public int id { get; set; }
         public List<TippeModel> TippeModels { get; set; }
+        public string BrukerNavn { get; set; }
+        public string GruppeNavn { get; set; }
     }
 }

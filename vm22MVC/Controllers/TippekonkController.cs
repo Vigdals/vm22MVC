@@ -10,6 +10,10 @@ namespace vm22MVC.Controllers
 {
     public class TippekonkController : Controller
     {
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
         public IActionResult Index(string groupName)
         {
             //if groupname is empty the rest of the code will not be excecuted - kul syntax

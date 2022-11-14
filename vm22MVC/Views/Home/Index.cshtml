@@ -1,65 +1,31 @@
 ﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
-@model getAPIstuff.Models.apiModel
+@using System.ComponentModel.DataAnnotations.Schema
+@using System.Diagnostics
+@using System.Security.Cryptography.X509Certificates
+@using getAPIstuff.Models
+@model TournamentModel
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+    <h1 class="display-4">Tippekonk VM22</h1>
     <p></p>
-</div>
-
-<div class="row">
-    <div class="col-4">
-        <div class="card">
-            <div class="card-header">
-                <h5>Gruppesøk</h5>
-            </div>
-            <div class="card-body">
-                <form asp-controller="Vm22" asp-action="Create" method="post">
-                    <div class="mb-3">
-                        <label class="form-label">Gruppe (Stages)</label>
-                        <input asp-for="stagesid" type="text" class="form-control" value="683902" />
-                    </div>
-                    <div>
-                        <button type="submit" class="btn btn-primary" role="button">Søk</button>
-                    </div>
-                </form>
-            </div>
-            <div class="card-footer">
-                <p>This is just the footer. Some info might come here</p>
-            </div>
+    <form>
+        <div class="text-center">
+            <label class="form-label">Kallenamn:</label>
+            <input type="text" size="20" asp-for="@Model.BrukerNavn"/>
         </div>
-    </div>
-    
-    <div class="col-4">
-        <div class="card">
-            <div class="card-header">
-                <h5>Turneringskall?</h5>
-            </div>
-            <div class="card-body">
-                <form asp-controller="Vm22" asp-action="Create" method="post">
-                    <div class="mb-3">
-                        <label class="form-label">Liga: (Stages)</label>
-                        <input asp-for="stagesid" type="text" class="form-control" value="690408" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Team name (ID)</label>
-                        <input asp-for="teamId" type="text" class="form-control" value="844" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Tournament (ID)</label>
-                        <input asp-for="tournamentId" type="text" class="form-control" value="56" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Dato (yyyy-mm-dd)</label>
-                        <input asp-for="date" type="text" value="2022-11-21" />
-                    </div>
-                    <div>
-                        <button type="submit" class="btn btn-primary" role="button">Søk</button>
-                    </div>
-                </form>
-            </div>
-            <div class="card-footer">
-                <p>This is just the footer. Some info might come here</p>
-            </div>
+        <p></p>
+        <div class="text-center">
+            <label for="GruppeNavn">Velg gruppe:</label>
+            <select name="GruppeNavn" id="GruppeNavn" asp-for="@Model.GruppeNavn">
+              <option value="Odds konk">Odds konk</option>
+              <option value="STAF">STAF</option>
+              <option value="Høyheims tippekonk">Høyheims tippekonk</option>
+            </select>
         </div>
-    </div>
+        <p></p>
+        <div class="text-center">
+            <input type="submit" class="btn btn-primary" value="Start tipping!" asp-action="Tippekonk"/>
+        </div>
+    </form>
 </div>
+@*@Debug.WriteLine($"Brukernavn{TournamentModel.BrukerNavn} og gruppenamn er {TournamentModel.GruppeNavn}");*@

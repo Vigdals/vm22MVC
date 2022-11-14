@@ -1,0 +1,63 @@
+﻿@model getAPIstuff.Models.apiModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="row">
+    <div class="col-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>Gruppesøk</h5>
+            </div>
+            <div class="card-body">
+                <form asp-controller="Vm22" asp-action="Create" method="post">
+                    <div class="mb-3">
+                        <label class="form-label">Gruppe (Stages)</label>
+                        <input asp-for="stagesid" type="text" class="form-control" value="683902" />
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary" role="button">Søk</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <p>This is just the footer. Some info might come here</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>Turneringskall?</h5>
+            </div>
+            <div class="card-body">
+                <form asp-controller="Vm22" asp-action="Create" method="post">
+                    <div class="mb-3">
+                        <label class="form-label">Liga: (Stages)</label>
+                        <input asp-for="stagesid" type="text" class="form-control" value="690408" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Team name (ID)</label>
+                        <input asp-for="teamId" type="text" class="form-control" value="844" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Tournament (ID)</label>
+                        <input asp-for="tournamentId" type="text" class="form-control" value="56" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Dato (yyyy-mm-dd)</label>
+                        <input asp-for="date" type="text" value="2022-11-21" />
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary" role="button">Søk</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <p>This is just the footer. Some info might come here</p>
+            </div>
+        </div>
+    </div>
+</div>
