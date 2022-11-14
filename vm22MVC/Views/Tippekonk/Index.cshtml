@@ -17,7 +17,7 @@
     <input type="submit" value="Hent gruppe">
 </form>
 
-<form action="submit" method="post">
+<form asp-action="Submit" method="post">
 <table class="table" style="width:70%">
     <tr>
         <th style="width:20%">
@@ -50,13 +50,13 @@
                 <img class="smallImage" src="@item.HomeTeamLogo" width="24" height="24"/>
             </td>
             <td>
-                <input type="checkbox"/>
+                <input type="checkbox" asp-for="@Model.TippeModel.Hjemme"/>
             </td>
             <td>
-                <input type="checkbox"/>
+                    <input type="checkbox" asp-for="@Model.TippeModel.Uavgjort"/>
             </td>
             <td>
-                <input type="checkbox"/>
+                    <input type="checkbox" asp-for="@Model.TippeModel.Borte"/>
             </td>
             <td>
                 <img class="teamImage" src="@item.AwayTeamLogo" width="24" height="24"/>

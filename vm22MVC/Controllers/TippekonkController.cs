@@ -1,4 +1,5 @@
-﻿using getAPI;
+﻿using System.Diagnostics;
+using getAPI;
 using getAPIstuff.Api;
 using getAPIstuff.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -44,6 +45,12 @@ namespace vm22MVC.Controllers
             //Using Linq here with input fra drop down list in the index.cshtml:
             return View(listModel.First(x => x.groupName == groupName));
 
+        }
+
+        public IActionResult Submit([ModelBinder] List<TippeModel> tippeModel)
+        {
+            Debug.WriteLine(tippeModel.ToString());
+            return RedirectToAction("Index");
         }
     }
 }
