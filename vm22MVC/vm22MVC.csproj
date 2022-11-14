@@ -8,41 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\images\Argentina.png" />
-    <None Include="wwwroot\images\Australia.png" />
-    <None Include="wwwroot\images\Belgia.png" />
-    <None Include="wwwroot\images\Brasil.png" />
-    <None Include="wwwroot\images\Canada.png" />
-    <None Include="wwwroot\images\Costa Rica.png" />
-    <None Include="wwwroot\images\Danmark.png" />
-    <None Include="wwwroot\images\England.png" />
-    <None Include="wwwroot\images\Equador.png" />
-    <None Include="wwwroot\images\Frankrike.png" />
-    <None Include="wwwroot\images\Ghana.png" />
-    <None Include="wwwroot\images\Iran.png" />
-    <None Include="wwwroot\images\Japan.png" />
-    <None Include="wwwroot\images\Kamerun.png" />
-    <None Include="wwwroot\images\Kroatia.png" />
-    <None Include="wwwroot\images\Marokko.png" />
-    <None Include="wwwroot\images\Mexico.png" />
-    <None Include="wwwroot\images\Nederland.png" />
-    <None Include="wwwroot\images\Polen.png" />
-    <None Include="wwwroot\images\Portugal.png" />
-    <None Include="wwwroot\images\Qatar.png" />
-    <None Include="wwwroot\images\Saudi-Arabia.png" />
-    <None Include="wwwroot\images\Senegal.png" />
-    <None Include="wwwroot\images\Serbia.png" />
-    <None Include="wwwroot\images\Spania.png" />
-    <None Include="wwwroot\images\Sveits.png" />
-    <None Include="wwwroot\images\Sør-Korea.png" />
-    <None Include="wwwroot\images\Tunisia.png" />
-    <None Include="wwwroot\images\Tyskland.png" />
-    <None Include="wwwroot\images\Uruguay.png" />
-    <None Include="wwwroot\images\USA.png" />
-    <None Include="wwwroot\images\Wales.png" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.10" />
