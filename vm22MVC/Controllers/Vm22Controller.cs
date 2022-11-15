@@ -25,7 +25,6 @@ namespace vm22MVC.Controllers
             var jsonSerialized = new jsonConvertAndIteration().JsonSerialize(apiTournamentModel.StringResponse);
             var jToken = JToken.Parse(jsonSerialized);
 
-            //iterates through the tournament matches in 2022. Gotta change this in 2026 when next world cup is
             foreach (var item in jToken)
             {
                 if ((int)item.SelectToken("yearStart") != Int32.Parse(year)) continue;
@@ -45,33 +44,11 @@ namespace vm22MVC.Controllers
             }
 
             //Using Linq here with input fra drop down list in the index.cshtml:
-            return View(listModel.First(x => x.groupName == groupName));
-
-        }
-
-        public IActionResult Submit([FromForm] TournamentModel tournamentModel)
-        {
-            foreach (var item in tournamentModel.TippeModels)
+            if (groupName == null)
             {
-                Debug.WriteLine(item.Answer);
+                return View(listModel.First());
             }
-
-            //Gets the group name of the current form and redirects to the index with the group name as a parameter
-            var gruppe = tournamentModel.TippeModels.FirstOrDefault()?.Gruppe;
-            return RedirectToAction("Index", new { groupName = gruppe });
+            return View(listModel.First(x => x.groupName == groupName));
         }
-        //public IActionResult Create()
-        //{
-        //    var apiViewModel = new apiModel();
-        //    return View(apiViewModel);
-        //}
-
-        //[HttpPost]
-        //public IActionResult Create([Bind("stagesid, teamId, tournamentId, date")] apiModel responseModel)
-        //{
-        //    var kampModels = _callService.DoVmApiCall(responseModel);
-
-        //    return View("Index", kampModels);
-        //}
     }
 }

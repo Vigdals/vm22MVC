@@ -11,6 +11,7 @@
 <form asp-action="Index" asp-for="groupName">
     <label for="groupName">Velg gruppe:</label>
     <select name="groupName" id="groupName">
+        <option value="Sluttspill">Sluttspel</option>
         <option value="Gruppe A">A</option>
         <option value="Gruppe B">B</option>
         <option value="Gruppe C">C</option>
@@ -19,7 +20,6 @@
         <option value="Gruppe F">F</option>
         <option value="Gruppe G">G</option>
         <option value="Gruppe H">H</option>
-        <option value="Sluttspill">Sluttspel</option>
     </select>
     <select name="year" id="year" asp-for="year">
         <label for="year"></label>
@@ -32,8 +32,7 @@
         <option value="1998">1998</option>
         <option value="1994">1994</option>
         <option value="1990">1990</option>
-
-    </select>
+        </select>
     <br/><br/>
     <input type="submit" class="btn btn-primary" value="Søk" />
 </form>
