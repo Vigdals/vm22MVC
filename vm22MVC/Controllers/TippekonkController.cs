@@ -63,6 +63,7 @@ namespace vm22MVC.Controllers
         {
             foreach (var item in tournamentModel.TippeModels)
             {
+                
                 //Save items to database
             }
 

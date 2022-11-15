@@ -78,7 +78,7 @@ namespace vm22MVC.Controllers
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, userName),
-                //new Claim("Group", bettingGroup)
+                new Claim("Group", bettingGroup)
             };
 
             var claimsIdentity = new ClaimsIdentity(
