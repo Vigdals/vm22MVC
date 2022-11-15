@@ -17,10 +17,10 @@ namespace vm22MVC.Controllers
         {
             return View();
         }
-        public IActionResult Tippekonk(TournamentModel tournamentModel)
+        public IActionResult Tippekonk(UserModel userModel)
         {
-            @Debug.WriteLine($"Brukernavn {tournamentModel.BrukerNavn} og gruppenamn er {tournamentModel.GruppeNavn}");
-            return View("~/Views/Tippekonk/Index.cshtml");
+            @Debug.WriteLine($"Brukernavn {userModel.BrukerNavn} og gruppenamn er {userModel.GruppeNavn}");
+            return RedirectToAction("Index", "Tippekonk", new {collectiveModel = new CollectiveModel(userModel)}, null);
         }
 
         public IActionResult Privacy()

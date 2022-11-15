@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Linq;
 using getAPI;
 using getAPIstuff.Api;
 using getAPIstuff.Models;
@@ -14,10 +15,11 @@ namespace vm22MVC.Controllers
         //{
         //    return View();
         //}
-        public IActionResult Index(string groupName)
+
+        public IActionResult Index(CollectiveModel collectiveModel)
         {
             //if groupname is empty the rest of the code will not be excecuted - kul syntax
-            if (string.IsNullOrWhiteSpace(groupName)) return View(new TournamentModel() { kampModels = new List<kampModel>() });
+            //if (string.IsNullOrWhiteSpace(groupName)) return View(new TournamentModel() { kampModels = new List<kampModel>() });
             //gets tournament infomation. Important to get this because it gives us the ID for each group. From group A to H. 56 = world cup
             var apiTournamentModel = new ApiCall().DoApiCall("https://api.nifs.no/tournaments/56/stages/");
             var apiTournamentReponse = apiTournamentModel.Response;
@@ -47,8 +49,12 @@ namespace vm22MVC.Controllers
             }
 
             //Using Linq here with input fra drop down list in the index.cshtml:
-            return View(listModel.First(x => x.groupName == groupName));
-
+            //return View(listModel.First(x => x.groupName == groupName));
+            if (collectiveModel.TournamentModel.groupName == null)
+            {
+                return View(listModel.First());
+            }
+            return View(listModel.First(x => x.groupName == collectiveModel.TournamentModel.groupName));
         }
 
         public IActionResult Submit([FromForm] TournamentModel tournamentModel)
