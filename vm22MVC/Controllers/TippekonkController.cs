@@ -18,14 +18,23 @@ namespace vm22MVC.Controllers
         //    return View();
         //}
 
-        public IActionResult Index(CollectiveModel collectiveModel, string groupName)
+        public IActionResult Index(CollectiveModel collectiveModel, string groupName, string user, string gruppe)
         {
             //if groupname is empty the rest of the code will not be excecuted - kul syntax
             //if (string.IsNullOrWhiteSpace(groupName)) return View(new TournamentModel() { kampModels = new List<kampModel>() });
             //gets tournament infomation. Important to get this because it gives us the ID for each group. From group A to H. 56 = world cup
-            if (collectiveModel.User == null)
+            if (collectiveModel.User == null || string.IsNullOrWhiteSpace(user))
                 collectiveModel = GetCollectiveModelFromTemp();
-                
+
+            if (collectiveModel.User == null)
+            {
+                collectiveModel.User = new UserModel()
+                {
+                    BrukerNavn = user,
+                    GruppeNavn = gruppe
+                };
+            }
+            
             var apiTournamentModel = new ApiCall().DoApiCall("https://api.nifs.no/tournaments/56/stages/");
             var apiTournamentReponse = apiTournamentModel.Response;
             ApiCall.CheckIfSuccess(apiTournamentReponse);
