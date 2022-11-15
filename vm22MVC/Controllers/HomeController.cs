@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Newtonsoft.Json;
 using vm22MVC.Models;
 
 namespace vm22MVC.Controllers
@@ -20,7 +21,10 @@ namespace vm22MVC.Controllers
         public IActionResult Tippekonk(UserModel userModel)
         {
             @Debug.WriteLine($"Brukernavn {userModel.BrukerNavn} og gruppenamn er {userModel.GruppeNavn}");
-            return RedirectToAction("Index", "Tippekonk", new {collectiveModel = new CollectiveModel(userModel)}, null);
+
+            TempData["Collective"] = JsonConvert.SerializeObject(new CollectiveModel(userModel));
+
+            return RedirectToAction("Index", "Tippekonk" );
         }
 
         public IActionResult Privacy()

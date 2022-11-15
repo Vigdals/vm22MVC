@@ -1,10 +1,9 @@
-﻿@using System.ComponentModel.DataAnnotations.Schema
-@using System.Diagnostics
+﻿@using System.Diagnostics
 @using System.Security.Cryptography.X509Certificates
 @using getAPIstuff.Models
-@model TournamentModel
+@model CollectiveModel
 
-<form asp-action="Index" asp-for="groupName">
+<form asp-action="Index">
     <label for="groupName">Velg gruppe</label>
     <select name="groupName" id="groupName">s
         <option value="Gruppe A">A</option>
@@ -18,6 +17,8 @@
         @*<option value="Sluttspill">Sluttspel</option>*@
     </select>
     <br/><br/>
+    
+    @*Sends the user back to the controller*@
     <input type="submit" value="Hent gruppe">
 </form>
 
@@ -44,42 +45,43 @@
                 Bortelag
             </th>
         </tr>
-        @for (var index = 0; index < Model.kampModels.Count; index++)
+        @for (var index = 0; index < Model.TournamentModel.kampModels.Count; index++)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => Model.kampModels[index].TimeStamp)
+                    @Html.DisplayFor(modelItem => Model.TournamentModel.kampModels[index].TimeStamp)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => Model.kampModels[index].HomeTeam)
-                    <img class="smallImage" src="@Model.kampModels[index].HomeTeamLogo" width="24" height="24" alt="@Html.DisplayFor(modelItem => Model.kampModels[index].HomeTeam).ToString()" />
+                    @Html.DisplayFor(modelItem => Model.TournamentModel.kampModels[index].HomeTeam)
+                    <img class="smallImage" src="@Model.TournamentModel.kampModels[index].HomeTeamLogo" width="24" height="24" alt="@Html.DisplayFor(modelItem => Model.TournamentModel.kampModels[index].HomeTeam).ToString()" />
                 </td>
                 <td>
-                    @Html.RadioButtonFor(model => Model.TippeModels[index].Answer, "Home") 
+                    @Html.RadioButtonFor(model => Model.TournamentModel.TippeModels[index].Answer, "Home") 
                 </td>
                 <td>
-                    @Html.RadioButtonFor(model => Model.TippeModels[index].Answer, "Tie")
+                    @Html.RadioButtonFor(model => Model.TournamentModel.TippeModels[index].Answer, "Tie")
                 </td>
                 <td>
-                    @Html.RadioButtonFor(model => Model.TippeModels[index].Answer, "Away")
+                    @Html.RadioButtonFor(model => Model.TournamentModel.TippeModels[index].Answer, "Away")
                 </td>
                 <td>
-                    <img class="teamImage" src="@Model.kampModels[index].AwayTeamLogo" width="24" height="24" />
-                    @Html.DisplayFor(modelItem => Model.kampModels[index].AwayTeam)
+                    <img class="teamImage" src="@Model.TournamentModel.kampModels[index].AwayTeamLogo" width="24" height="24" />
+                    @Html.DisplayFor(modelItem => Model.TournamentModel.kampModels[index].AwayTeam)
                 </td>
                 @*Hidden td used to populate the model*@
                 <td style="display: none">
-                    <input type="text" value="@Model.kampModels[index].HomeTeam" asp-for="@Model.TippeModels[index].HjemmeLag" />
-                    <input type="text" value="@Model.kampModels[index].AwayTeam" asp-for="@Model.TippeModels[index].BorteLag"/>
-                    <input type="text" value="@Model.groupName" asp-for="@Model.TippeModels[index].Gruppe"/>
+                    <input type="text" value="@Model.TournamentModel.kampModels[index].HomeTeam" asp-for="@Model.TournamentModel.TippeModels[index].HjemmeLag" />
+                    <input type="text" value="@Model.TournamentModel.kampModels[index].AwayTeam" asp-for="@Model.TournamentModel.TippeModels[index].BorteLag"/>
+                    <input type="text" value="@Model.TournamentModel.groupName" asp-for="@Model.TournamentModel.TippeModels[index].Gruppe"/>
+                    <input disabled="disabled" asp-for="User" value="@Model.User" />
                 </td>
             </tr>
         }
     </table>
     @{
-        if (!string.IsNullOrWhiteSpace(@Model.groupName))
+        if (!string.IsNullOrWhiteSpace(@Model.TournamentModel.groupName))
         {
-            <input type="submit" value="Send tipping for @Model.groupName">
+            <input type="submit" value="Send tipping for @Model.TournamentModel.groupName">
         }
         else
         {
