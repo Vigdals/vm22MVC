@@ -9,6 +9,8 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NuGet.Packaging;
 using vm22MVC.Models;
+using System.Data.SqlClient;
+using System.Security.Claims;
 
 namespace vm22MVC.Controllers
 {
@@ -60,10 +62,18 @@ namespace vm22MVC.Controllers
 
         public IActionResult Submit([FromForm] TournamentModel tournamentModel)
         {
+            var cnString =
+                "Server=(localdb)\\mssqllocaldb;Database=vm22MVC;Trusted_Connection=True;MultipleActiveResultSets=true";
+            var username = new HttpContextAccessor().HttpContext?.User.Identity?.Name?.ToUpperInvariant();
+            var bettingGroup = "";
+            var kampModels = new List<kampModel>();
             foreach (var item in tournamentModel.TippeModels)
             {
-                
                 //Save items to database
+                //Kvifor er kampModels tom????
+                Debug.WriteLine($"Bruker: {username} tippa {item.Answer} på kamp {item.HjemmeLag}-{item.BorteLag}." +
+                                $" I gruppe: {tournamentModel.groupName}. Og kampID er {tournamentModel.kampModels[0].nifsKampId}");
+                
             }
 
             //Gets the group name of the current form and redirects to the index with the group name as a parameter

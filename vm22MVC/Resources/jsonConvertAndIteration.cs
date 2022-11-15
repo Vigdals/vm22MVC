@@ -22,6 +22,7 @@ namespace getAPI
             {
                 var model = new kampModel()
                 {
+                    nifsKampId = (int)item.SelectToken("id"),
                     Name = (string)item.SelectToken("name"),
                     HomeTeam = (string)item.SelectToken("homeTeam.name"),
                     AwayTeam = (string)item.SelectToken("awayTeam.name"),
