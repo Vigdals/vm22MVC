@@ -1,61 +1,95 @@
 ﻿@using System.ComponentModel.DataAnnotations.Schema
-@model IEnumerable<getAPIstuff.Models.kampModel>
+@model TournamentModel
 
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
 }
-<h1>VM22 - Resultatservice kjem snart!</h1>
+<h1>VM22 - Resultatservice</h1>
+
+<form asp-action="Index" asp-for="groupName">
+    <label for="groupName">Velg gruppe:</label>
+    <select name="groupName" id="groupName">
+        <option value="Gruppe A">A</option>
+        <option value="Gruppe B">B</option>
+        <option value="Gruppe C">C</option>
+        <option value="Gruppe D">D</option>
+        <option value="Gruppe E">E</option>
+        <option value="Gruppe F">F</option>
+        <option value="Gruppe G">G</option>
+        <option value="Gruppe H">H</option>
+        <option value="Sluttspill">Sluttspel</option>
+    </select>
+    <select name="year" id="year" asp-for="year">
+        <label for="year"></label>
+        <option value="2022">2022</option>
+        <option value="2018">2018</option>
+        <option value="2014">2014</option>
+        <option value="2010">2010</option>
+        <option value="2006">2006</option>
+        <option value="2002">2002</option>
+        <option value="1998">1998</option>
+        <option value="1994">1994</option>
+        <option value="1990">1990</option>
+
+    </select>
+    <br/><br/>
+    <input type="submit" class="btn btn-primary" value="Søk" />
+</form>
+
 <table class="table">
     <tr>
         <th>
-            Heimelag
+            Tidspunkt
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.HomeScore)
+            HomeTeam
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.AwayScore)
+            HomeScore
         </th>
         <th>
-            Bortelag
+            AwayScore
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Attendance)
+            AwayTeam
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Stadium)
+            Attendance
+        </th>
+        <th>
+            Stadium
         </th>
         <th></th>
     </tr>
-    @foreach (var item in Model) {
+    @for (var index = 0; index < Model.kampModels.Count; index++)
+    {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.HomeTeam)
-                <img class="smallImage" src="@item.HomeTeamLogo" width="24" height="24" alt="@item.HomeTeamLogo" />
-            </td>
-             <td>
-                @Html.DisplayFor(modelItem => item.HomeScore)
+                @Html.DisplayFor(modelItem => Model.kampModels[index].TimeStamp)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AwayScore)
+                @Html.DisplayFor(modelItem => Model.kampModels[index].HomeTeam)
+                <img class="smallImage" src="@Model.kampModels[index].HomeTeamLogo" width="24" height="24" alt="@Model.kampModels[index].HomeTeamLogo"/>
             </td>
             <td>
-                <img class="teamImage" src="@item.AwayTeamLogo" width="24" height="24" alt="@item.AwayTeamLogo"/>
-                @Html.DisplayFor(modelItem => item.AwayTeam)
+                @Html.DisplayFor(modelItem => Model.kampModels[index].HomeScore)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Attendance)
+                @Html.DisplayFor(modelItem => Model.kampModels[index].AwayScore)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Stadium)
+                <img class="teamImage" src="@Model.kampModels[index].AwayTeamLogo" width="24" height="24" alt="@Model.kampModels[index].AwayTeamLogo"/>
+                @Html.DisplayFor(modelItem => Model.kampModels[index].AwayTeam)
             </td>
-        
+            <td>
+                @Html.DisplayFor(modelItem => Model.kampModels[index].Attendance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.kampModels[index].Stadium)
+            </td>
+
         </tr>
     }
 </table>
-
-<div>
-    <button asp-controller="vm22" asp-action="Create" asp-for="stageid" value="683902" type="submit" class="btn btn-primary" role="button">Neste Gruppe</button>
-</div>

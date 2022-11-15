@@ -14,5 +14,6 @@ namespace vm22MVC.Models
         public int yearStart { get; set; }
         public int id { get; set; }
         public List<TippeModel> TippeModels { get; set; }
+        public string year { get; set; }
     }
 }
