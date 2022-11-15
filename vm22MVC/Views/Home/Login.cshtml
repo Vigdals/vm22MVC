@@ -3,28 +3,31 @@
 @using System.Diagnostics
 @using System.Security.Cryptography.X509Certificates
 @using getAPIstuff.Models
-@model UserModel
 
 <div class="text-center">
-    <h1 class="display-4">Tippekonk VM22</h1>
+    <h1 class="display-4">Tippekonk VM22 Inlogging</h1>
     <p></p>
-    <form asp-action="Tippekonk">
-        @*<div class="text-center">
+    <form action="/login" method="post">
+        <div class="text-center">
             <label class="form-label">Kallenamn:</label>
-            <input type="text" size="20" asp-for="@Model.BrukerNavn"/>
+            <input type="text" size="20" name="userName" />
+        </div>
+        <div style="display: none" class="text-center">
+            <label class="form-label">Passord:</label>
+            <input type="password" size="20" name="password" />
         </div>
         <p></p>
         <div class="text-center">
             <label for="GruppeNavn">Velg gruppe:</label>
-            <select name="GruppeNavn" id="GruppeNavn" asp-for="@Model.GruppeNavn">
+            <select name="GruppeNavn" id="GruppeNavn" for="bettingGroup">
               <option value="Odds konk">Odds konk</option>
               <option value="STAF">STAF</option>
               <option value="Høyheims tippekonk">Høyheims tippekonk</option>
             </select>
-        </div>*@
+        </div>
         <p></p>
         <div class="text-center">
-            <input type="submit" class="btn btn-primary" value="Start tipping!"/>
+            <input type="submit" class="btn btn-primary" value="Logg inn!"/>
         </div>
     </form>
 </div>

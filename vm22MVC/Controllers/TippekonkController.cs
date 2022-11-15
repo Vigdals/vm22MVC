@@ -3,6 +3,7 @@ using System.Linq;
 using getAPI;
 using getAPIstuff.Api;
 using getAPIstuff.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -11,21 +12,16 @@ using vm22MVC.Models;
 
 namespace vm22MVC.Controllers
 {
+    [Authorize]
     public class TippekonkController : Controller
     {
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
 
-        public IActionResult Index(CollectiveModel collectiveModel, string groupName)
+        public IActionResult Index(TournamentModel tournamentModel)
         {
             //if groupname is empty the rest of the code will not be excecuted - kul syntax
             //if (string.IsNullOrWhiteSpace(groupName)) return View(new TournamentModel() { kampModels = new List<kampModel>() });
             //gets tournament infomation. Important to get this because it gives us the ID for each group. From group A to H. 56 = world cup
-            if (collectiveModel.User == null)
-                collectiveModel = GetCollectiveModelFromTemp();
-                
+
             var apiTournamentModel = new ApiCall().DoApiCall("https://api.nifs.no/tournaments/56/stages/");
             var apiTournamentReponse = apiTournamentModel.Response;
             ApiCall.CheckIfSuccess(apiTournamentReponse);
@@ -46,47 +42,33 @@ namespace vm22MVC.Controllers
                 };
                 //Gets all matches for all the groups through api call
                 var TournamentMatches = new ApiCall().DoApiCall($"https://api.nifs.no/stages/{model.id}/matches/");
-                List<kampModel> kampModelsList = jsonConvertAndIteration.JsonIteration(TournamentMatches.StringResponse);
+                var kampModelsList = jsonConvertAndIteration.JsonIteration(TournamentMatches.StringResponse);
 
                 model.kampModels = kampModelsList;
 
                 listModel.Add(model);
             }
 
-            if (!string.IsNullOrWhiteSpace(groupName)) collectiveModel.TournamentModel.groupName = groupName;
-
             //Using Linq here with input fra drop down list in the index.cshtml:
             //return View(listModel.First(x => x.groupName == groupName));
-            collectiveModel.TournamentModelList = new List<TournamentModel>();
-            collectiveModel.TournamentModelList.AddRange(listModel);
 
-            if (collectiveModel.TournamentModel == null) collectiveModel.TournamentModel = new TournamentModel();
-
-            collectiveModel.TournamentModel = string.IsNullOrWhiteSpace(collectiveModel.TournamentModel.groupName)
+            tournamentModel = string.IsNullOrWhiteSpace(tournamentModel.groupName)
                 ? listModel.First()
-                : listModel.First(x => x.groupName.Equals(collectiveModel.TournamentModel.groupName));
+                : listModel.First(x => x.groupName.Equals(tournamentModel.groupName));
 
-            return View(collectiveModel);
-        }
-
-        private CollectiveModel GetCollectiveModelFromTemp()
-        {
-            var collectiveModel =
-                JsonConvert.DeserializeObject<CollectiveModel>((TempData["Collective"]?.ToString() ?? string.Empty));
-
-            return collectiveModel ?? new CollectiveModel();
+            return View(tournamentModel);
         }
 
         public IActionResult Submit([FromForm] TournamentModel tournamentModel)
         {
             foreach (var item in tournamentModel.TippeModels)
             {
-                Debug.WriteLine(item.Answer);
+                //Save items to database
             }
 
             //Gets the group name of the current form and redirects to the index with the group name as a parameter
-            var gruppe = tournamentModel.TippeModels.FirstOrDefault()?.Gruppe;
-            return RedirectToAction("Index", new { groupName = gruppe});
+            var group = tournamentModel.TippeModels.FirstOrDefault()?.Gruppe;
+            return RedirectToAction("Index", new { groupName = group });
         }
         public IActionResult Leaderboard()
         {
