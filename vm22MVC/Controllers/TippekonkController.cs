@@ -1,16 +1,13 @@
 ﻿using System.Diagnostics;
-using System.Linq;
+using System.Text.Json;
 using getAPI;
 using getAPIstuff.Api;
-using getAPIstuff.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using NuGet.Packaging;
 using vm22MVC.Models;
-using System.Data.SqlClient;
-using System.Security.Claims;
+
 
 namespace vm22MVC.Controllers
 {
@@ -64,26 +61,32 @@ namespace vm22MVC.Controllers
         {
             //Hugs å fikse dette litt funky med sluttspel når den tid kjem
             string[] arrayGroup = { "Gruppe A", "Gruppe B", "Gruppe C", "Gruppe D", "Gruppe E", "Gruppe F", "Gruppe G", "Gruppe H"};
-
-            var cnString =
-                "Server=(localdb)\\mssqllocaldb;Database=vm22MVC;Trusted_Connection=True;MultipleActiveResultSets=true";
             var username = new HttpContextAccessor().HttpContext?.User.Identity?.Name?.ToUpperInvariant();
+            //using Linq
             var bettingGroup = new HttpContextAccessor().HttpContext?.User.Claims.Where(x => x.Type == "Group").Select(x => x.Value).FirstOrDefault();
-
+            var jsonresult = "";
             for (int i = 0; i < tournamentModel.kampModels.Count; i++)
             {
-                var KampModel = tournamentModel.kampModels[i];
-                var TippeModel = tournamentModel.TippeModels[i];
+                var kampModel = tournamentModel.kampModels[i];
+                var tippeModel = tournamentModel.TippeModels[i];
 
-                Debug.WriteLine($"Bruker: {username} tippa {TippeModel.Answer} på kamp {TippeModel.HjemmeLag}-{TippeModel.BorteLag}." +
-                                $" I gruppe: {bettingGroup}. Og kampID er {KampModel.nifsKampId}");
+                Debug.WriteLine($"Bruker: {username} tippa {tippeModel.Answer} på kamp {tippeModel.HjemmeLag}-{tippeModel.BorteLag}." +
+                                $" I gruppe: {bettingGroup}. Og kampID er {kampModel.nifsKampId}");
+                jsonresult = JsonConvert.SerializeObject(tournamentModel);
+                //Vil legge data'en til ein SQL DB eller json her. .json fil er godt nok for no?
             }
             
-            //Gets the group name of the current form and redirects to the index with the group name as a parameter
+            Debug.WriteLine($"Username: {username}. BettingGroup: {bettingGroup}. Json:\n{jsonresult}");
+            var filename = "wwwroot\\json\\json.txt";
+            System.IO.File.AppendAllText(filename, $" username: "+username+" groupName:"+bettingGroup+""+jsonresult+"\n----\n");
+            
+                //Gets the group name of the current form and redirects to the index with the group name as a parameter
             var currentGroup = tournamentModel.TippeModels.FirstOrDefault()?.Gruppe;
-            var index = arrayGroup.IndexOf(currentGroup);
-            var changeToGroup = arrayGroup.Select(x => x.);
-            return RedirectToAction("Index", new { groupName = currentGroup });
+            //var index = arrayGroup.IndexOf(arrayGroup, currentGroup);
+            var index = Array.FindIndex(arrayGroup, row => row.Contains(currentGroup));
+            //On last group this will give an error. Trycatch it?
+            var changeToGroup = arrayGroup[index+1];
+            return RedirectToAction("Index", new { groupName = changeToGroup });
         }
         public IActionResult Leaderboard()
         {

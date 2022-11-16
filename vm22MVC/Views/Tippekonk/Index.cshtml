@@ -3,7 +3,7 @@
 @using getAPIstuff.Models
 @model TournamentModel
 
-<form asp-action="Index">
+@*<form asp-action="Index">
     <label for="groupName">Velg gruppe</label>
     <select name="groupName" id="groupName">
         <option value="Gruppe A">A</option>
@@ -14,15 +14,15 @@
         <option value="Gruppe F">F</option>
         <option value="Gruppe G">G</option>
         <option value="Gruppe H">H</option>
-        @*<option value="Sluttspill">Sluttspel</option>*@
+        <option value="Sluttspill">Sluttspel</option>
     </select>
-@*    <input disabled="disabled" style="display: none" for="user" value="@Model.User.BrukerNavn" />
-    <input disabled="disabled" style="display: none" for="gruppe" value="@Model.User.GruppeNavn" />*@
+    <input disabled="disabled" style="display: none" for="user" value="@Model.User.BrukerNavn" />
+    <input disabled="disabled" style="display: none" for="gruppe" value="@Model.User.GruppeNavn" />
     <br/><br/>
     
-    @*Sends the user back to the controller*@
+    Sends the user back to the controller
     <input type="submit" value="Hent gruppe">
-</form>
+</form>*@
 
 <form asp-action="Submit" asp-for="tournamentModel" method="post">
 
