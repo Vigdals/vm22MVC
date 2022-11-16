@@ -77,19 +77,24 @@ namespace vm22MVC.Controllers
             }
             
             Debug.WriteLine($"Username: {username}. BettingGroup: {bettingGroup}. Json:\n{jsonresult}");
-            var filename = $"c:\\home\\json\\{username}.txt";
-            System.IO.File.AppendAllText(filename, $" username: "+username+" groupName:"+bettingGroup+""+jsonresult+"\n----\n");
+            var filename = $"c:\\home\\json\\{bettingGroup}_{username}.txt";
+            System.IO.File.AppendAllText(filename, jsonresult);
             
             //Gets the group name of the current form and redirects to the index with the group name as a parameter
             var currentGroup = tournamentModel.TippeModels.FirstOrDefault()?.Gruppe;
             //var index = arrayGroup.IndexOf(arrayGroup, currentGroup);
             var index = Array.FindIndex(arrayGroup, row => row.Contains(currentGroup));
-            //On last group this will give an error. Trycatch it?
+            if (index == 7) return RedirectToAction("FinishedTipping", "Tippekonk", tournamentModel);
             var changeToGroup = arrayGroup[index+1];
             return RedirectToAction("Index", new { groupName = changeToGroup });
         }
         public IActionResult Leaderboard()
         {
+            return View();
+        }
+        public IActionResult FinishedTipping(TournamentModel tournament)
+        {
+
             return View();
         }
     }
