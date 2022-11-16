@@ -80,7 +80,7 @@ namespace vm22MVC.Controllers
             var filename = $"c:\\home\\json\\{username}.txt";
             System.IO.File.AppendAllText(filename, $" username: "+username+" groupName:"+bettingGroup+""+jsonresult+"\n----\n");
             
-                //Gets the group name of the current form and redirects to the index with the group name as a parameter
+            //Gets the group name of the current form and redirects to the index with the group name as a parameter
             var currentGroup = tournamentModel.TippeModels.FirstOrDefault()?.Gruppe;
             //var index = arrayGroup.IndexOf(arrayGroup, currentGroup);
             var index = Array.FindIndex(arrayGroup, row => row.Contains(currentGroup));

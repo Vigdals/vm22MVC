@@ -5,8 +5,14 @@
 @using getAPIstuff.Models
 
 <div class="text-center">
-    <h1 class="display-4">Tippekonk VM22 Inlogging</h1>
+    <h1 class="display-4"> <img src="~/images/trofe.png" width="48" height="64" />Tippekonk VM22 <img src="~/images/trofe.png" width="48" height="64" /></h1>
     <p></p>
+    <p>
+        Vel eit brukarnamn og gruppe du tilhøyrer<br /> 
+        Start tipping og tipp deg gjennom alle gruppene<br />
+        Når du har tippa siste gruppa og trykt "lagre" vil du få ein feilmelding.<br/>Det betyr sjølvsagt at alt er ok og tippinga er lagra!<br />
+        <h6>Fristen for tipping er laurdag 19.nov 23:59!</h6>
+    </p>
     <form action="/login" method="post">
         <div class="text-center">
             <label class="form-label">Kallenamn:</label>
@@ -20,9 +26,9 @@
         <div class="text-center">
             <label for="bettingGroup">Velg gruppe:</label>
             <select name="bettingGroup" id="bettingGroup" for="bettingGroup">
-              <option value="Odds konk">Odds konk</option>
-              <option value="STAF">STAF</option>
-              <option value="Høyheims tippekonk">Høyheims tippekonk</option>
+                <option value="Odds konk">Odds konk</option>
+                <option value="STAF">STAF</option>
+                <option value="Høyheims tippekonk">Høyheims tippekonk</option>
             </select>
         </div>
         <p></p>
@@ -30,5 +36,14 @@
             <input type="submit" class="btn btn-primary" value="Logg inn!"/>
         </div>
     </form>
+    <p>
+        <h6>Ting som skal fiksast i framtida:</h6>
+        - Skikkeleg innlogging med passord<br/>
+        - Oversikt over kva du har tippa når du loggar deg inn<br/>
+        - Etterkvart som kampane blir spelt kjem det eit leaderboard!<br/>
+        - Bedre tilbakemelding etter du har tippa siste gruppa!<br/>
+        - E-mailfunksjon slik at du kan få e-post etter du har tippa!<br/>
+        - Muligheit for å endre tippinga før fristen<br />
+    </p>
 </div>
 @*@Debug.WriteLine($"Brukernavn{TournamentModel.BrukerNavn} og gruppenamn er {TournamentModel.GruppeNavn}");*@
