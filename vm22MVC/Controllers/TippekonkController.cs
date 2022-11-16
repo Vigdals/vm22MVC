@@ -77,7 +77,7 @@ namespace vm22MVC.Controllers
             }
             
             Debug.WriteLine($"Username: {username}. BettingGroup: {bettingGroup}. Json:\n{jsonresult}");
-            var filename = "wwwroot\\json\\json.txt";
+            var filename = $"c:\\home\\json\\{username}.txt";
             System.IO.File.AppendAllText(filename, $" username: "+username+" groupName:"+bettingGroup+""+jsonresult+"\n----\n");
             
                 //Gets the group name of the current form and redirects to the index with the group name as a parameter
