@@ -77,7 +77,7 @@ namespace vm22MVC.Controllers
             }
             
             Debug.WriteLine($"Username: {username}. BettingGroup: {bettingGroup}. Json:\n{jsonresult}");
-            var filename = $"c:\\home\\json\\{bettingGroup}_{username}.txt";
+            var filename = $"c:\\home\\json\\{bettingGroup}_{username}.json";
             System.IO.File.AppendAllText(filename, jsonresult);
             
             //Gets the group name of the current form and redirects to the index with the group name as a parameter
@@ -92,10 +92,10 @@ namespace vm22MVC.Controllers
         {
             return View();
         }
-        public IActionResult FinishedTipping(TournamentModel tournament)
+        public IActionResult FinishedTipping(TournamentModel tournamentModel)
         {
-
-            return View();
+            
+            return View(tournamentModel);
         }
     }
 }
