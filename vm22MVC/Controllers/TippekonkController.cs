@@ -62,23 +62,28 @@ namespace vm22MVC.Controllers
 
         public IActionResult Submit([FromForm] TournamentModel tournamentModel)
         {
+            //Hugs å fikse dette litt funky med sluttspel når den tid kjem
+            string[] arrayGroup = { "Gruppe A", "Gruppe B", "Gruppe C", "Gruppe D", "Gruppe E", "Gruppe F", "Gruppe G", "Gruppe H"};
+
             var cnString =
                 "Server=(localdb)\\mssqllocaldb;Database=vm22MVC;Trusted_Connection=True;MultipleActiveResultSets=true";
             var username = new HttpContextAccessor().HttpContext?.User.Identity?.Name?.ToUpperInvariant();
-            var bettingGroup = "";
-            var kampModels = new List<kampModel>();
-            foreach (var item in tournamentModel.TippeModels)
-            {
-                //Save items to database
-                //Kvifor er kampModels tom????
-                Debug.WriteLine($"Bruker: {username} tippa {item.Answer} på kamp {item.HjemmeLag}-{item.BorteLag}." +
-                                $" I gruppe: {tournamentModel.groupName}. Og kampID er {tournamentModel.kampModels[0].nifsKampId}");
-                
-            }
+            var bettingGroup = new HttpContextAccessor().HttpContext?.User.Claims.Where(x => x.Type == "Group").Select(x => x.Value).FirstOrDefault();
 
+            for (int i = 0; i < tournamentModel.kampModels.Count; i++)
+            {
+                var KampModel = tournamentModel.kampModels[i];
+                var TippeModel = tournamentModel.TippeModels[i];
+
+                Debug.WriteLine($"Bruker: {username} tippa {TippeModel.Answer} på kamp {TippeModel.HjemmeLag}-{TippeModel.BorteLag}." +
+                                $" I gruppe: {bettingGroup}. Og kampID er {KampModel.nifsKampId}");
+            }
+            
             //Gets the group name of the current form and redirects to the index with the group name as a parameter
-            var group = tournamentModel.TippeModels.FirstOrDefault()?.Gruppe;
-            return RedirectToAction("Index", new { groupName = group });
+            var currentGroup = tournamentModel.TippeModels.FirstOrDefault()?.Gruppe;
+            var index = arrayGroup.IndexOf(currentGroup);
+            var changeToGroup = arrayGroup.Select(x => x.);
+            return RedirectToAction("Index", new { groupName = currentGroup });
         }
         public IActionResult Leaderboard()
         {
