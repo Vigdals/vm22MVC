@@ -4,6 +4,7 @@ using getAPI;
 using getAPIstuff.Api;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using vm22MVC.Models;
@@ -84,14 +85,13 @@ namespace vm22MVC.Controllers
             var currentGroup = tournamentModel.TippeModels.FirstOrDefault()?.Gruppe;
             //var index = arrayGroup.IndexOf(arrayGroup, currentGroup);
             var index = Array.FindIndex(arrayGroup, row => row.Contains(currentGroup));
-            //kanskje legg inn  || arrayGroup[arrayGroup.Length] == ("Sluttspel") i iffen?
-            Debug.WriteLine($"ArrayGroup.lenght = {arrayGroup.Length}");
             if (index == arrayGroup.Length-1) return RedirectToAction("FinishedTipping", "Tippekonk", tournamentModel);
             var changeToGroup = arrayGroup[index+1];
             return RedirectToAction("Index", new { groupName = changeToGroup });
         }
         public IActionResult Leaderboard()
         {
+            
             return View();
         }
         public IActionResult FinishedTipping(TournamentModel tournamentModel)

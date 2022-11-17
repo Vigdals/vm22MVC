@@ -1,6 +1,8 @@
 ﻿@using System.Diagnostics
 @using System.Security.Cryptography.X509Certificates
 @using getAPIstuff.Models
+@using Microsoft.Build.Framework
+@using Newtonsoft.Json
 @model TournamentModel
 
 @*<form asp-action="Index">
@@ -25,7 +27,6 @@
 </form>*@
 
 <form asp-action="Submit" asp-for="tournamentModel" method="post">
-
     <table class="table" style="width:100%">
         <tr>
             <th style="width:20%">
@@ -57,14 +58,14 @@
                     @Html.DisplayFor(modelItem => Model.kampModels[index].HomeTeam)
                     <img class="smallImage" src="@Model.kampModels[index].HomeTeamLogo" width="24" height="24" alt="@Html.DisplayFor(modelItem => Model.kampModels[index].HomeTeam).ToString()" />
                 </td>
-                <td>
-                    @Html.RadioButtonFor(model => Model.TippeModels[index].Answer, "Home") 
+                <td required>
+                    @Html.RadioButtonFor(model => Model.TippeModels[index].Answer, "Home", new {@required = "True"})
+                </td>
+                <td required>
+                    @Html.RadioButtonFor(model => Model.TippeModels[index].Answer, "Tie", new {@required = "True"})
                 </td>
                 <td>
-                    @Html.RadioButtonFor(model => Model.TippeModels[index].Answer, "Tie")
-                </td>
-                <td>
-                    @Html.RadioButtonFor(model => Model.TippeModels[index].Answer, "Away")
+                    @Html.RadioButtonFor(model => Model.TippeModels[index].Answer, "Away", new {@required = "True"})
                 </td>
                 <td>
                     <img class="teamImage" src="@Model.kampModels[index].AwayTeamLogo" width="24" height="24" />
