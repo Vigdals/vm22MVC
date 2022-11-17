@@ -84,7 +84,9 @@ namespace vm22MVC.Controllers
             var currentGroup = tournamentModel.TippeModels.FirstOrDefault()?.Gruppe;
             //var index = arrayGroup.IndexOf(arrayGroup, currentGroup);
             var index = Array.FindIndex(arrayGroup, row => row.Contains(currentGroup));
-            if (index == 7) return RedirectToAction("FinishedTipping", "Tippekonk", tournamentModel);
+            //kanskje legg inn  || arrayGroup[arrayGroup.Length] == ("Sluttspel") i iffen?
+            Debug.WriteLine($"ArrayGroup.lenght = {arrayGroup.Length}");
+            if (index == arrayGroup.Length-1) return RedirectToAction("FinishedTipping", "Tippekonk", tournamentModel);
             var changeToGroup = arrayGroup[index+1];
             return RedirectToAction("Index", new { groupName = changeToGroup });
         }

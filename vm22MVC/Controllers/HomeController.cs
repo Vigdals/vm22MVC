@@ -62,10 +62,10 @@ namespace vm22MVC.Controllers
 
             if (string.IsNullOrWhiteSpace(returnUrl) || !returnUrl.StartsWith("/"))
             {
-                returnUrl = "/";
+                returnUrl = "Index";
             }
 
-            return Redirect(returnUrl);
+            return RedirectToAction(returnUrl, "Tippekonk");
         }
 
         private bool ValidateLogin(string userName, string password)
