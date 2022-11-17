@@ -6,11 +6,9 @@
 * Etterkvart som kampane blir spelt kjem det eit leaderboard!
 * Bedre tilbakemelding etter du har tippa siste gruppa!
 * E-mailfunksjon slik at du kan få e-post etter du har tippa!
-* Muligheit for å endre tippinga før fristen
-* Legge inn krav om at alle radiobuttons må ha verdi (Alle kampar har blitt tippa på)
+* Muligheit for å endre tippinga før fristen?
 * Bytt ut json.newtonsoft med ein undepricated package
 * Lag ikona til laga mykje mindre. For store atm
-* Krav om at du må tippe på alle før du sender inn tipping for gruppe
 * Koble tippinga til ein SQL istadenfor json?
 
 
