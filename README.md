@@ -1,12 +1,17 @@
 <h3 align="center">World Cup 2022 guessing game</h3>
 
 ## ToDo
-* Make a proper login and user admin control panel
-* Connect index site (brukernamn og gruppenamn) with tippecontroller
-* Connect tipping to the sql database
-* E-mail user after tipping is done?
-* Resultatservice
-* Make a leaderboard
+* Skikkeleg innlogging med passord
+* Oversikt over kva du har tippa når du loggar deg inn
+* Etterkvart som kampane blir spelt kjem det eit leaderboard!
+* Bedre tilbakemelding etter du har tippa siste gruppa!
+* E-mailfunksjon slik at du kan få e-post etter du har tippa!
+* Muligheit for å endre tippinga før fristen
+* Legge inn krav om at alle radiobuttons må ha verdi (Alle kampar har blitt tippa på)
+* Bytt ut json.newtonsoft med ein undepricated package
+* Lag ikona til laga mykje mindre. For store atm
+* Krav om at du må tippe på alle før du sender inn tipping for gruppe
+* Koble tippinga til ein SQL istadenfor json?
 
 
 ## General info
