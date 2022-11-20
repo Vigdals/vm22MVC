@@ -1,11 +1,6 @@
 ﻿@using System.ComponentModel.DataAnnotations.Schema
 @model TournamentModel
 
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
 <h1>VM22 - Resultatservice</h1>
 
 <form asp-action="Index" asp-for="groupName">
@@ -70,7 +65,7 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => Model.kampModels[index].HomeTeam)
-                <img class="smallImage" src="@Model.kampModels[index].HomeTeamLogo" width="24" height="24" alt="@Model.kampModels[index].HomeTeamLogo"/>
+                <img class="smallImage" src="~/images/@Model.kampModels[index].HomeTeam .png" width="24" height="24" alt="~/images/@Model.kampModels[index].HomeTeam .png"/>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => Model.kampModels[index].HomeScore)
@@ -79,7 +74,7 @@
                 @Html.DisplayFor(modelItem => Model.kampModels[index].AwayScore)
             </td>
             <td>
-                <img class="teamImage" src="@Model.kampModels[index].AwayTeamLogo" width="24" height="24" alt="@Model.kampModels[index].AwayTeamLogo"/>
+                <img class="teamImage" src="~/images/@Model.kampModels[index].AwayTeam .png" width="24" height="24" alt="~/images/@Model.kampModels[index].AwayTeam .png"/>
                 @Html.DisplayFor(modelItem => Model.kampModels[index].AwayTeam)
             </td>
             <td>

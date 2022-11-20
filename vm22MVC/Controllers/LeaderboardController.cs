@@ -16,15 +16,16 @@ namespace vm22MVC.Controllers
             Debug.WriteLine("before foreach?");
             foreach (var file in fileInfos)
             {
+
                 Debug.WriteLine(file.Name);
-                using StreamReader r = new StreamReader(file.FullName, System.Text.Encoding.Unicode);
+                //System.Text.Encoding.Latin1
+                using StreamReader r = new StreamReader(file.FullName, System.Text.Encoding.Default);
                 string json = r.ReadToEnd();
                 string jsonString = System.Text.Json.JsonSerializer.Serialize(json);
                 Debug.WriteLine(jsonString);
                 dynamic array = JsonConvert.DeserializeObject(jsonString);
                 foreach (var item in array)
                 {
-                    Debug.WriteLine(item.ToString);
                     Debug.WriteLine($"{item.kampModels.nifsKampId}. Svar: {item.TippeModels.HjemmeLag}-{item.TippeModels.Bortelag}:{item.TippeModels.Answer}");
                 }
             }
