@@ -6,6 +6,7 @@
         {
 
         }
+        public int Id { get; set; }
         public int nifsKampId { get; set; }
         public string Name { get; set; }
         public string HomeTeam { get; set; }

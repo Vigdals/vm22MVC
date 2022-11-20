@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using vm22MVC.Models;
 
 namespace vm22MVC.Data;
 
@@ -18,4 +19,6 @@ public class vm22MVCContext : IdentityDbContext<IdentityUser>
         // For example, you can rename the ASP.NET Identity table names and more.
         // Add your customizations after calling base.OnModelCreating(builder);
     }
+
+    public DbSet<vm22MVC.Models.TournamentModel> TournamentModel { get; set; }
 }

@@ -89,11 +89,7 @@ namespace vm22MVC.Controllers
             var changeToGroup = arrayGroup[index+1];
             return RedirectToAction("Index", new { groupName = changeToGroup });
         }
-        public IActionResult Leaderboard()
-        {
-            
-            return View();
-        }
+
         public IActionResult FinishedTipping(TournamentModel tournamentModel)
         {
             
