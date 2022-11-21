@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System.Diagnostics;
 using Newtonsoft.Json.Linq;
+using System.Text.Json;
 using vm22MVC.Models;
 using getAPIstuff.Models;
 
@@ -25,19 +26,19 @@ namespace vm22MVC.Controllers
                 string json = r.ReadToEnd();
                 string jsonSerializedString = System.Text.Json.JsonSerializer.Serialize(json);
                 Debug.WriteLine(jsonSerializedString);
-                var jToken = JToken.Parse(jsonSerializedString);
+                var jsonModels = System.Text.Json.JsonSerializer.Deserialize<TippeModel>(jsonSerializedString);
+                
 
-                foreach (var item in jToken)
-                {
-                    var nifsKampId = (int)item.SelectToken("kampModels.nifsKampId");
-                    Debug.WriteLine((int)item.SelectToken("kampModels.nifsKampId"));
-                    var model = new TippeModel()
-                    {
-                        NifsKampId = (string)item.SelectToken("kampModels.nifsKampId")
-                    };
-                    listModel.Add(model);
-                    //Debug.WriteLine(item.kampModels.nifsKampId);
-                }
+                //foreach (var item in jsonModels)
+                //{
+                //    Debug.WriteLine((int)item.SelectToken("kampModels.nifsKampId"));
+                //    var model = new TippeModel()
+                //    {
+                //        NifsKampId = (string)item.SelectToken("kampModels.nifsKampId")
+                //    };
+                //    listModel.Add(model);
+                //    //Debug.WriteLine(item.kampModels.nifsKampId);
+                //}
             }
             return View();
         }
