@@ -21,12 +21,18 @@ namespace vm22MVC.Controllers
             foreach (var file in fileInfos)
             {
                 Debug.WriteLine(file.Name);
-                //System.Text.Encoding.Default gives me ÆØÅ
+                //System.Text.Encoding.Default gives me ÆØÅ - good
                 using StreamReader r = new StreamReader(file.FullName, System.Text.Encoding.Default);
                 string json = r.ReadToEnd();
                 string jsonSerializedString = System.Text.Json.JsonSerializer.Serialize(json);
                 Debug.WriteLine(jsonSerializedString);
-                var jsonModels = System.Text.Json.JsonSerializer.Deserialize<TippeModel>(jsonSerializedString);
+                //var jsonModels = System.Text.Json.JsonSerializer.Deserialize<TippeModel>(jsonSerializedString);
+                var jToken = JToken.Parse(jsonSerializedString);
+                Debug.WriteLine("WriteLine before ForEach");
+                foreach (var item in jToken)
+                {
+                    Debug.WriteLine((string)item.SelectToken("TippeModels.Answer"));
+                }
                 
 
                 //foreach (var item in jsonModels)
