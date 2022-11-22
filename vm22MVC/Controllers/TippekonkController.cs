@@ -65,28 +65,46 @@ namespace vm22MVC.Controllers
             var username = new HttpContextAccessor().HttpContext?.User.Identity?.Name?.ToUpperInvariant();
             //using Linq
             var bettingGroup = new HttpContextAccessor().HttpContext?.User.Claims.Where(x => x.Type == "Group").Select(x => x.Value).FirstOrDefault();
-            var jsonresult = "";
-            for (int i = 0; i < tournamentModel.kampModels.Count; i++)
-            {
-                var kampModel = tournamentModel.kampModels[i];
-                var tippeModel = tournamentModel.TippeModels[i];
+            var jsonResultAsString = string.Empty;
 
-                Debug.WriteLine($"Bruker: {username} tippa {tippeModel.Answer} på kamp {tippeModel.HjemmeLag}-{tippeModel.BorteLag}." +
-                                $" I gruppe: {bettingGroup}. Og kampID er {kampModel.nifsKampId}");
-                jsonresult = JsonConvert.SerializeObject(tournamentModel);
-                //Vil legge data'en til ein SQL DB eller json her. .json fil er godt nok for no?
+            for (var i = 0; i < tournamentModel.kampModels.Count; i++)
+            {
+                var jObject = new JObject()
+                {
+                    tournamentModel.TippeModels[i].Gruppe, new JObject()
+                    {
+                        "nifsKampId", tournamentModel.kampModels[i],
+                        tournamentModel.TippeModels[i],
+
+                    },
+
+                };
+
+                jsonResultAsString += jObject;
             }
-            
-            Debug.WriteLine($"Username: {username}. BettingGroup: {bettingGroup}. Json:\n{jsonresult}");
+
+            var jsonResult = JsonConvert.SerializeObject(jsonResultAsString);
+
+            //Vil legge data'en til ein SQL DB eller json her. .json fil er godt nok for no?
+
+            Debug.WriteLine($"Username: {username}. BettingGroup: {bettingGroup}. Json:\n{jsonResult}");
+
             var filename = $"c:\\home\\json\\{bettingGroup}_{username}.json";
-            System.IO.File.AppendAllText(filename, jsonresult);
+
+            System.IO.File.AppendAllText(filename, jsonResult);
             
             //Gets the group name of the current form and redirects to the index with the group name as a parameter
+
             var currentGroup = tournamentModel.TippeModels.FirstOrDefault()?.Gruppe;
+
             //var index = arrayGroup.IndexOf(arrayGroup, currentGroup);
+
             var index = Array.FindIndex(arrayGroup, row => row.Contains(currentGroup));
+
             if (index == arrayGroup.Length-1) return RedirectToAction("FinishedTipping", "Tippekonk", tournamentModel);
+
             var changeToGroup = arrayGroup[index+1];
+
             return RedirectToAction("Index", new { groupName = changeToGroup });
         }
 
