@@ -11,7 +11,8 @@ namespace vm22MVC.Controllers
     {
         public IActionResult Index()
         {
-            var filePath = "c:\\home\\json\\";
+            //filsti til alle jsons i virtuell mappe i Azure static webapp
+            var filePath = "c:\\home\\json\\correctJsonFolder\\";
             DirectoryInfo di = new DirectoryInfo(filePath);
             FileInfo[] fileInfos = di.GetFiles();
             Debug.WriteLine("before foreach?");
@@ -25,12 +26,15 @@ namespace vm22MVC.Controllers
                 using StreamReader r = new StreamReader(file.FullName, System.Text.Encoding.Default);
                 string json = r.ReadToEnd();
 
-                if (string.IsNullOrWhiteSpace(json)) return View();
+                if (string.IsNullOrWhiteSpace(json)) return View("Error");
                 Debug.WriteLine(json);
 
                 var deserialized = JObject.Parse(json);
                 Debug.WriteLine(deserialized);
 
+
+
+                //Under her er Asmund kode som Adrian ikkje forstår heilt. Og den fungerer ikkje heilt heller:
                 foreach (var keyValuePair in deserialized)
                 {
                     var listTippeModels = GetTippeModels(keyValuePair);
@@ -38,7 +42,7 @@ namespace vm22MVC.Controllers
                     {
                         TippeModels = listTippeModels,
                         groupName = keyValuePair.Key,
-                        userName = file.FullName
+                        userName = file.Name
                     });
                 }
             }
