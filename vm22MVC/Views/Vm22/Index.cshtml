@@ -27,10 +27,17 @@
         <option value="1998">1998</option>
         <option value="1994">1994</option>
         <option value="1990">1990</option>
-        </select>
+    </select>
     <br/><br/>
     <input type="submit" class="btn btn-primary" value="Søk" />
 </form>
+
+@{
+    if (string.IsNullOrWhiteSpace(ViewBag.Message) == false)
+    {
+        <h4 style="padding: 2rem 0">@ViewBag.Message</h4>
+    }
+}
 
 <table class="table">
     <tr>
