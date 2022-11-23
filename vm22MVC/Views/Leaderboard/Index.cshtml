@@ -1,40 +1,95 @@
 ﻿@model List<TournamentModel>
+@*<style>
+    .monoSpace {
+        font-family: consolas;
+    }
+</style>*@
+<form asp-action="Index" asp-for="userName" id="brukerVelger">
+    <label for="userName">Velg brukarnamn:</label>
+    <select name="userName" onchange="if(this.value!=''){this.form.submit();}">
+        <option value="">Velg deltakar</option>
+    <option value="Bernt" selected="@(ViewBag.UserName=="Bernt")">Bernt</option>
+        <option value="Dalahaugen" selected="@(ViewBag.UserName=="Dalahaugen")">Dalahaugen</option>
+        <option value="FrodeK" selected="@(ViewBag.UserName=="FrodeK")">FrodeK</option>
+        <option value="Kaptein Hemo" selected="@(ViewBag.UserName=="Kaptein Hemo")">Kaptein Hemo</option>
+        <option value="Lassn" selected="@(ViewBag.UserName=="Lassn")">Lassn</option>
+        <option value="Maolteft FC" selected="@(ViewBag.UserName=="Maolteft FC")">Maolteft FC</option>
+        <option value="Tone B" selected="@(ViewBag.UserName=="Tone B")">Tone B</option>
+        <option value="Vigdal ved og vel" selected="@(ViewBag.UserName=="Vigdal ved og vel")">Vigdal ved og vel</option>
+    </select>
+</form>
 
-<h3>@Model.FirstOrDefault().userName</h3>
-
-@foreach (var tournament in Model)
-{
-    <table class="table" style="width:100%">
+<table class="table" style="width: 100%">
+@*    <tr>
+        <td></td>
+        <td></td>
+        <td class="monoSpace">|H|U|B|</td>
+    </tr>*@
+    @foreach (var tournament in Model)
+    {
         <tr>
-            <th style="width:20%">
-                Gruppe
-            </th>
-            <th style="width:20%">
-                Answer
-            </th>
-            <th style="width:20%">
-                Home team
-            </th>
-            <th style="width:20%">
-                Away team
-            </th>
-        </tr>
+            <td colspan="3">
+                <h3>@tournament.TippeModels.FirstOrDefault()?.Gruppe</h3>
+            </td></tr>
         @foreach (var tippeModel in tournament.TippeModels)
         {
+            var guid = Guid.NewGuid();
             <tr>
-                <td>
-                    @Html.DisplayFor(htmlDisplay => tournament.groupName)
+                <td id="Home_@guid">
+                    @Html.DisplayFor(x => tippeModel.HjemmeLag)
                 </td>
-                <td>
-                    @Html.DisplayFor( x => tippeModel.Answer)
+                <td id="Away_@guid">
+                    @Html.DisplayFor(x => tippeModel.BorteLag)
                 </td>
-                <td>
-                    @Html.DisplayFor( x => tippeModel.HjemmeLag)
-                </td>
-                <td>
-                    @Html.DisplayFor( x => tippeModel.BorteLag)
+                <td data-id="@guid" class="Betting monoSpace" data-betting="@FormatBetting(tippeModel.Answer ?? string.Empty)">
+                    @FormatBetting(tippeModel.Answer ?? string.Empty)
                 </td>
             </tr>
         }
-    </table>
+    }
+</table>
+<script>
+    $(function(){
+        var betting = $(".Betting");
+            betting.each(function (index) {
+            console.log(index + ": " + $(this).html());
+            if ($(this).data("betting") === "H") $("#Home_" + $(this).data("id")).addClass("fw-bolder");
+            if ($(this).data("betting") === "B") $("#Away_" + $(this).data("id")).addClass("fw-bolder");
+            if ($(this).data("betting") === "U"){
+                $("#Home_" + $(this).data("id")).addClass("fst-italic");
+                $("#Away_" + $(this).data("id")).addClass("fst-italic");
+                }
+        });
+    });
+</script>
+@functions
+{
+    public string FormatBetting(string bet)
+    {
+        switch (bet.ToLower())
+        {
+            case "away":
+                return "B";
+            case "tie":
+                return "U";
+            case "home":
+                return "H";
+                default:
+                    return string.Empty;
+        }
+    }
+    public string FormatBettingAlt(string bet)
+    {
+        switch (bet.ToLower())
+        {
+            case "away":
+                return "| | |B|";
+            case "tie":
+                return "| |U| |";
+            case "home":
+                return "|H| | |";
+            default:
+                return string.Empty;
+        }
+    }
 }
