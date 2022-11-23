@@ -8,7 +8,7 @@ using vm22MVC.Models;
 
 namespace vm22MVC.Controllers
 {
-    public class LeaderboardController : Controller
+    public class TippeResultatController : Controller
     {
         public IActionResult Index(string userName)
         {
@@ -31,21 +31,13 @@ namespace vm22MVC.Controllers
                 string json = r.ReadToEnd();
 
                 if (string.IsNullOrWhiteSpace(json)) return View("Error");
-                //Debug.WriteLine(json);
 
                 var deserialized = JObject.Parse(json);
-                //Debug.WriteLine(deserialized);
-
-                //Under her er Asmund kode som Adrian ikkje forstår heilt. Og den fungerer ikkje
-
-                foreach (var item in deserialized)
-                {
-                    Debug.WriteLine(item.Key);
-                    Debug.WriteLine(item.Value);
-                }
 
                 foreach (var keyValuePair in deserialized)
                 {
+                    Debug.WriteLine(keyValuePair.Key);
+                    Debug.WriteLine(keyValuePair.Value);
                     var listTippeModels = GetTippeModels(keyValuePair);
                     tournamentModelList.Add(new TournamentModel()
                     {

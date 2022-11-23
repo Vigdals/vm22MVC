@@ -8,7 +8,7 @@
     <label for="userName">Velg brukarnamn:</label>
     <select name="userName" onchange="if(this.value!=''){this.form.submit();}">
         <option value="">Velg deltakar</option>
-    <option value="Bernt" selected="@(ViewBag.UserName=="Bernt")">Bernt</option>
+        <option value="Bernt" selected="@(ViewBag.UserName=="Bernt")">Bernt</option>
         <option value="Dalahaugen" selected="@(ViewBag.UserName=="Dalahaugen")">Dalahaugen</option>
         <option value="FrodeK" selected="@(ViewBag.UserName=="FrodeK")">FrodeK</option>
         <option value="Kaptein Hemo" selected="@(ViewBag.UserName=="Kaptein Hemo")">Kaptein Hemo</option>

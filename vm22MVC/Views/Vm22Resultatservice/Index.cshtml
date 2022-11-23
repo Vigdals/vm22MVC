@@ -1,0 +1,77 @@
+﻿@using System.ComponentModel.DataAnnotations.Schema
+@model TournamentModel
+
+<h1>VM22 - Resultatservice</h1>
+
+<form asp-action="Index" asp-for="groupName">
+    <label for="groupName">Velg gruppe:</label>
+    <select name="groupName" id="groupName">
+        <option value="Sluttspill" selected="@(ViewBag.GroupName=="Sluttspel")">Sluttspel</option>
+        <option value="Gruppe A" selected="@(ViewBag.GroupName=="Gruppe A")">A</option>
+        <option value="Gruppe B" selected="@(ViewBag.GroupName=="Gruppe B")">B</option>
+        <option value="Gruppe C" selected="@(ViewBag.GroupName=="Gruppe C")">C</option>
+        <option value="Gruppe D" selected="@(ViewBag.GroupName=="Gruppe D")">D</option>
+        <option value="Gruppe E" selected="@(ViewBag.GroupName=="Gruppe E")">E</option>
+        <option value="Gruppe F" selected="@(ViewBag.GroupName=="Gruppe F")">F</option>
+        <option value="Gruppe G" selected="@(ViewBag.GroupName=="Gruppe G")">G</option>
+        <option value="Gruppe H" selected="@(ViewBag.GroupName=="Gruppe H")">H</option>
+    </select>
+    <select name="year" id="year" asp-for="year">
+        <label for="year"></label>
+        <option value="2022" selected="@(ViewBag.Year=="2022")">2022</option>
+        <option value="2018" selected="@(ViewBag.Year=="2018")">2018</option>
+        <option value="2014" selected="@(ViewBag.Year=="2014")">2014</option>
+        <option value="2010" selected="@(ViewBag.Year=="2010")">2010</option>
+        <option value="2006" selected="@(ViewBag.Year=="2006")">2006</option>
+        <option value="2002" selected="@(ViewBag.Year=="2002")">2002</option>
+        <option value="1998" selected="@(ViewBag.Year=="1998")">1998</option>
+        <option value="1994" selected="@(ViewBag.Year=="1994")">1994</option>
+        <option value="1990" selected="@(ViewBag.Year=="1990")">1990</option>
+        </select>
+    <br/><br/>
+    <input type="submit" class="btn btn-primary" value="Søk" />
+</form>
+
+<table class="table">
+    <tr>
+        <th>
+            Tid
+        </th>
+        <th>
+            HomeTeam
+        </th>
+        <th>
+            HomeScore
+        </th>
+        <th>
+            AwayScore
+        </th>
+        <th>
+            AwayTeam
+        </th>
+        <th></th>
+    </tr>
+    @for (var index = 0; index < Model.kampModels.Count; index++)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => Model.kampModels[index].TimeStamp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.kampModels[index].HomeTeam)
+                <img class="smallImage" src="@Model.kampModels[index].HomeTeamLogo" width="24" height="24" alt="@Model.kampModels[index].HomeTeamLogo" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.kampModels[index].HomeScore)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.kampModels[index].AwayScore)
+            </td>
+            <td>
+                <img class="smallImage" src="@Model.kampModels[index].AwayTeamLogo" width="24" height="24" alt="@Model.kampModels[index].AwayTeamLogo" />
+                @Html.DisplayFor(modelItem => Model.kampModels[index].AwayTeam)
+            </td>
+
+        </tr>
+    }
+</table>

@@ -9,13 +9,15 @@ using vm22MVC.Service;
 
 namespace vm22MVC.Controllers
 {
-    public class vm22Controller : Controller
+    public class Vm22ResultatserviceController : Controller
     {
         ////injecting the interface from DoApiCallService
         private readonly IDoApiCallService _callService = new DoApiCallService();
 
         public IActionResult Index(string groupName, string year)
         {
+            ViewBag.GroupName = groupName;
+            ViewBag.Year = year;
             if (string.IsNullOrWhiteSpace(groupName)) return View(new TournamentModel() { kampModels = new List<kampModel>() });
             var apiTournamentModel = new ApiCall().DoApiCall("https://api.nifs.no/tournaments/56/stages/");
             var apiTournamentReponse = apiTournamentModel.Response;
@@ -27,7 +29,7 @@ namespace vm22MVC.Controllers
 
             foreach (var item in jToken)
             {
-                if ((int)item.SelectToken("yearStart") != Int32.Parse(year)) continue;
+                if ((int)item.SelectToken("yearStart") != int.Parse(year)) continue;
                 var model = new TournamentModel()
                 {
                     groupName = (string)item.SelectToken("groupName"),
