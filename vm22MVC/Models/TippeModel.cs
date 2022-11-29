@@ -12,6 +12,6 @@ namespace vm22MVC.Models
         public string Gruppe { get; set; }
         public string HjemmeLag { get; set; }
         public string BorteLag { get; set; }
-        public string NifsKampId { get; set; }
+        public int nifsKampId { get; set; }
     }
 }

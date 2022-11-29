@@ -3,6 +3,10 @@ using Newtonsoft.Json.Linq;
 using vm22MVC.Models;
 using System.Text.Json;
 using System.Diagnostics;
+using getAPIstuff.Api;
+using getAPI;
+using getAPIstuff.Models;
+using vm22MVC.Service;
 
 namespace vm22MVC.Controllers
 {
@@ -11,23 +15,25 @@ namespace vm22MVC.Controllers
         public IActionResult Index()
         {
             var tournamentModelList = GetUserData();
-            foreach (var tournament in tournamentModelList)
+            var resultatListe = GetVmResultater();
+            
+            foreach (var gruppe in tournamentModelList.Where(f=>f.userName == "Odds konk_KAPTEIN HEMO.json"))
             {
-                Debug.WriteLine(tournament.userName);
+                foreach (var kamp in gruppe.TippeModels)
+                {
+                    Debug.WriteLine($"{gruppe.userName} tippa {kamp.Answer} i kampen: {kamp.HjemmeLag} mot {kamp.BorteLag}. nifsID: {kamp.nifsKampId}");
+                }
             }
-            foreach (var item in tournamentModelList.Where(f=>f.userName == "Odds konk_VIGDAL VED OG VEL.json"))
+            foreach (var gruppe in resultatListe)
             {
-                Debug.WriteLine(item.TippeModels);
+                foreach (var kamp in gruppe.kampModels)
+                {
+                    Debug.WriteLine($"{kamp.HomeTeam} mot {kamp.AwayTeam} vart {kamp.HomeScore}-{kamp.AwayScore}. nifsID: {kamp.nifsKampId}");
+                }
             }
-
-            foreach (var item in TippeModel)
-            {
-
-            }
-
-            return View();
+            return View(tournamentModelList);
         }
-
+            
         List<TournamentModel> GetUserData()
         {
             var filePath = "c:\\home\\json\\correctJsonFolder\\";
@@ -59,7 +65,6 @@ namespace vm22MVC.Controllers
             }
             return tournamentModelList;
         }
-
         List<TippeModel> GetTippeModels(KeyValuePair<string, JToken?> keyValuePair)
         {
             var tippeModelList = new List<TippeModel>();
@@ -76,6 +81,40 @@ namespace vm22MVC.Controllers
             }
 
             return tippeModelList;
+        }
+        //Forstår ikkje heilt kva dette _callService er
+        private readonly IDoApiCallService _callService = new DoApiCallService();
+        List<TournamentModel> GetVmResultater()
+        {
+            var year = "2022";
+            var apiTournamentModel = new ApiCall().DoApiCall("https://api.nifs.no/tournaments/56/stages/");
+            var apiTournamentReponse = apiTournamentModel.Response;
+            ApiCall.CheckIfSuccess(apiTournamentReponse);
+
+            var listModel = new List<TournamentModel>();
+            var jsonSerialized = new jsonConvertAndIteration().JsonSerialize(apiTournamentModel.StringResponse);
+            var jToken = JToken.Parse(jsonSerialized);
+
+            foreach (var item in jToken)
+            {
+                if ((int)item.SelectToken("yearStart") != int.Parse(year)) continue;
+                var model = new TournamentModel()
+                {
+                    groupName = (string)item.SelectToken("groupName"),
+                    yearStart = (int)item.SelectToken("yearStart"),
+                    id = (int)item.SelectToken("id")
+                };
+                //Gets all matches for all the groups through api call
+                var TournamentMatches = new ApiCall().DoApiCall($"https://api.nifs.no/stages/{model.id}/matches/");
+                List<kampModel> kampModelsList = jsonConvertAndIteration.JsonIteration(TournamentMatches.StringResponse);
+
+                model.kampModels = kampModelsList;
+
+                listModel.Add(model);
+            }
+
+            //Using Linq here with input fra drop down list in the index.cshtml:
+            return listModel;
         }
     }
 }

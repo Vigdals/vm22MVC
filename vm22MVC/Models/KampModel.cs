@@ -18,5 +18,6 @@
         public string Stadium { get; set; }
         public string Attendance { get; set; }
         public string TimeStamp { get; set; }
+        public string GroupName { get; set; }
     }
 }
