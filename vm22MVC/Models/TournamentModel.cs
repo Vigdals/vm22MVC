@@ -8,7 +8,6 @@ namespace vm22MVC.Models
         {
 
         }
-
         public List<kampModel> kampModels { get; set; }
         public string groupName { get; set; }
         public int yearStart { get; set; }
