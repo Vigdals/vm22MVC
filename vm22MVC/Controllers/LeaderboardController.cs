@@ -50,7 +50,11 @@ namespace vm22MVC.Controllers
                 foreach (var kamp in brukernamn.TippeModels)
                 {
                     Debug.WriteLine($"{brukernamn.userName} tippa {kamp.Answer} i kampen: {kamp.HjemmeLag} mot {kamp.BorteLag}. nifsID: {kamp.nifsKampId}");
-                    if (kamp.Answer == )
+                    var currentNifsKampId = kamp.nifsKampId;
+                    if (resultatListe.Select(x => x.kampModels).Contains(currentNifsKampId))
+                    {
+
+                    }
                 }
             }
 
