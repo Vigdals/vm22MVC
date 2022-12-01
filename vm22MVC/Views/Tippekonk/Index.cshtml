@@ -41,6 +41,7 @@
         </tr>
         @for (var index = 0; index < Model.kampModels.Count; index++)
         {
+            if (Model.kampModels[index].HomeTeamLogo == "No logo found") continue;
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => Model.kampModels[index].TimeStamp)

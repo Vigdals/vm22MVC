@@ -50,10 +50,7 @@ namespace vm22MVC.Controllers
 
             //Using Linq here with input fra drop down list in the index.cshtml:
             //return View(listModel.First(x => x.groupName == groupName));
-
-            //tournamentModel = string.IsNullOrWhiteSpace(tournamentModel.groupName)
-            //    ? listModel.First()
-            //    : listModel.First(x => x.groupName.Equals(tournamentModel.groupName));
+            //hardcoding in sluttspill, kinda wonky
             tournamentModel.groupName = "Sluttspill";
             tournamentModel = string.IsNullOrWhiteSpace(tournamentModel.groupName)
                 ? listModel.First()

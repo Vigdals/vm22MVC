@@ -62,7 +62,7 @@ namespace vm22MVC.Controllers
 
             return View(pointsOverViewList);
         }
-
+        //A model that should be in its own file
         public class pointsOverView
         {
             public string UserName { get; set; }
