@@ -16,21 +16,45 @@ namespace vm22MVC.Controllers
         {
             var tournamentModelList = GetUserData();
             var resultatListe = GetVmResultater();
-            
-            foreach (var gruppe in tournamentModelList.Where(f=>f.userName == "Odds konk_KAPTEIN HEMO.json"))
-            {
-                foreach (var kamp in gruppe.TippeModels)
-                {
-                    Debug.WriteLine($"{gruppe.userName} tippa {kamp.Answer} i kampen: {kamp.HjemmeLag} mot {kamp.BorteLag}. nifsID: {kamp.nifsKampId}");
-                }
-            }
+            //tournamentModelList.AddRange(resultatListe);
+            //Just for logging
+
+            //Setting enum value (Home, Tie, Away) into the KampModel based on resultat. Standard value is "NotPlayed"
             foreach (var gruppe in resultatListe)
             {
                 foreach (var kamp in gruppe.kampModels)
                 {
                     Debug.WriteLine($"{kamp.HomeTeam} mot {kamp.AwayTeam} vart {kamp.HomeScore}-{kamp.AwayScore}. nifsID: {kamp.nifsKampId}");
+                    //Hopper over kamper som ikkje er blitt spilt enda
+                    if (string.IsNullOrWhiteSpace(kamp.HomeScore)) continue;
+                    if (int.Parse(kamp.HomeScore) > int.Parse(kamp.AwayScore))
+                    {
+                        kamp.KampStatus = KampStatus.Home;
+                        Debug.WriteLine(kamp.KampStatus.ToString());
+                    }
+                    else if (int.Parse(kamp.HomeScore) == int.Parse(kamp.AwayScore))
+                    {
+                        kamp.KampStatus = KampStatus.Tie;
+                        Debug.WriteLine(kamp.KampStatus.ToString());
+                    }
+                    else
+                    {
+                        kamp.KampStatus = KampStatus.Away;
+                        Debug.WriteLine(kamp.KampStatus.ToString());
+                    }
                 }
             }
+            //Går i gjennom alle users in tournamentModelList
+            foreach (var brukernamn in tournamentModelList)
+            {
+                foreach (var kamp in brukernamn.TippeModels)
+                {
+                    Debug.WriteLine($"{brukernamn.userName} tippa {kamp.Answer} i kampen: {kamp.HjemmeLag} mot {kamp.BorteLag}. nifsID: {kamp.nifsKampId}");
+                    if (kamp.Answer == )
+                }
+            }
+
+
             return View(tournamentModelList);
         }
             

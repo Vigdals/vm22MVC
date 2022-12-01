@@ -15,5 +15,6 @@ namespace vm22MVC.Models
         public List<TippeModel> TippeModels { get; set; }
         public string year { get; set; }
         public string userName { get; set; }
+        public int PoengSum { get; set; }
     }
 }

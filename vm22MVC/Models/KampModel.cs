@@ -19,5 +19,12 @@
         public string Attendance { get; set; }
         public string TimeStamp { get; set; }
         public string GroupName { get; set; }
+        //Setter NotPlayed som standardvariabel i enum'en
+        public KampStatus KampStatus { get; set; } = KampStatus.NotPlayed;
+    }
+
+    public enum KampStatus
+    {
+        NotPlayed, Home, Tie, Away
     }
 }

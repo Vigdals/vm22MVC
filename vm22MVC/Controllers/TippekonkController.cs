@@ -2,6 +2,7 @@
 using System.Text.Json;
 using getAPI;
 using getAPIstuff.Api;
+using getAPIstuff.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -18,8 +19,9 @@ namespace vm22MVC.Controllers
 
         public IActionResult Index(TournamentModel tournamentModel)
         {
+            var groupName = "Sluttspill";
             //if groupname is empty the rest of the code will not be excecuted - kul syntax
-            //if (string.IsNullOrWhiteSpace(groupName)) return View(new TournamentModel() { kampModels = new List<kampModel>() });
+            if (string.IsNullOrWhiteSpace(groupName)) return View(new TournamentModel() { kampModels = new List<kampModel>() });
             //gets tournament infomation. Important to get this because it gives us the ID for each group. From group A to H. 56 = world cup
             var apiTournamentModel = new ApiCall().DoApiCall("https://api.nifs.no/tournaments/56/stages/");
             var apiTournamentReponse = apiTournamentModel.Response;
