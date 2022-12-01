@@ -44,7 +44,7 @@ namespace vm22MVC.Controllers
                     }
                 }
             }
-            //Går i gjennom alle users in tournamentModelList
+            //Går i gjennom alle users in tournamentModelList og prøver hente ut KampStatus fra ResultatlisteModellen
             foreach (var brukernamn in tournamentModelList)
             {
                 foreach (var kamp in brukernamn.TippeModels)
