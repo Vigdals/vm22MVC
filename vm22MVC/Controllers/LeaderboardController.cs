@@ -7,6 +7,7 @@ using getAPIstuff.Api;
 using getAPI;
 using getAPIstuff.Models;
 using vm22MVC.Service;
+using System.Linq;
 
 namespace vm22MVC.Controllers
 {
@@ -14,15 +15,18 @@ namespace vm22MVC.Controllers
     {
         public IActionResult Index()
         {
-            var tournamentModelList = GetUserData();
-            var resultatListe = GetVmResultater();
+            var turnering = new TournamentModel();
+            
+            turnering.kampModels = HentVmResultat();
+            turnering.TippeModels = HentTippeModels();
+            //var tournamentModelList = GetUserData();
+            //var resultatListe = GetVmResultater();
             //tournamentModelList.AddRange(resultatListe);
             //Just for logging
 
             //Setting enum value (Home, Tie, Away) into the KampModel based on resultat. Standard value is "NotPlayed"
-            foreach (var gruppe in resultatListe)
-            {
-                foreach (var kamp in gruppe.kampModels)
+
+                foreach (var kamp in turnering.kampModels)
                 {
                     Debug.WriteLine($"{kamp.HomeTeam} mot {kamp.AwayTeam} vart {kamp.HomeScore}-{kamp.AwayScore}. nifsID: {kamp.nifsKampId}");
                     //Hopper over kamper som ikkje er blitt spilt enda
@@ -43,31 +47,32 @@ namespace vm22MVC.Controllers
                         Debug.WriteLine(kamp.KampStatus.ToString());
                     }
                 }
-            }
+            
             //Går i gjennom alle users in tournamentModelList og prøver hente ut KampStatus fra ResultatlisteModellen
-            foreach (var brukernamn in tournamentModelList)
+            foreach (var brukernamn in turnering.TippeModels.Select(t=>t.userName).Distinct())
             {
-                foreach (var kamp in brukernamn.TippeModels)
+                foreach (var kamp in turnering.TippeModels.Where(t=>t.userName == brukernamn))
                 {
-                    Debug.WriteLine($"{brukernamn.userName} tippa {kamp.Answer} i kampen: {kamp.HjemmeLag} mot {kamp.BorteLag}. nifsID: {kamp.nifsKampId}");
+                    Debug.WriteLine($"{brukernamn} tippa {kamp.Answer} i kampen: {kamp.HjemmeLag} mot {kamp.BorteLag}. nifsID: {kamp.nifsKampId}");
                     var currentNifsKampId = kamp.nifsKampId;
-                    if (resultatListe.Select(x => x.kampModels).Contains(currentNifsKampId))
+                    var kampResultat = turnering.kampModels.FirstOrDefault(x => x.nifsKampId == kamp.nifsKampId);
+                    if (kampResultat != null)
                     {
-
+                        kamp.UpdateScore(kampResultat);
                     }
                 }
             }
-
-
-            return View(tournamentModelList);
-        }
             
-        List<TournamentModel> GetUserData()
+            return View(turnering);
+        }
+
+        private List<TippeModel> HentTippeModels()
         {
+            var tippeModelList = new List<TippeModel>();
             var filePath = "c:\\home\\json\\correctJsonFolder\\";
             DirectoryInfo di = new DirectoryInfo(filePath);
             FileInfo[] fileInfos = di.GetFiles();
-            var tournamentModelList = new List<TournamentModel>();
+            
 
             foreach (var file in fileInfos)
             {
@@ -82,19 +87,78 @@ namespace vm22MVC.Controllers
                 {
                     //Debug.WriteLine(keyValuePair.Key);
                     //Debug.WriteLine(keyValuePair.Value);
-                    var listTippeModels = GetTippeModels(keyValuePair);
-                    tournamentModelList.Add(new TournamentModel()
-                    {
-                        TippeModels = listTippeModels,
-                        groupName = keyValuePair.Key,
-                        userName = file.Name
-                    });
+                    var listTippeModels = GetTippeModels(keyValuePair, file.Name);
+                    tippeModelList.AddRange(listTippeModels);
                 }
             }
-            return tournamentModelList;
+            return tippeModelList;
         }
-        List<TippeModel> GetTippeModels(KeyValuePair<string, JToken?> keyValuePair)
+
+        private List<kampModel> HentVmResultat()
         {
+            var kampModels = new List<kampModel>();
+            var year = "2022";
+            var apiTournamentModel = new ApiCall().DoApiCall("https://api.nifs.no/tournaments/56/stages/");
+            var apiTournamentReponse = apiTournamentModel.Response;
+            ApiCall.CheckIfSuccess(apiTournamentReponse);
+
+            
+            var jsonSerialized = new jsonConvertAndIteration().JsonSerialize(apiTournamentModel.StringResponse);
+            var vmStages = JToken.Parse(jsonSerialized);
+
+            foreach (var stage in vmStages)
+            {
+                if ((int)stage.SelectToken("yearStart") != int.Parse(year)) continue;
+                var model = new TournamentModel()
+                {
+                    groupName = (string)stage.SelectToken("groupName"),
+                    yearStart = (int)stage.SelectToken("yearStart"),
+                    id = (int)stage.SelectToken("id")
+                };
+                //Gets all matches for all the groups through api call
+                var TournamentMatches = new ApiCall().DoApiCall($"https://api.nifs.no/stages/{model.id}/matches/");
+                List<kampModel> kampModelsList = jsonConvertAndIteration.JsonIteration(TournamentMatches.StringResponse);
+                kampModels.AddRange(kampModelsList);
+                
+            }
+            return kampModels;
+        }
+
+        //List<TournamentModel> GetUserData()
+        //{
+        //    var filePath = "c:\\home\\json\\correctJsonFolder\\";
+        //    DirectoryInfo di = new DirectoryInfo(filePath);
+        //    FileInfo[] fileInfos = di.GetFiles();
+        //    var tournamentModelList = new List<TournamentModel>();
+
+        //    foreach (var file in fileInfos)
+        //    {
+        //        //Debug.WriteLine($"----{file.Name}----");
+        //        //System.Text.Encoding.Default gives me ÆØÅ - good
+        //        using StreamReader r = new StreamReader(file.FullName, System.Text.Encoding.Default);
+        //        string json = r.ReadToEnd();
+
+        //        var deserialized = JObject.Parse(json);
+
+        //        foreach (var keyValuePair in deserialized)
+        //        {
+        //            //Debug.WriteLine(keyValuePair.Key);
+        //            //Debug.WriteLine(keyValuePair.Value);
+        //            //var listTippeModels = GetTippeModels(keyValuePair);
+        //            //tournamentModelList.Add(new TournamentModel()
+        //            //{
+        //            //    TippeModels = listTippeModels,
+        //            //    groupName = keyValuePair.Key,
+        //            //    userName = file.Name
+        //            //});
+        //        }
+        //    }
+        //    return tournamentModelList;
+        //}
+        List<TippeModel> GetTippeModels(KeyValuePair<string, JToken?> keyValuePair, string fileName)
+        {
+            fileName = fileName.Substring(10);
+            fileName = fileName.Substring(0, fileName.Length - 5);
             var tippeModelList = new List<TippeModel>();
             if (keyValuePair.Value != null)
             {
@@ -105,44 +169,48 @@ namespace vm22MVC.Controllers
             foreach (var jToken in keyValuePair.Value)
             {
                 var deserializedTippeModel = JsonSerializer.Deserialize<TippeModel>(jToken.ToString());
-                if (deserializedTippeModel != null) tippeModelList.Add(deserializedTippeModel);
+                if (deserializedTippeModel != null)
+                {
+                    deserializedTippeModel.userName = fileName;
+                    tippeModelList.Add(deserializedTippeModel);
+                }
             }
 
             return tippeModelList;
         }
         //Forstår ikkje heilt kva dette _callService er
         private readonly IDoApiCallService _callService = new DoApiCallService();
-        List<TournamentModel> GetVmResultater()
-        {
-            var year = "2022";
-            var apiTournamentModel = new ApiCall().DoApiCall("https://api.nifs.no/tournaments/56/stages/");
-            var apiTournamentReponse = apiTournamentModel.Response;
-            ApiCall.CheckIfSuccess(apiTournamentReponse);
+        //List<TournamentModel> GetVmResultater()
+        //{
+        //    var year = "2022";
+        //    var apiTournamentModel = new ApiCall().DoApiCall("https://api.nifs.no/tournaments/56/stages/");
+        //    var apiTournamentReponse = apiTournamentModel.Response;
+        //    ApiCall.CheckIfSuccess(apiTournamentReponse);
 
-            var listModel = new List<TournamentModel>();
-            var jsonSerialized = new jsonConvertAndIteration().JsonSerialize(apiTournamentModel.StringResponse);
-            var jToken = JToken.Parse(jsonSerialized);
+        //    var listModel = new List<TournamentModel>();
+        //    var jsonSerialized = new jsonConvertAndIteration().JsonSerialize(apiTournamentModel.StringResponse);
+        //    var jToken = JToken.Parse(jsonSerialized);
 
-            foreach (var item in jToken)
-            {
-                if ((int)item.SelectToken("yearStart") != int.Parse(year)) continue;
-                var model = new TournamentModel()
-                {
-                    groupName = (string)item.SelectToken("groupName"),
-                    yearStart = (int)item.SelectToken("yearStart"),
-                    id = (int)item.SelectToken("id")
-                };
-                //Gets all matches for all the groups through api call
-                var TournamentMatches = new ApiCall().DoApiCall($"https://api.nifs.no/stages/{model.id}/matches/");
-                List<kampModel> kampModelsList = jsonConvertAndIteration.JsonIteration(TournamentMatches.StringResponse);
+        //    foreach (var item in jToken)
+        //    {
+        //        if ((int)item.SelectToken("yearStart") != int.Parse(year)) continue;
+        //        var model = new TournamentModel()
+        //        {
+        //            groupName = (string)item.SelectToken("groupName"),
+        //            yearStart = (int)item.SelectToken("yearStart"),
+        //            id = (int)item.SelectToken("id")
+        //        };
+        //        //Gets all matches for all the groups through api call
+        //        var TournamentMatches = new ApiCall().DoApiCall($"https://api.nifs.no/stages/{model.id}/matches/");
+        //        List<kampModel> kampModelsList = jsonConvertAndIteration.JsonIteration(TournamentMatches.StringResponse);
 
-                model.kampModels = kampModelsList;
+        //        model.kampModels = kampModelsList;
 
-                listModel.Add(model);
-            }
+        //        listModel.Add(model);
+        //    }
 
-            //Using Linq here with input fra drop down list in the index.cshtml:
-            return listModel;
-        }
+        //    //Using Linq here with input fra drop down list in the index.cshtml:
+        //    return listModel;
+        //}
     }
 }

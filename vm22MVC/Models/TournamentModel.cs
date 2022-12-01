@@ -16,5 +16,11 @@ namespace vm22MVC.Models
         public string year { get; set; }
         public string userName { get; set; }
         public int PoengSum { get; set; }
+
+
+        public int CalculateScoreByUserName(string username)
+        {
+            return TippeModels.Where(t => t.userName == username).Sum(s => s.Score);
+        }
     }
 }

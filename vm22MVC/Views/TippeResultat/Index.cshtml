@@ -33,6 +33,7 @@
             </td></tr>
         @foreach (var tippeModel in tournament.TippeModels)
         {
+            @*tippeModel.UpdateScore();*@
             var guid = Guid.NewGuid();
             <tr>
                 <td id="Home_@guid">
