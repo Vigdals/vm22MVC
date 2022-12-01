@@ -9,15 +9,24 @@
     <p></p>
     <form action="/login" method="post">
         <div class="text-center">
-            <label class="form-label">Kallenamn:</label>
-            <input type="text" size="20" name="userName" />
+            <label for="userName">Brukarnamn:</label>
+            <select name="userName" id="userName" for="userName">
+                <option value="BERNT">BERNT</option>
+                <option value="DALAHAUGEN">DALAHAUGEN</option>
+                <option value="FRODEK">FRODEK</option>
+                <option value="KAPTEIN HEMO">KAPTEIN HEMO</option>
+                <option value="LASSN">LASSN</option>
+                <option value="MAOLTEFT FC">MAOLTEFT FC</option>
+                <option value="TONE B">TONE B</option>
+                <option value="VIGDAL VED OG VEL">VIGDAL VED OG VEL</option>
+            </select>
         </div>
         <div style="display: none" class="text-center">
             <label class="form-label">Passord:</label>
             <input type="password" size="20" name="password" />
         </div>
         <p></p>
-        <div class="text-center">
+        <div style="display: none" class="text-center">
             <label for="bettingGroup">Velg gruppe:</label>
             <select name="bettingGroup" id="bettingGroup" for="bettingGroup">
                 <option value="Odds konk">Odds konk</option>
@@ -27,7 +36,7 @@
         <div class="text-center">
             @{
                 var now = DateTime.Now;
-                var tippingStartTid = new DateTime(2022, 11, 2, 22, 00, 00);
+                var tippingStartTid = new DateTime(2022, 12, 2, 22, 00, 00);
                 if (now > tippingStartTid)
                 {
                     <input type="submit" class="btn btn-primary" value="Logg inn!" />

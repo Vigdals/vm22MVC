@@ -74,14 +74,16 @@
             </tr>
         }
     </table>
-    @{
-        if (!string.IsNullOrWhiteSpace(@Model.groupName))
+@{
+    var now = DateTime.Now;
+    var tippingStartTid = new DateTime(2022, 12, 2, 22, 00, 00);
+    if (now > tippingStartTid)
         {
-            <input type="submit" value="Send tipping for @Model.groupName">
+             <input type="submit" value="Send tipping for @Model.groupName">
         }
-        else
+    else
         {
-            <input disabled="disabled" type="submit" value="Velg en gruppe for å sende inn">
+            <p>Ingen tipping før @tippingStartTid</p>
         }
-    }
+}
 </form>
