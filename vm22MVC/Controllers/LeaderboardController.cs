@@ -16,44 +16,40 @@ namespace vm22MVC.Controllers
         public IActionResult Index()
         {
             var turnering = new TournamentModel();
-            
             turnering.kampModels = HentVmResultat();
             turnering.TippeModels = HentTippeModels();
-            //var tournamentModelList = GetUserData();
-            //var resultatListe = GetVmResultater();
-            //tournamentModelList.AddRange(resultatListe);
-            //Just for logging
-
-            //Setting enum value (Home, Tie, Away) into the KampModel based on resultat. Standard value is "NotPlayed"
-
-                foreach (var kamp in turnering.kampModels)
-                {
-                    Debug.WriteLine($"{kamp.HomeTeam} mot {kamp.AwayTeam} vart {kamp.HomeScore}-{kamp.AwayScore}. nifsID: {kamp.nifsKampId}");
-                    //Hopper over kamper som ikkje er blitt spilt enda
-                    if (string.IsNullOrWhiteSpace(kamp.HomeScore)) continue;
-                    if (int.Parse(kamp.HomeScore) > int.Parse(kamp.AwayScore))
-                    {
-                        kamp.KampStatus = KampStatus.Home;
-                        Debug.WriteLine(kamp.KampStatus.ToString());
-                    }
-                    else if (int.Parse(kamp.HomeScore) == int.Parse(kamp.AwayScore))
-                    {
-                        kamp.KampStatus = KampStatus.Tie;
-                        Debug.WriteLine(kamp.KampStatus.ToString());
-                    }
-                    else
-                    {
-                        kamp.KampStatus = KampStatus.Away;
-                        Debug.WriteLine(kamp.KampStatus.ToString());
-                    }
-                }
-            
-            //Går i gjennom alle users in tournamentModelList og prøver hente ut KampStatus fra ResultatlisteModellen
-            foreach (var brukernamn in turnering.TippeModels.Select(t=>t.userName).Distinct())
+            //Populates the kampModels.kampstatus with home, away or tie. Also sets NotPlayed if match has not been played
+            foreach (var kamp in turnering.kampModels)
             {
-                foreach (var kamp in turnering.TippeModels.Where(t=>t.userName == brukernamn))
+                Debug.WriteLine(
+                    $"{kamp.HomeTeam} mot {kamp.AwayTeam} vart {kamp.HomeScore}-{kamp.AwayScore}. nifsID: {kamp.nifsKampId}");
+                //Hopper over kamper som ikkje er blitt spilt enda
+                if (string.IsNullOrWhiteSpace(kamp.HomeScore)) continue;
+                if (int.Parse(kamp.HomeScore) > int.Parse(kamp.AwayScore))
                 {
-                    Debug.WriteLine($"{brukernamn} tippa {kamp.Answer} i kampen: {kamp.HjemmeLag} mot {kamp.BorteLag}. nifsID: {kamp.nifsKampId}");
+                    kamp.KampStatus = KampStatus.Home;
+                    Debug.WriteLine(kamp.KampStatus.ToString());
+                }
+                else if (int.Parse(kamp.HomeScore) == int.Parse(kamp.AwayScore))
+                {
+                    kamp.KampStatus = KampStatus.Tie;
+                    Debug.WriteLine(kamp.KampStatus.ToString());
+                }
+                else
+                {
+                    kamp.KampStatus = KampStatus.Away;
+                    Debug.WriteLine(kamp.KampStatus.ToString());
+                }
+            }
+
+            var pointsOverViewList = new List<pointsOverView>();
+            //Iterates through each user in turneringModel and updates score on each match for each user
+            foreach (var brukernamn in turnering.TippeModels.Select(t => t.userName).Distinct())
+            {
+                foreach (var kamp in turnering.TippeModels.Where(t => t.userName == brukernamn))
+                {
+                    Debug.WriteLine(
+                        $"{brukernamn} tippa {kamp.Answer} i kampen: {kamp.HjemmeLag} mot {kamp.BorteLag}. nifsID: {kamp.nifsKampId}");
                     var currentNifsKampId = kamp.nifsKampId;
                     var kampResultat = turnering.kampModels.FirstOrDefault(x => x.nifsKampId == kamp.nifsKampId);
                     if (kampResultat != null)
@@ -61,18 +57,25 @@ namespace vm22MVC.Controllers
                         kamp.UpdateScore(kampResultat);
                     }
                 }
+                pointsOverViewList.Add(new pointsOverView{UserName = brukernamn, TotalScore = turnering.CalculateScoreByUserName(brukernamn)});
             }
-            
-            return View(turnering);
+
+            return View(pointsOverViewList);
         }
 
+        public class pointsOverView
+        {
+            public string UserName { get; set; }
+            public int TotalScore { get; set; }
+        }
+        
         private List<TippeModel> HentTippeModels()
         {
             var tippeModelList = new List<TippeModel>();
             var filePath = "c:\\home\\json\\correctJsonFolder\\";
             DirectoryInfo di = new DirectoryInfo(filePath);
             FileInfo[] fileInfos = di.GetFiles();
-            
+
 
             foreach (var file in fileInfos)
             {
@@ -91,6 +94,7 @@ namespace vm22MVC.Controllers
                     tippeModelList.AddRange(listTippeModels);
                 }
             }
+
             return tippeModelList;
         }
 
@@ -102,7 +106,7 @@ namespace vm22MVC.Controllers
             var apiTournamentReponse = apiTournamentModel.Response;
             ApiCall.CheckIfSuccess(apiTournamentReponse);
 
-            
+
             var jsonSerialized = new jsonConvertAndIteration().JsonSerialize(apiTournamentModel.StringResponse);
             var vmStages = JToken.Parse(jsonSerialized);
 
@@ -117,10 +121,11 @@ namespace vm22MVC.Controllers
                 };
                 //Gets all matches for all the groups through api call
                 var TournamentMatches = new ApiCall().DoApiCall($"https://api.nifs.no/stages/{model.id}/matches/");
-                List<kampModel> kampModelsList = jsonConvertAndIteration.JsonIteration(TournamentMatches.StringResponse);
+                List<kampModel> kampModelsList =
+                    jsonConvertAndIteration.JsonIteration(TournamentMatches.StringResponse);
                 kampModels.AddRange(kampModelsList);
-                
             }
+
             return kampModels;
         }
 
@@ -178,6 +183,7 @@ namespace vm22MVC.Controllers
 
             return tippeModelList;
         }
+
         //Forstår ikkje heilt kva dette _callService er
         private readonly IDoApiCallService _callService = new DoApiCallService();
         //List<TournamentModel> GetVmResultater()

@@ -8,7 +8,6 @@ namespace vm22MVC.Models
         public TippeModel() { }
 
         public int Id { get; set; }
-        [Required]
         public string Answer { get; set; }
         public string Gruppe { get; set; }
         public string HjemmeLag { get; set; }

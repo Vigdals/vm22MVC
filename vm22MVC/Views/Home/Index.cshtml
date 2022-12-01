@@ -7,12 +7,24 @@
 
 <div class="text-center">
     <h1 class="display-4">Tippekonk VM22</h1>
+    <h6>Tipping vil opne fredag 2.desember kl 22.00!</h6>
     <p></p>
     <form asp-action="Tippekonk">
         <p></p>
         <div class="text-center">
-            <input type="submit" class="btn btn-primary" value="Start tipping!"/>
-        </div>
+            @{
+                var now = DateTime.Now;
+                var tippingStartTid = new DateTime(2022, 11, 2, 22, 00, 00);
+                if (now > tippingStartTid)
+                {
+                    <input type="submit" class="btn btn-primary" value="Start tipping!" />
+                }
+                else
+                {
+                    <p></p>
+                }
+            }
+            </div>
     </form>
     <img src="~/images/logo.svg" height="300"/>
 </div>

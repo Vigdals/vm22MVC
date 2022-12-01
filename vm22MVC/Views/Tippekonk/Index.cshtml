@@ -5,7 +5,7 @@
 @using Newtonsoft.Json
 @model TournamentModel
 
-<form asp-action="Index">
+@*<form asp-action="Index">
     <label for="groupName">Velg gruppe</label>
     <select name="groupName" id="groupName">
         <option value="Sluttspill">Sluttspel</option>
@@ -13,10 +13,9 @@
     <input disabled="disabled" style="display: none" for="user" value="@Model.userName" />
     <input disabled="disabled" style="display: none" for="gruppe" value="@Model.groupName" />
     <br/><br/>
-    
     Sends the user back to the controller
     <input type="submit" value="Hent gruppe">
-</form>
+</form>*@
 
 <form asp-action="Submit" asp-for="tournamentModel" method="post">
     <table class="table" style="width:100%">        

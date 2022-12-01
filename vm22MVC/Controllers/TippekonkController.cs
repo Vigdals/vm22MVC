@@ -16,12 +16,10 @@ namespace vm22MVC.Controllers
     [Authorize]
     public class TippekonkController : Controller
     {
-
         public IActionResult Index(TournamentModel tournamentModel)
         {
-            var groupName = "Sluttspill";
             //if groupname is empty the rest of the code will not be excecuted - kul syntax
-            if (string.IsNullOrWhiteSpace(groupName)) return View(new TournamentModel() { kampModels = new List<kampModel>() });
+            //if (string.IsNullOrWhiteSpace(groupName)) return View(new TournamentModel() { kampModels = new List<kampModel>() });
             //gets tournament infomation. Important to get this because it gives us the ID for each group. From group A to H. 56 = world cup
             var apiTournamentModel = new ApiCall().DoApiCall("https://api.nifs.no/tournaments/56/stages/");
             var apiTournamentReponse = apiTournamentModel.Response;
@@ -63,10 +61,12 @@ namespace vm22MVC.Controllers
         public IActionResult Submit([FromForm] TournamentModel tournamentModel)
         {
             //Hugs å fikse dette litt funky med sluttspel når den tid kjem
-            string[] arrayGroup = { "Gruppe A", "Gruppe B", "Gruppe C", "Gruppe D", "Gruppe E", "Gruppe F", "Gruppe G", "Gruppe H"};
+            string[] arrayGroup =
+                { "Gruppe A", "Gruppe B", "Gruppe C", "Gruppe D", "Gruppe E", "Gruppe F", "Gruppe G", "Gruppe H", "Sluttspill" };
             var username = new HttpContextAccessor().HttpContext?.User.Identity?.Name?.ToUpperInvariant();
             //using Linq
-            var bettingGroup = new HttpContextAccessor().HttpContext?.User.Claims.Where(x => x.Type == "Group").Select(x => x.Value).FirstOrDefault();
+            var bettingGroup = new HttpContextAccessor().HttpContext?.User.Claims.Where(x => x.Type == "Group")
+                .Select(x => x.Value).FirstOrDefault();
             var jsonResultAsString = string.Empty;
 
             for (var i = 0; i < tournamentModel.kampModels.Count; i++)
@@ -77,24 +77,19 @@ namespace vm22MVC.Controllers
                     {
                         "nifsKampId", tournamentModel.kampModels[i],
                         tournamentModel.TippeModels[i],
-
                     },
-
                 };
 
                 jsonResultAsString += jObject;
             }
 
             var jsonResult = JsonConvert.SerializeObject(jsonResultAsString);
-
-            //Vil legge data'en til ein SQL DB eller json her. .json fil er godt nok for no?
-
             Debug.WriteLine($"Username: {username}. BettingGroup: {bettingGroup}. Json:\n{jsonResult}");
-
+            //DOES NOT WORK PROPERLY
             var filename = $"c:\\home\\json\\{bettingGroup}_{username}.json";
 
             System.IO.File.AppendAllText(filename, jsonResult);
-            
+
             //Gets the group name of the current form and redirects to the index with the group name as a parameter
 
             var currentGroup = tournamentModel.TippeModels.FirstOrDefault()?.Gruppe;
@@ -103,16 +98,16 @@ namespace vm22MVC.Controllers
 
             var index = Array.FindIndex(arrayGroup, row => row.Contains(currentGroup));
 
-            if (index == arrayGroup.Length-1) return RedirectToAction("FinishedTipping", "Tippekonk", tournamentModel);
+            if (index == arrayGroup.Length - 1)
+                return RedirectToAction("FinishedTipping", "Tippekonk", tournamentModel);
 
-            var changeToGroup = arrayGroup[index+1];
+            var changeToGroup = arrayGroup[index + 1];
 
             return RedirectToAction("Index", new { groupName = changeToGroup });
         }
 
         public IActionResult FinishedTipping(TournamentModel tournamentModel)
         {
-            
             return View(tournamentModel);
         }
     }

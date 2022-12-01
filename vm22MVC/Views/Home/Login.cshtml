@@ -5,7 +5,7 @@
 @using getAPIstuff.Models
 
 <div class="text-center">
-    <h3 class="display-4">Tipping vil opne fredag 2.desember!</h3>
+    <h5 class="display-8">Tipping vil opne fredag 2.desember kl 22.00!</h5>
     <p></p>
     <form action="/login" method="post">
         <div class="text-center">
@@ -27,14 +27,14 @@
         <div class="text-center">
             @{
                 var now = DateTime.Now;
-                var tippingStartTid = new DateTime(2022, 12, 2, 22, 00, 00);
+                var tippingStartTid = new DateTime(2022, 11, 2, 22, 00, 00);
                 if (now > tippingStartTid)
                 {
                     <input type="submit" class="btn btn-primary" value="Logg inn!" />
                 }
                 else
                 {
-                    <p>Tipping ikkje mogeleg før @tippingStartTid</p>
+                    <p></p>
                 }
             }
         </div>
