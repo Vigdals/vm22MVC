@@ -65,33 +65,22 @@ namespace vm22MVC.Controllers
             string[] arrayGroup =
                 { "Gruppe A", "Gruppe B", "Gruppe C", "Gruppe D", "Gruppe E", "Gruppe F", "Gruppe G", "Gruppe H", "Sluttspill" };
             var username = new HttpContextAccessor().HttpContext?.User.Identity?.Name?.ToUpperInvariant();
-            //using Linq
             var bettingGroup = new HttpContextAccessor().HttpContext?.User.Claims.Where(x => x.Type == "Group")
                 .Select(x => x.Value).FirstOrDefault();
-            //for (var i = 0; i < tournamentModel.TippeModels.Count; i++)
-            //{
-            //    var jObject = new JObject()
-            //    {
-            //        tournamentModel.TippeModels[i].Gruppe, new JObject()
-            //        {
-            //            "nifsKampId",
-            //            tournamentModel.kampModels[i],
-            //            tournamentModel.TippeModels[i],
-            //        },
-            //    };
 
-            //    jsonResultAsString += jObject;
-            //}
-            //move nifsID from tournamentModel.KampModels into tournamentmodel.Tippemodels and add username/betting group 
-            var jsonResult = JsonConvert.SerializeObject(tournamentModel.TippeModels);
-            Debug.WriteLine($"Username: {username}. BettingGroup: {bettingGroup}. Json:\n{jsonResult}");
-            
+            //move nifsID from tournamentModel.KampModels into tournamentmodel.Tippemodels and adding username
+            for (int i = 0; i < tournamentModel.TippeModels.Count; i++)
+            {
+                tournamentModel.TippeModels[i].nifsKampId = tournamentModel.kampModels[i].nifsKampId;
+                tournamentModel.TippeModels[i].userName = username;
+            }
+            //put tippemodel into json format
+            var jsonResult = JsonConvert.SerializeObject(tournamentModel.TippeModels);          
             var filename = $"c:\\home\\json\\sluttspel\\{bettingGroup}_{username}.json";
 
             System.IO.File.AppendAllText(filename, jsonResult);
 
             //Gets the group name of the current form and redirects to the index with the group name as a parameter
-
             var currentGroup = tournamentModel.TippeModels.FirstOrDefault()?.Gruppe;
 
             //var index = arrayGroup.IndexOf(arrayGroup, currentGroup);
