@@ -51,6 +51,10 @@ namespace vm22MVC.Controllers
             //Using Linq here with input fra drop down list in the index.cshtml:
             //return View(listModel.First(x => x.groupName == groupName));
 
+            //tournamentModel = string.IsNullOrWhiteSpace(tournamentModel.groupName)
+            //    ? listModel.First()
+            //    : listModel.First(x => x.groupName.Equals(tournamentModel.groupName));
+            tournamentModel.groupName = "Sluttspill";
             tournamentModel = string.IsNullOrWhiteSpace(tournamentModel.groupName)
                 ? listModel.First()
                 : listModel.First(x => x.groupName.Equals(tournamentModel.groupName));
@@ -68,14 +72,15 @@ namespace vm22MVC.Controllers
             var bettingGroup = new HttpContextAccessor().HttpContext?.User.Claims.Where(x => x.Type == "Group")
                 .Select(x => x.Value).FirstOrDefault();
             var jsonResultAsString = string.Empty;
-
+            //DOES NOT WORK PROPERLY. JSON BECOMES WRONG
             for (var i = 0; i < tournamentModel.kampModels.Count; i++)
             {
                 var jObject = new JObject()
                 {
                     tournamentModel.TippeModels[i].Gruppe, new JObject()
                     {
-                        "nifsKampId", tournamentModel.kampModels[i],
+                        "nifsKampId", 
+                        tournamentModel.kampModels[i],
                         tournamentModel.TippeModels[i],
                     },
                 };
@@ -85,7 +90,7 @@ namespace vm22MVC.Controllers
 
             var jsonResult = JsonConvert.SerializeObject(jsonResultAsString);
             Debug.WriteLine($"Username: {username}. BettingGroup: {bettingGroup}. Json:\n{jsonResult}");
-            //DOES NOT WORK PROPERLY
+            //DOES NOT WORK PROPERLY. JSON BECOMES WRONG
             var filename = $"c:\\home\\json\\{bettingGroup}_{username}.json";
 
             System.IO.File.AppendAllText(filename, jsonResult);

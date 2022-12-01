@@ -23,7 +23,7 @@
             <th style="width:20%">
                 Tid
             </th>
-            <th style="width:15%">
+            <th style="width: 15%;text-align: right">
                 Heimelag
             </th>
             <th>
@@ -45,20 +45,21 @@
                 <td>
                     @Html.DisplayFor(modelItem => Model.kampModels[index].TimeStamp)
                 </td>
-                <td>
+                <td style="text-align: right">
                     @Html.DisplayFor(modelItem => Model.kampModels[index].HomeTeam)
-                    <img class="smallImage" src="@Model.kampModels[index].HomeTeamLogo" width="24" height="24" alt="@Html.DisplayFor(modelItem => Model.kampModels[index].HomeTeam).ToString()" />
+                    <img class="smallImage" src="@Model.kampModels[index].HomeTeamLogo" width="24" height="24"/>
                 </td>
-                <td required>
-                    @Html.RadioButtonFor(model => Model.TippeModels[index].Answer, "Home", new {@required = "True"})
+                @*Skal ha radiobuttonGROUP her*@
+                <td>
+                    @Html.RadioButtonFor(model => Model.TippeModels[index].Answer, "Home")
                 </td>
-                <td required>
+                <td>
                     @Html.RadioButtonFor(model => Model.TippeModels[index].Answer, "Tie", new {@required = "True"})
                 </td>
                 <td>
-                    @Html.RadioButtonFor(model => Model.TippeModels[index].Answer, "Away", new {@required = "True"})
+                    @Html.RadioButtonFor(model => Model.TippeModels[index].Answer, "Away")
                 </td>
-                <td>
+                <td style="text-align: left">
                     <img class="teamImage" src="@Model.kampModels[index].AwayTeamLogo" width="24" height="24" />
                     @Html.DisplayFor(modelItem => Model.kampModels[index].AwayTeam)
                 </td>
