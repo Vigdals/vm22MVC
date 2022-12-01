@@ -68,27 +68,25 @@ namespace vm22MVC.Controllers
             //using Linq
             var bettingGroup = new HttpContextAccessor().HttpContext?.User.Claims.Where(x => x.Type == "Group")
                 .Select(x => x.Value).FirstOrDefault();
-            var jsonResultAsString = string.Empty;
-            //DOES NOT WORK PROPERLY. JSON BECOMES WRONG
-            for (var i = 0; i < tournamentModel.kampModels.Count; i++)
-            {
-                var jObject = new JObject()
-                {
-                    tournamentModel.TippeModels[i].Gruppe, new JObject()
-                    {
-                        "nifsKampId", 
-                        tournamentModel.kampModels[i],
-                        tournamentModel.TippeModels[i],
-                    },
-                };
+            //for (var i = 0; i < tournamentModel.TippeModels.Count; i++)
+            //{
+            //    var jObject = new JObject()
+            //    {
+            //        tournamentModel.TippeModels[i].Gruppe, new JObject()
+            //        {
+            //            "nifsKampId",
+            //            tournamentModel.kampModels[i],
+            //            tournamentModel.TippeModels[i],
+            //        },
+            //    };
 
-                jsonResultAsString += jObject;
-            }
-
-            var jsonResult = JsonConvert.SerializeObject(jsonResultAsString);
+            //    jsonResultAsString += jObject;
+            //}
+            //move nifsID from tournamentModel.KampModels into tournamentmodel.Tippemodels and add username/betting group 
+            var jsonResult = JsonConvert.SerializeObject(tournamentModel.TippeModels);
             Debug.WriteLine($"Username: {username}. BettingGroup: {bettingGroup}. Json:\n{jsonResult}");
-            //DOES NOT WORK PROPERLY. JSON BECOMES WRONG
-            var filename = $"c:\\home\\json\\{bettingGroup}_{username}.json";
+            
+            var filename = $"c:\\home\\json\\sluttspel\\{bettingGroup}_{username}.json";
 
             System.IO.File.AppendAllText(filename, jsonResult);
 
