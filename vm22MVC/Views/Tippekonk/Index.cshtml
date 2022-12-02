@@ -76,14 +76,14 @@
     </table>
 @{
     var now = DateTime.Now;
-    var tippingStartTid = new DateTime(2022, 12, 2, 22, 00, 00);
-    if (now > tippingStartTid)
+    var tippingStartTid = new DateTime(2022, 12, 3, 15, 00, 00);
+    if (now < tippingStartTid)
         {
              <input type="submit" value="Send tipping for @Model.groupName">
         }
     else
         {
-            <p>Ingen tipping før @tippingStartTid</p>
+            <p>Tipping er stengt!</p>
         }
 }
 </form>
