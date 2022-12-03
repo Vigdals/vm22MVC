@@ -350,5 +350,87 @@
             "HjemmeLag": "Sør-Korea",
             "BorteLag": "Portugal"
         }
+    ],
+    "Sluttspill": [
+        {
+            "Id": 0,
+            "Answer": "Away",
+            "Gruppe": "Sluttspill",
+            "HjemmeLag": "Nederland",
+            "BorteLag": "USA",
+            "nifsKampId": 1813504,
+            "userName": "TONE B",
+            "Score": 0
+        },
+        {
+            "Id": 0,
+            "Answer": "Home",
+            "Gruppe": "Sluttspill",
+            "HjemmeLag": "Argentina",
+            "BorteLag": "Australia",
+            "nifsKampId": 1813505,
+            "userName": "TONE B",
+            "Score": 0
+        },
+        {
+            "Id": 0,
+            "Answer": "Home",
+            "Gruppe": "Sluttspill",
+            "HjemmeLag": "Frankrike",
+            "BorteLag": "Polen",
+            "nifsKampId": 1813507,
+            "userName": "TONE B",
+            "Score": 0
+        },
+        {
+            "Id": 0,
+            "Answer": "Away",
+            "Gruppe": "Sluttspill",
+            "HjemmeLag": "England",
+            "BorteLag": "Senegal",
+            "nifsKampId": 1813506,
+            "userName": "TONE B",
+            "Score": 0
+        },
+        {
+            "Id": 0,
+            "Answer": "Home",
+            "Gruppe": "Sluttspill",
+            "HjemmeLag": "Japan",
+            "BorteLag": "Kroatia",
+            "nifsKampId": 1813509,
+            "userName": "TONE B",
+            "Score": 0
+        },
+        {
+            "Id": 0,
+            "Answer": "Home",
+            "Gruppe": "Sluttspill",
+            "HjemmeLag": "Brasil",
+            "BorteLag": "Sør-Korea",
+            "nifsKampId": 1813508,
+            "userName": "TONE B",
+            "Score": 0
+        },
+        {
+            "Id": 0,
+            "Answer": "Away",
+            "Gruppe": "Sluttspill",
+            "HjemmeLag": "Marokko",
+            "BorteLag": "Spania",
+            "nifsKampId": 1813510,
+            "userName": "TONE B",
+            "Score": 0
+        },
+        {
+            "Id": 0,
+            "Answer": "Tie",
+            "Gruppe": "Sluttspill",
+            "HjemmeLag": "Portugal",
+            "BorteLag": "Sveits",
+            "nifsKampId": 1813511,
+            "userName": "TONE B",
+            "Score": 0
+        }
     ]
 }

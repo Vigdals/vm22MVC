@@ -350,5 +350,87 @@
             "HjemmeLag": "Sør-Korea",
             "BorteLag": "Portugal"
         }
+    ],
+    "Sluttspill": [
+        {
+            "Id": 0,
+            "Answer": "Home",
+            "Gruppe": "Sluttspill",
+            "HjemmeLag": "Nederland",
+            "BorteLag": "USA",
+            "nifsKampId": 1813504,
+            "userName": "KAPTEIN HEMO",
+            "Score": 0
+        },
+        {
+            "Id": 0,
+            "Answer": "Home",
+            "Gruppe": "Sluttspill",
+            "HjemmeLag": "Argentina",
+            "BorteLag": "Australia",
+            "nifsKampId": 1813505,
+            "userName": "KAPTEIN HEMO",
+            "Score": 0
+        },
+        {
+            "Id": 0,
+            "Answer": "Home",
+            "Gruppe": "Sluttspill",
+            "HjemmeLag": "Frankrike",
+            "BorteLag": "Polen",
+            "nifsKampId": 1813507,
+            "userName": "KAPTEIN HEMO",
+            "Score": 0
+        },
+        {
+            "Id": 0,
+            "Answer": "Home",
+            "Gruppe": "Sluttspill",
+            "HjemmeLag": "England",
+            "BorteLag": "Senegal",
+            "nifsKampId": 1813506,
+            "userName": "KAPTEIN HEMO",
+            "Score": 0
+        },
+        {
+            "Id": 0,
+            "Answer": "Tie",
+            "Gruppe": "Sluttspill",
+            "HjemmeLag": "Japan",
+            "BorteLag": "Kroatia",
+            "nifsKampId": 1813509,
+            "userName": "KAPTEIN HEMO",
+            "Score": 0
+        },
+        {
+            "Id": 0,
+            "Answer": "Home",
+            "Gruppe": "Sluttspill",
+            "HjemmeLag": "Brasil",
+            "BorteLag": "Sør-Korea",
+            "nifsKampId": 1813508,
+            "userName": "KAPTEIN HEMO",
+            "Score": 0
+        },
+        {
+            "Id": 0,
+            "Answer": "Away",
+            "Gruppe": "Sluttspill",
+            "HjemmeLag": "Marokko",
+            "BorteLag": "Spania",
+            "nifsKampId": 1813510,
+            "userName": "KAPTEIN HEMO",
+            "Score": 0
+        },
+        {
+            "Id": 0,
+            "Answer": "Home",
+            "Gruppe": "Sluttspill",
+            "HjemmeLag": "Portugal",
+            "BorteLag": "Sveits",
+            "nifsKampId": 1813511,
+            "userName": "KAPTEIN HEMO",
+            "Score": 0
+        }
     ]
 }
