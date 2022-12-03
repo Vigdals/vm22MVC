@@ -5,9 +5,32 @@
 
 @{foreach (var user in Model.OrderByDescending(t => t.TotalScore))
   {
-      <p><text>@user.UserName - @user.TotalScore</text></p>
-  }
+        <text>@user.UserName - @user.TotalScore</text>
+        if (user.UserName == "BERNT")
+        {
+            <text> - <b>Toppscorar:</b> Neymar <b>Assist:</b> Kevin de Bryne <b>Beste spelar:</b> Neymar <p></p></text>
+        }if (user.UserName == "KAPTEIN HEMO")
+        {
+            <text> - <b>Toppscorar:</b> Embappe <b>Assist:</b> Messi <b>Beste spelar:</b> Neymar <p></p></text>
+        }if (user.UserName == "DALAHAUGEN")
+        {
+            <text> - <b>Toppscorar:</b> Messi <b>Assist:</b> Bruno Fernandes <b>Beste spelar:</b> Messi <p></p></text>
+        }if (user.UserName == "TONE B")
+        {
+            <text> - <b>Toppscorar:</b> Neymar <b>Assist:</b> Embappe <b>Beste spelar:</b> Neymar <p></p></text>
+        }if (user.UserName == "LASSN")
+        {
+            <text> - <b>Toppscorar:</b> Harry Kane <b>Assist:</b> Kevin de Bryne <b>Beste spelar:</b> Alison Becker <p></p></text>
+        }if (user.UserName == "MAOLTEFT FC")
+        {
+            <text> - <b>Toppscorar:</b> Neymar <b>Assist:</b> de Bryne <b>Beste spelar:</b> Neymar <p></p></text>
+        }if (user.UserName == "VIGDAL VED OG VEL")
+        {
+            <text> - <b>Toppscorar:</b> Messi <b>Assist:</b> Messi <b>Beste spelar:</b> Messi <p></p></text>
+        }if (user.UserName == "FRODEK")
+        {
+           <text> - <b>Toppscorar:</b> Messi <b>Assist:</b> Kevin de Bryne <b>Beste spelar:</b> Messi <p></p></text>
+        }
+
+    }
 }
-
-
-@*Trying to sort the table before presenting it*@
