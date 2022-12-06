@@ -20,7 +20,7 @@
 
 @{
 var cultureInfo = new CultureInfo("en-US");
-string kampStartTidString = "12/09/2022 16:00:00";
+string kampStartTidString = "12/08/2022 00:00:00";
 var parsedStartTid = DateTime.Parse(kampStartTidString, cultureInfo);
 }
 
@@ -87,7 +87,7 @@ var parsedStartTid = DateTime.Parse(kampStartTidString, cultureInfo);
     </table>
 @{
     var now = DateTime.Now;
-    var tippingStartTid = new DateTime(2022, 12, 6, 21, 00, 00);
+    var tippingStartTid = new DateTime(2022, 12, 6, 22, 00, 00);
     if (now > tippingStartTid)
         {
              <input type="submit" value="Send tipping for @Model.groupName">
