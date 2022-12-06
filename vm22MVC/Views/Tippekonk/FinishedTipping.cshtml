@@ -4,5 +4,17 @@
 @{
 }
 @model TournamentModel
+
+
 <h1>Gratulerer! Du har tippa ferdig!</h1>
 <p>Det du har tippa skal komme opp her. Etterkvart...</p>
+
+@*@{
+    for (var index = 0; index < Model.TippeModels.Count; index++)
+    {
+        @Html.DisplayFor(modelItem => Model.TippeModels[index].HjemmeLag)
+        @Html.DisplayFor(modelItem => Model.TippeModels[index].BorteLag)
+        @Html.DisplayFor(modelItem => Model.TippeModels[index].Answer)
+    }
+
+}*@

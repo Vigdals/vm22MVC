@@ -83,6 +83,7 @@ namespace vm22MVC.Controllers
             //Gets the group name of the current form and redirects to the index with the group name as a parameter
             var currentGroup = tournamentModel.TippeModels.FirstOrDefault()?.Gruppe;
 
+
             //var index = arrayGroup.IndexOf(arrayGroup, currentGroup);
 
             var index = Array.FindIndex(arrayGroup, row => row.Contains(currentGroup));
@@ -97,7 +98,61 @@ namespace vm22MVC.Controllers
 
         public IActionResult FinishedTipping(TournamentModel tournamentModel)
         {
-            return View(tournamentModel);
+            //var username = new HttpContextAccessor().HttpContext?.User.Identity?.Name?.ToUpperInvariant();
+            //var bettingGroup = new HttpContextAccessor().HttpContext?.User.Claims.Where(x => x.Type == "Group")
+            //    .Select(x => x.Value).FirstOrDefault();
+            //var turnering = new TournamentModel();
+            //var filePath = $"c:\\home\\json\\sluttspel2\\{bettingGroup}_{username}.json";
+
+            //var tippeModelList = new List<TippeModel>();
+            //DirectoryInfo di = new DirectoryInfo(filePath);
+            //FileInfo[] fileInfos = di.GetFiles();
+
+
+            //foreach (var file in fileInfos)
+            //{
+            //    //Debug.WriteLine($"----{file.Name}----");
+            //    //System.Text.Encoding.Default gives me ÆØÅ - good
+            //    using StreamReader r = new StreamReader(file.FullName, System.Text.Encoding.Default);
+            //    string json = r.ReadToEnd();
+
+            //    var deserialized = JObject.Parse(json);
+
+            //    foreach (var keyValuePair in deserialized)
+            //    {
+            //        //Debug.WriteLine(keyValuePair.Key);
+            //        //Debug.WriteLine(keyValuePair.Value);
+            //        var listTippeModels = GetTippeModels(keyValuePair, file.Name);
+            //        tippeModelList.AddRange(listTippeModels);
+            //    }
+            //}
+            //turnering.TippeModels = tippeModelList;
+            //return View(turnering);
+            return View();
+        }
+
+        List<TippeModel> GetTippeModels(KeyValuePair<string, JToken?> keyValuePair, string fileName)
+        {
+            fileName = fileName.Substring(10);
+            fileName = fileName.Substring(0, fileName.Length - 5);
+            var tippeModelList = new List<TippeModel>();
+            if (keyValuePair.Value != null)
+            {
+                var keyValueList = keyValuePair.Value.ToList();
+            }
+            else return tippeModelList;
+
+            foreach (var jToken in keyValuePair.Value)
+            {
+                var deserializedTippeModel = System.Text.Json.JsonSerializer.Deserialize<TippeModel>(jToken.ToString());
+                if (deserializedTippeModel != null)
+                {
+                    deserializedTippeModel.userName = fileName;
+                    tippeModelList.Add(deserializedTippeModel);
+                }
+            }
+
+            return tippeModelList;
         }
     }
 }

@@ -55,6 +55,7 @@ var parsedStartTid = DateTime.Parse(kampStartTidString, cultureInfo);
             if (currentKampDato < parsedStartTid) continue;
             <tr>
                 <td>
+                    @index
                     @Html.DisplayFor(modelItem => Model.kampModels[index].TimeStamp)
                 </td>
                 <td style="text-align: right">
@@ -79,7 +80,7 @@ var parsedStartTid = DateTime.Parse(kampStartTidString, cultureInfo);
                 <td style="display: none">
                     <input type="text" value="@Model.kampModels[index].HomeTeam" asp-for="@Model.TippeModels[index].HjemmeLag" />
                     <input type="text" value="@Model.kampModels[index].AwayTeam" asp-for="@Model.TippeModels[index].BorteLag"/>
-                    <input type="text" value="@Model.groupName" asp-for="@Model.TippeModels[index].Gruppe"/>
+                    <input type="text" value="@Model.groupName" asp-for="@Model.TippeModels[index].Gruppe"/>                  
                     <input type="text" value="@Model.kampModels[index].nifsKampId" asp-for="@Model.kampModels[index].nifsKampId" />
                 </td>
             </tr>
@@ -87,14 +88,14 @@ var parsedStartTid = DateTime.Parse(kampStartTidString, cultureInfo);
     </table>
 @{
     var now = DateTime.Now;
-    var tippingStartTid = new DateTime(2022, 12, 6, 22, 00, 00);
+    var tippingStartTid = new DateTime(2022, 11, 7, 14, 00, 00);
     if (now > tippingStartTid)
         {
-             <input type="submit" value="Send tipping for @Model.groupName">
+                 <input type="submit" value="Send tipping for @Model.groupName">
         }
     else
         {
-            <p>Tipping er stengt!</p>
+                <p>Tipping er stengt!</p>
         }
 }
 </form>
