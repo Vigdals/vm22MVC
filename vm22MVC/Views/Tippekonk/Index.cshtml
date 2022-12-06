@@ -3,6 +3,7 @@
 @using getAPIstuff.Models
 @using Microsoft.Build.Framework
 @using Newtonsoft.Json
+@using System.Globalization;
 @model TournamentModel
 
 @*<form asp-action="Index">
@@ -16,6 +17,12 @@
     Sends the user back to the controller
     <input type="submit" value="Hent gruppe">
 </form>*@
+
+@{
+var cultureInfo = new CultureInfo("en-US");
+string kampStartTidString = "12/09/2022 16:00:00";
+var parsedStartTid = DateTime.Parse(kampStartTidString, cultureInfo);
+}
 
 <form asp-action="Submit" asp-for="tournamentModel" method="post">
     <table class="table" style="width:100%">        
@@ -41,7 +48,11 @@
         </tr>
         @for (var index = 0; index < Model.kampModels.Count; index++)
         {
+            //Skips match if the match has no icon. Meaning match not decided yet
             if (Model.kampModels[index].HomeTeamLogo == "No logo found" || Model.kampModels[index].AwayTeamLogo == "No logo found") continue;
+            //hardcoded in what matches to skip. Not ideal. Skipping matches that have allready been guessed on
+            var currentKampDato = DateTime.Parse(Model.kampModels[index].TimeStamp, cultureInfo);
+            if (currentKampDato < parsedStartTid) continue;
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => Model.kampModels[index].TimeStamp)
@@ -76,8 +87,8 @@
     </table>
 @{
     var now = DateTime.Now;
-    var tippingStartTid = new DateTime(2022, 12, 3, 15, 00, 00);
-    if (now < tippingStartTid)
+    var tippingStartTid = new DateTime(2022, 12, 6, 21, 00, 00);
+    if (now > tippingStartTid)
         {
              <input type="submit" value="Send tipping for @Model.groupName">
         }

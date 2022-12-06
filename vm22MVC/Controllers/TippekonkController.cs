@@ -76,7 +76,7 @@ namespace vm22MVC.Controllers
             }
             //put tippemodel into json format
             var jsonResult = JsonConvert.SerializeObject(tournamentModel.TippeModels);          
-            var filename = $"c:\\home\\json\\sluttspel\\{bettingGroup}_{username}.json";
+            var filename = $"c:\\home\\json\\sluttspel2\\{bettingGroup}_{username}.json";
 
             System.IO.File.AppendAllText(filename, jsonResult);
 
