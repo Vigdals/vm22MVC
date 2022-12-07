@@ -1,5 +1,7 @@
-﻿using getAPI;
+﻿using System.Diagnostics;
+using getAPI;
 using getAPIstuff.Api;
+using getAPIstuff.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -104,26 +106,15 @@ namespace vm22MVC.Controllers
             var turnering = new TournamentModel();
             var filePath = $"c:\\home\\json\\sluttspel2\\{bettingGroup}_{username}.json";
 
-            var tippeModelList = new List<TippeModel>();
-
-            //Debug.WriteLine($"----{file.Name}----");
             //System.Text.Encoding.Default gives me ÆØÅ - good
             using StreamReader r = new StreamReader(filePath, System.Text.Encoding.Default);
             string json = r.ReadToEnd();
 
-            var deserialized = JObject.Parse(json);
-
-            foreach (var keyValuePair in deserialized)
-            {
-                //Debug.WriteLine(keyValuePair.Key);
-                //Debug.WriteLine(keyValuePair.Value);
-                var listTippeModels = GetTippeModels(keyValuePair, filePath);
-                tippeModelList.AddRange(listTippeModels);
-            }
+            List<TippeModel> tippeModelList = JsonConvert.DeserializeObject<List<TippeModel>>(json);
 
             turnering.TippeModels = tippeModelList;
+            turnering.kampModels = HentVmResultat();
             return View(turnering);
-            //return View();
         }
 
         List<TippeModel> GetTippeModels(KeyValuePair<string, JToken?> keyValuePair, string fileName)
@@ -148,6 +139,36 @@ namespace vm22MVC.Controllers
             }
 
             return tippeModelList;
+        }
+        private List<kampModel> HentVmResultat()
+        {
+            var kampModels = new List<kampModel>();
+            var year = "2022";
+            var apiTournamentModel = new ApiCall().DoApiCall("https://api.nifs.no/tournaments/56/stages/");
+            var apiTournamentReponse = apiTournamentModel.Response;
+            ApiCall.CheckIfSuccess(apiTournamentReponse);
+
+
+            var jsonSerialized = new jsonConvertAndIteration().JsonSerialize(apiTournamentModel.StringResponse);
+            var vmStages = JToken.Parse(jsonSerialized);
+
+            foreach (var stage in vmStages)
+            {
+                if ((int)stage.SelectToken("yearStart") != int.Parse(year)) continue;
+                var model = new TournamentModel()
+                {
+                    groupName = (string)stage.SelectToken("groupName"),
+                    yearStart = (int)stage.SelectToken("yearStart"),
+                    id = (int)stage.SelectToken("id")
+                };
+                //Gets all matches for all the groups through api call
+                var TournamentMatches = new ApiCall().DoApiCall($"https://api.nifs.no/stages/{model.id}/matches/");
+                List<kampModel> kampModelsList =
+                    jsonConvertAndIteration.JsonIteration(TournamentMatches.StringResponse);
+                kampModels.AddRange(kampModelsList);
+            }
+
+            return kampModels;
         }
     }
 }
