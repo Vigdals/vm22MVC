@@ -2,13 +2,9 @@
 
 ## ToDo
 * Skikkeleg innlogging med passord
-* Oversikt over kva du har tippa når du loggar deg inn
-* Etterkvart som kampane blir spelt kjem det eit leaderboard!
-* Bedre tilbakemelding etter du har tippa siste gruppa!
 * E-mailfunksjon slik at du kan få e-post etter du har tippa!
-* Muligheit for å endre tippinga før fristen?
 * Bytt ut json.newtonsoft med ein undepricated package
-* Lag ikona til laga mykje mindre. For store atm
+* Optimalisering. API kalla er for store i forhold til kva som trengs
 * Koble tippinga til ein SQL istadenfor json?
 
 
