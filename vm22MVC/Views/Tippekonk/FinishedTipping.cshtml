@@ -1,64 +1,71 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model TournamentModel
 @{
+    var username = new HttpContextAccessor().HttpContext?.User.Identity?.Name?.ToUpperInvariant();
 }
-@model TournamentModel
 
-<p>Tipping lagra! <br/>Lurt å screenshotte dette</p>
-<table class="table" style="width: 100%">
-    <tr>
-        <th style="width: 20%">
-            Tid
-        </th>
-        <th style="width: 15%; text-align: right">
-            Heimelag
-        </th>
-        <th>
-            H
-        </th>
-        <th>
-            U
-        </th>
-        <th>
-            B
-        </th>
-        <th style="width: 15%">
-            Bortelag
-        </th>
-    </tr>
-    @for (var index = 0; index < Model.TippeModels.Count; index++)
+<div class="text-center">
+    <h3>Tipping for @username</h3>
+</div>
+@{
+    if (Model.TippeModels.Count == 0)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => Model.kampModels[index].TimeStamp)
-            </td>
-            <td style="text-align: right">
-                @Html.DisplayFor(modelItem => Model.kampModels[index].HomeTeam)
-                <img class="smallImage" src="@Model.kampModels[index].HomeTeamLogo" width="24" height="24" />
-            </td>
-            <td>
-                @if (@Model.TippeModels[index].Answer == "Home")
-                {
-                    <text>X</text>
-                }
-            </td>
-            <td>
-                @if (@Model.TippeModels[index].Answer == "Tie")
-                {
-                    <text>X</text>
-                }
-            </td>
-            <td>
-                @if (@Model.TippeModels[index].Answer == "Away")
-                {
-                    <text>X</text>
-                }
-            </td>
-            <td style="text-align: left">
-                <img class="teamImage" src="@Model.kampModels[index].AwayTeamLogo" width="24" height="24" />
-                @Html.DisplayFor(modelItem => Model.kampModels[index].AwayTeam)
-            </td>
-        </tr>
+        <text>Du har ikkje tippa endå!</text>
     }
-</table>
+    else
+    {
+        <table class="table" style="width: 100%">
+            <tr>
+                <th style="width: 15%; text-align: right">
+                    Heimelag
+                </th>
+                <th>
+                    H
+                </th>
+                <th>
+                    U
+                </th>
+                <th>
+                    B
+                </th>
+                <th style="width: 15%">
+                    Bortelag
+                </th>
+            </tr>
+            @for (var index = 0; index < Model.TippeModels.Count; index++)
+            {
+                var nifsKampId = Model.TippeModels[index].nifsKampId;
+                <tr>
+                    <td style="text-align: right">
+                        Tippemodels sin nifskampID: @nifsKampId <br/>
+                        @Html.DisplayFor(modelItem => Model.TippeModels[index].HjemmeLag)
+                        @Model.kampModels.Select(i => i.nifsKampId == nifsKampId).ToString()
+
+                    </td>
+                    <td>
+                        @if (@Model.TippeModels[index].Answer == "Home")
+                        {
+                            <text>X</text>
+                        }
+                    </td>
+                    <td>
+                        @if (@Model.TippeModels[index].Answer == "Tie")
+                        {
+                            <text>X</text>
+                        }
+                    </td>
+                    <td>
+                        @if (@Model.TippeModels[index].Answer == "Away")
+                        {
+                            <text>X</text>
+                        }
+                    </td>
+                    <td style="text-align: left">
+                        @Html.DisplayFor(modelItem => Model.TippeModels[index].BorteLag)
+                    </td>
+                </tr>
+            }
+        </table>
+
+        <p>*Lurt å screenshotte dette</p>
+    }
+}

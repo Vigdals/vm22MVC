@@ -79,8 +79,8 @@ namespace vm22MVC.Controllers
             //put tippemodel into json format
             var jsonResult = JsonConvert.SerializeObject(tournamentModel.TippeModels);
             var filename = $"c:\\home\\json\\sluttspel2\\{bettingGroup}_{username}.json";
-
-            System.IO.File.AppendAllText(filename, jsonResult);
+            
+            System.IO.File.WriteAllTextAsync(filename, jsonResult);
 
             //Gets the group name of the current form and redirects to the index with the group name as a parameter
             var currentGroup = tournamentModel.TippeModels.FirstOrDefault()?.Gruppe;
@@ -113,7 +113,9 @@ namespace vm22MVC.Controllers
             List<TippeModel> tippeModelList = JsonConvert.DeserializeObject<List<TippeModel>>(json);
 
             turnering.TippeModels = tippeModelList;
-            turnering.kampModels = HentVmResultat();
+
+            //Henter resultat for sluttspill. Lag ein type dictoinary her? I modellen? Enum?
+            turnering.kampModels = HentGruppeResultat("683910");
             return View(turnering);
         }
 
@@ -140,6 +142,18 @@ namespace vm22MVC.Controllers
 
             return tippeModelList;
         }
+
+        private List<kampModel> HentGruppeResultat(string sluttspillGruppeId)
+        {
+            var kampModels = new List<kampModel>();
+            //var sluttspillGruppeIdTest = "683902";
+            var TournamentMatches = new ApiCall().DoApiCall($"https://api.nifs.no/stages/{sluttspillGruppeId}/matches/");
+            List<kampModel> kampModelsList = jsonConvertAndIteration.JsonIteration(TournamentMatches.StringResponse);
+            kampModels.AddRange(kampModelsList);
+
+            return kampModels;
+        }
+
         private List<kampModel> HentVmResultat()
         {
             var kampModels = new List<kampModel>();
