@@ -14,8 +14,8 @@
         <div class="text-center">
             @{
                 var now = DateTime.Now;
-                var tippingStartTid = new DateTime(2022, 12, 7, 14, 00, 00);
-                if (now > tippingStartTid)
+                var tippingStartTid = new DateTime(2022, 12, 9, 14, 00, 00);
+                if (now < tippingStartTid)
                 {
                     <input type="submit" class="btn btn-primary" value="Start tipping!" />
                 }

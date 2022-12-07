@@ -1,11 +1,7 @@
-﻿using System.Diagnostics;
-using System.Text.Json;
-using getAPI;
+﻿using getAPI;
 using getAPIstuff.Api;
-using getAPIstuff.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using vm22MVC.Models;
@@ -55,7 +51,11 @@ namespace vm22MVC.Controllers
             tournamentModel = string.IsNullOrWhiteSpace(tournamentModel.groupName)
                 ? listModel.First()
                 : listModel.First(x => x.groupName.Equals(tournamentModel.groupName));
-
+            //Removes the matches that have already been played
+            tournamentModel.kampModels = tournamentModel.kampModels.Where(x => string.IsNullOrWhiteSpace(x.HomeScore)).ToList();
+            //Removes the matches that have NOT been played
+            tournamentModel.kampModels = tournamentModel.kampModels.Where(i => i.HomeTeamLogo != "No logo found").ToList();
+            tournamentModel.kampModels = tournamentModel.kampModels.Where(i => i.AwayTeamLogo != "No logo found").ToList();
             return View(tournamentModel);
         }
 
@@ -75,7 +75,7 @@ namespace vm22MVC.Controllers
                 tournamentModel.TippeModels[i].userName = username;
             }
             //put tippemodel into json format
-            var jsonResult = JsonConvert.SerializeObject(tournamentModel.TippeModels);          
+            var jsonResult = JsonConvert.SerializeObject(tournamentModel.TippeModels);
             var filename = $"c:\\home\\json\\sluttspel2\\{bettingGroup}_{username}.json";
 
             System.IO.File.AppendAllText(filename, jsonResult);
@@ -98,37 +98,32 @@ namespace vm22MVC.Controllers
 
         public IActionResult FinishedTipping(TournamentModel tournamentModel)
         {
-            //var username = new HttpContextAccessor().HttpContext?.User.Identity?.Name?.ToUpperInvariant();
-            //var bettingGroup = new HttpContextAccessor().HttpContext?.User.Claims.Where(x => x.Type == "Group")
-            //    .Select(x => x.Value).FirstOrDefault();
-            //var turnering = new TournamentModel();
-            //var filePath = $"c:\\home\\json\\sluttspel2\\{bettingGroup}_{username}.json";
+            var username = new HttpContextAccessor().HttpContext?.User.Identity?.Name?.ToUpperInvariant();
+            var bettingGroup = new HttpContextAccessor().HttpContext?.User.Claims.Where(x => x.Type == "Group")
+                .Select(x => x.Value).FirstOrDefault();
+            var turnering = new TournamentModel();
+            var filePath = $"c:\\home\\json\\sluttspel2\\{bettingGroup}_{username}.json";
 
-            //var tippeModelList = new List<TippeModel>();
-            //DirectoryInfo di = new DirectoryInfo(filePath);
-            //FileInfo[] fileInfos = di.GetFiles();
+            var tippeModelList = new List<TippeModel>();
 
+            //Debug.WriteLine($"----{file.Name}----");
+            //System.Text.Encoding.Default gives me ÆØÅ - good
+            using StreamReader r = new StreamReader(filePath, System.Text.Encoding.Default);
+            string json = r.ReadToEnd();
 
-            //foreach (var file in fileInfos)
-            //{
-            //    //Debug.WriteLine($"----{file.Name}----");
-            //    //System.Text.Encoding.Default gives me ÆØÅ - good
-            //    using StreamReader r = new StreamReader(file.FullName, System.Text.Encoding.Default);
-            //    string json = r.ReadToEnd();
+            var deserialized = JObject.Parse(json);
 
-            //    var deserialized = JObject.Parse(json);
+            foreach (var keyValuePair in deserialized)
+            {
+                //Debug.WriteLine(keyValuePair.Key);
+                //Debug.WriteLine(keyValuePair.Value);
+                var listTippeModels = GetTippeModels(keyValuePair, filePath);
+                tippeModelList.AddRange(listTippeModels);
+            }
 
-            //    foreach (var keyValuePair in deserialized)
-            //    {
-            //        //Debug.WriteLine(keyValuePair.Key);
-            //        //Debug.WriteLine(keyValuePair.Value);
-            //        var listTippeModels = GetTippeModels(keyValuePair, file.Name);
-            //        tippeModelList.AddRange(listTippeModels);
-            //    }
-            //}
-            //turnering.TippeModels = tippeModelList;
-            //return View(turnering);
-            return View();
+            turnering.TippeModels = tippeModelList;
+            return View(turnering);
+            //return View();
         }
 
         List<TippeModel> GetTippeModels(KeyValuePair<string, JToken?> keyValuePair, string fileName)
