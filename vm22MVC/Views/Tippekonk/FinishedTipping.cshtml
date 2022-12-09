@@ -7,9 +7,11 @@
     <h3>Tipping for @username</h3>
 </div>
 @{
-    if (Model.TippeModels.Count == 0)
+    var now = DateTime.Now;
+    var tippingStartTid = new DateTime(2022, 12, 9, 14, 00, 00);
+    if (now < tippingStartTid)
     {
-        <text>Du har ikkje tippa endå!</text>
+        <text>Tippinga di kjem her når fristen for tipping har gått ut</text>
     }
     else
     {
@@ -36,10 +38,8 @@
                 var nifsKampId = Model.TippeModels[index].nifsKampId;
                 <tr>
                     <td style="text-align: right">
-                        Tippemodels sin nifskampID: @nifsKampId <br/>
                         @Html.DisplayFor(modelItem => Model.TippeModels[index].HjemmeLag)
-                        @Model.kampModels.Select(i => i.nifsKampId == nifsKampId).ToString()
-
+                        <img class="smallImage" src="@Model.kampModels.Where(i => i.nifsKampId == nifsKampId).Select(x => x.HomeTeamLogo).FirstOrDefault()" width="24" height="24"/>
                     </td>
                     <td>
                         @if (@Model.TippeModels[index].Answer == "Home")
@@ -60,6 +60,7 @@
                         }
                     </td>
                     <td style="text-align: left">
+                        <img class="smallImage" src="@Model.kampModels.Where(i => i.nifsKampId == nifsKampId).Select(x => x.AwayTeamLogo).FirstOrDefault()" width="24" height="24"/>
                         @Html.DisplayFor(modelItem => Model.TippeModels[index].BorteLag)
                     </td>
                 </tr>

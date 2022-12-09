@@ -27,6 +27,9 @@
     </tr>*@
     @foreach (var tournament in Model)
     {
+        var gruppe = @tournament.TippeModels.FirstOrDefault()?.Gruppe;
+        //Just skipping group stages in view. Used in the end of the tippings
+        if (gruppe.StartsWith("Gruppe")) continue;
         <tr>
             <td colspan="3">
                 <h3>@tournament.TippeModels.FirstOrDefault()?.Gruppe</h3>

@@ -431,6 +431,46 @@
             "nifsKampId": 1813511,
             "userName": "DALAHAUGEN",
             "Score": 0
+        },
+        {
+            "Id": 0,
+            "Answer": "Away",
+            "Gruppe": "Sluttspill",
+            "HjemmeLag": "Kroatia",
+            "BorteLag": "Brasil",
+            "nifsKampId": 1813514,
+            "userName": "DALAHAUGEN",
+            "Score": 0
+        },
+        {
+            "Id": 0,
+            "Answer": "Tie",
+            "Gruppe": "Sluttspill",
+            "HjemmeLag": "Nederland",
+            "BorteLag": "Argentina",
+            "nifsKampId": 1813515,
+            "userName": "DALAHAUGEN",
+            "Score": 0
+        },
+        {
+            "Id": 0,
+            "Answer": "Away",
+            "Gruppe": "Sluttspill",
+            "HjemmeLag": "Marokko",
+            "BorteLag": "Portugal",
+            "nifsKampId": 1813516,
+            "userName": "DALAHAUGEN",
+            "Score": 0
+        },
+        {
+            "Id": 0,
+            "Answer": "Tie",
+            "Gruppe": "Sluttspill",
+            "HjemmeLag": "England",
+            "BorteLag": "Frankrike",
+            "nifsKampId": 1813517,
+            "userName": "DALAHAUGEN",
+            "Score": 0
         }
     ]
 }

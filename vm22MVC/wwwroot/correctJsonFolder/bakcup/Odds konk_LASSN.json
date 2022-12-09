@@ -2,21 +2,20 @@
     "Gruppe A": [
         {
             "nifsKampId": 1813502,
-            "Answer": "Home",
             "Gruppe": "Gruppe A",
             "HjemmeLag": "Qatar",
             "BorteLag": "Ecuador"
         },
         {
             "nifsKampId": 2107053,
-            "Answer": "Tie",
+            "Answer": "Away",
             "Gruppe": "Gruppe A",
             "HjemmeLag": "Senegal",
             "BorteLag": "Nederland"
         },
         {
             "nifsKampId": 2107121,
-            "Answer": "Away",
+            "Answer": "Tie",
             "Gruppe": "Gruppe A",
             "HjemmeLag": "Qatar",
             "BorteLag": "Senegal"
@@ -30,7 +29,7 @@
         },
         {
             "nifsKampId": 2107123,
-            "Answer": "Away",
+            "Answer": "Tie",
             "Gruppe": "Gruppe A",
             "HjemmeLag": "Ecuador",
             "BorteLag": "Senegal"
@@ -74,14 +73,14 @@
         },
         {
             "nifsKampId": 2107131,
-            "Answer": "Away",
+            "Answer": "Tie",
             "Gruppe": "Gruppe B",
             "HjemmeLag": "Iran",
             "BorteLag": "USA"
         },
         {
             "nifsKampId": 2107130,
-            "Answer": "Tie",
+            "Answer": "Away",
             "Gruppe": "Gruppe B",
             "HjemmeLag": "Wales",
             "BorteLag": "England"
@@ -97,7 +96,7 @@
         },
         {
             "nifsKampId": 2107133,
-            "Answer": "Home",
+            "Answer": "Tie",
             "Gruppe": "Gruppe C",
             "HjemmeLag": "Mexico",
             "BorteLag": "Polen"
@@ -111,14 +110,15 @@
         },
         {
             "nifsKampId": 2107135,
-            "Answer": "Tie",
+            "Answer": "Home",
             "Gruppe": "Gruppe C",
             "HjemmeLag": "Argentina",
             "BorteLag": "Mexico"
         },
         {
             "nifsKampId": 2107056,
-            "Answer": "Away",
+            "Id": 0,
+            "Answer": "Tie",
             "Gruppe": "Gruppe C",
             "HjemmeLag": "Polen",
             "BorteLag": "Argentina"
@@ -162,7 +162,7 @@
         },
         {
             "nifsKampId": 2107059,
-            "Answer": "Tie",
+            "Answer": "Away",
             "Gruppe": "Gruppe D",
             "HjemmeLag": "Australia",
             "BorteLag": "Danmark"
@@ -175,7 +175,7 @@
             "BorteLag": "Frankrike"
         }
     ],
-    "Gruppe E": [
+    "kampModels": [
         {
             "nifsKampId": 2107125,
             "Answer": "Home",
@@ -192,14 +192,14 @@
         },
         {
             "nifsKampId": 2107062,
-            "Answer": "Away",
+            "Answer": "Tie",
             "Gruppe": "Gruppe E",
             "HjemmeLag": "Japan",
             "BorteLag": "Costa Rica"
         },
         {
             "nifsKampId": 2107152,
-            "Answer": "Tie",
+            "Answer": "Away",
             "Gruppe": "Gruppe E",
             "HjemmeLag": "Spania",
             "BorteLag": "Tyskland"
@@ -266,7 +266,7 @@
     "Gruppe G": [
         {
             "nifsKampId": 2107126,
-            "Answer": "Tie",
+            "Answer": "Home",
             "Gruppe": "Gruppe G",
             "HjemmeLag": "Sveits",
             "BorteLag": "Kamerun"
@@ -280,7 +280,7 @@
         },
         {
             "nifsKampId": 2107144,
-            "Answer": "Away",
+            "Answer": "Home",
             "Gruppe": "Gruppe G",
             "HjemmeLag": "Kamerun",
             "BorteLag": "Serbia"
@@ -301,7 +301,7 @@
         },
         {
             "nifsKampId": 2107067,
-            "Answer": "Home",
+            "Answer": "Away",
             "Gruppe": "Gruppe G",
             "HjemmeLag": "Serbia",
             "BorteLag": "Sveits"
@@ -324,14 +324,14 @@
         },
         {
             "nifsKampId": 2107146,
-            "Answer": "Home",
+            "Answer": "Away",
             "Gruppe": "Gruppe H",
             "HjemmeLag": "Sør-Korea",
             "BorteLag": "Ghana"
         },
         {
             "nifsKampId": 2107147,
-            "Answer": "Tie",
+            "Answer": "Home",
             "Gruppe": "Gruppe H",
             "HjemmeLag": "Portugal",
             "BorteLag": "Uruguay"
@@ -359,7 +359,7 @@
             "HjemmeLag": "Nederland",
             "BorteLag": "USA",
             "nifsKampId": 1813504,
-            "userName": "FRODEK",
+            "userName": "LASSN",
             "Score": 0
         },
         {
@@ -369,27 +369,27 @@
             "HjemmeLag": "Argentina",
             "BorteLag": "Australia",
             "nifsKampId": 1813505,
-            "userName": "FRODEK",
-            "Score": 0
-        },
-        {
-            "Id": 0,
-            "Answer": "Home",
-            "Gruppe": "Sluttspill",
-            "HjemmeLag": "Frankrike",
-            "BorteLag": "Polen",
-            "nifsKampId": 1813507,
-            "userName": "FRODEK",
+            "userName": "LASSN",
             "Score": 0
         },
         {
             "Id": 0,
             "Answer": "Tie",
             "Gruppe": "Sluttspill",
+            "HjemmeLag": "Frankrike",
+            "BorteLag": "Polen",
+            "nifsKampId": 1813507,
+            "userName": "LASSN",
+            "Score": 0
+        },
+        {
+            "Id": 0,
+            "Answer": "Home",
+            "Gruppe": "Sluttspill",
             "HjemmeLag": "England",
             "BorteLag": "Senegal",
             "nifsKampId": 1813506,
-            "userName": "FRODEK",
+            "userName": "LASSN",
             "Score": 0
         },
         {
@@ -399,7 +399,7 @@
             "HjemmeLag": "Japan",
             "BorteLag": "Kroatia",
             "nifsKampId": 1813509,
-            "userName": "FRODEK",
+            "userName": "LASSN",
             "Score": 0
         },
         {
@@ -409,67 +409,27 @@
             "HjemmeLag": "Brasil",
             "BorteLag": "Sør-Korea",
             "nifsKampId": 1813508,
-            "userName": "FRODEK",
+            "userName": "LASSN",
             "Score": 0
         },
         {
             "Id": 0,
-            "Answer": "Tie",
+            "Answer": "Away",
             "Gruppe": "Sluttspill",
             "HjemmeLag": "Marokko",
             "BorteLag": "Spania",
             "nifsKampId": 1813510,
-            "userName": "FRODEK",
-            "Score": 0
-        },
-        {
-            "Id": 0,
-            "Answer": "Tie",
-            "Gruppe": "Sluttspill",
-            "HjemmeLag": "Portugal",
-            "BorteLag": "Sveits",
-            "nifsKampId": 1813511,
-            "userName": "FRODEK",
-            "Score": 0
-        },
-        {
-            "Id": 0,
-            "Answer": "Tie",
-            "Gruppe": "Sluttspill",
-            "HjemmeLag": "Kroatia",
-            "BorteLag": "Brasil",
-            "nifsKampId": 1813514,
-            "userName": "FRODEK",
+            "userName": "LASSN",
             "Score": 0
         },
         {
             "Id": 0,
             "Answer": "Home",
             "Gruppe": "Sluttspill",
-            "HjemmeLag": "Nederland",
-            "BorteLag": "Argentina",
-            "nifsKampId": 1813515,
-            "userName": "FRODEK",
-            "Score": 0
-        },
-        {
-            "Id": 0,
-            "Answer": "Tie",
-            "Gruppe": "Sluttspill",
-            "HjemmeLag": "Marokko",
-            "BorteLag": "Portugal",
-            "nifsKampId": 1813516,
-            "userName": "FRODEK",
-            "Score": 0
-        },
-        {
-            "Id": 0,
-            "Answer": "Tie",
-            "Gruppe": "Sluttspill",
-            "HjemmeLag": "England",
-            "BorteLag": "Frankrike",
-            "nifsKampId": 1813517,
-            "userName": "FRODEK",
+            "HjemmeLag": "Portugal",
+            "BorteLag": "Sveits",
+            "nifsKampId": 1813511,
+            "userName": "LASSN",
             "Score": 0
         }
     ]

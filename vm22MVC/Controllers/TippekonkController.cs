@@ -46,8 +46,6 @@ namespace vm22MVC.Controllers
                 listModel.Add(model);
             }
 
-            //Using Linq here with input fra drop down list in the index.cshtml:
-            //return View(listModel.First(x => x.groupName == groupName));
             //hardcoding in sluttspill, kinda wonky
             tournamentModel.groupName = "Sluttspill";
             tournamentModel = string.IsNullOrWhiteSpace(tournamentModel.groupName)
