@@ -5,8 +5,6 @@
 @using getAPIstuff.Models
 
 <div class="text-center">
-    <h5 class="display-8">Tipping!</h5>
-    <p></p>
     <form action="/login" method="post">
         <div class="text-center">
             <label for="userName">Brukarnamn:</label>
@@ -34,24 +32,12 @@
         </div>
         <p></p>
         <div class="text-center">
-            @{
-                var now = DateTime.Now;
-                var tippingStartTid = new DateTime(2023, 12, 9, 14, 00, 00);
-                if (now < tippingStartTid)
-                {
-                    <input type="submit" class="btn btn-primary" value="Logg inn" />
-                    <p></p>
-                    <h6>Tippinga stenger fredag 9.des kl 1500</h6>
-                }
-                else
-                {
-                    <p>Tipping er stengt</p>
-                }
-            }
+            <input type="submit" class="btn btn-primary" value="Logg inn" />
+            <p></p>
         </div>
     </form>
     <p></p>
-<img src="~/images/logo.svg" height="300"/>
+    <img src="https://upload.wikimedia.org/wikipedia/en/e/e3/2022_FIFA_World_Cup.svg" height="300" />
 </div>
 @*@Debug.WriteLine($"Brukernavn{TournamentModel.BrukerNavn} og gruppenamn er {TournamentModel.GruppeNavn}");*@
 

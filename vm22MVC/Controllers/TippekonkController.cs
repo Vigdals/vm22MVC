@@ -11,6 +11,7 @@ using vm22MVC.Models;
 
 namespace vm22MVC.Controllers
 {
+    //To reach this you need to me logged in! Thats neat
     [Authorize]
     public class TippekonkController : Controller
     {
@@ -76,7 +77,7 @@ namespace vm22MVC.Controllers
             }
             //put tippemodel into json format
             var jsonResult = JsonConvert.SerializeObject(tournamentModel.TippeModels);
-            var filename = $"c:\\home\\json\\sluttspel2\\{bettingGroup}_{username}.json";
+            var filename = $"c:\\home\\json\\sluttspel3\\{bettingGroup}_{username}.json";
             
             System.IO.File.WriteAllTextAsync(filename, jsonResult);
 
@@ -102,7 +103,7 @@ namespace vm22MVC.Controllers
             var bettingGroup = new HttpContextAccessor().HttpContext?.User.Claims.Where(x => x.Type == "Group")
                 .Select(x => x.Value).FirstOrDefault();
             var turnering = new TournamentModel();
-            var filePath = $"c:\\home\\json\\sluttspel2\\{bettingGroup}_{username}.json";
+            var filePath = $"c:\\home\\json\\sluttspel3\\{bettingGroup}_{username}.json";
 
             //System.Text.Encoding.Default gives me ÆØÅ - good
             using StreamReader r = new StreamReader(filePath, System.Text.Encoding.Default);
@@ -141,11 +142,11 @@ namespace vm22MVC.Controllers
             return tippeModelList;
         }
 
-        private List<kampModel> HentGruppeResultat(string sluttspillGruppeId)
+        private List<kampModel> HentGruppeResultat(string gruppeId)
         {
             var kampModels = new List<kampModel>();
             //var sluttspillGruppeIdTest = "683902";
-            var TournamentMatches = new ApiCall().DoApiCall($"https://api.nifs.no/stages/{sluttspillGruppeId}/matches/");
+            var TournamentMatches = new ApiCall().DoApiCall($"https://api.nifs.no/stages/{gruppeId}/matches/");
             List<kampModel> kampModelsList = jsonConvertAndIteration.JsonIteration(TournamentMatches.StringResponse);
             kampModels.AddRange(kampModelsList);
 
