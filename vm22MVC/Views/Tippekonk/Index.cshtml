@@ -1,10 +1,11 @@
-﻿@model TournamentModel
+﻿@using System.Globalization
+@model TournamentModel
 
 <form asp-action="Submit" asp-for="tournamentModel" method="post">
     <table class="table" style="width: 100%">
         <tr>
             <th style="width: 20%">
-                Tid
+                Titspunkt
             </th>
             <th style="width: 15%; text-align: right">
                 Heimelag
@@ -26,7 +27,12 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => Model.kampModels[index].TimeStamp)
+                    @{
+                        //var kampStartString = Html.DisplayFor(modelItem => Model.kampModels[index].TimeStamp);
+                        var kampStartString = Model.kampModels[index].TimeStamp;
+                        var kampStart = DateTime.ParseExact(kampStartString, "MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture);
+                    }
+                    @kampStart.ToString("f", new CultureInfo("nn-NO"))
                 </td>
                 <td style="text-align: right">
                     @Html.DisplayFor(modelItem => Model.kampModels[index].HomeTeam)
