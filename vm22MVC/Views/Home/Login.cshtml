@@ -1,6 +1,19 @@
 ﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
 
 <div class="text-center">
+    @{
+        //If the ViewBag "NotSelectedUser" is true. It displays a div showing a message to the user that
+        //they need so select a user to log in. This is done to avoid users going into the web browser and 
+        //changing the html markup to enable the button.
+        if (ViewBag.NotSelectedUser != null && ViewBag.NotSelectedUser == true)
+        {
+            <div style="width: 100%; display: flex; justify-content: center; align-items: center; padding: 1rem;">
+            <div style="background-color: #f0a8a8; background-color: hsl(0, 70%, 80%); width: 20rem; border-radius: 10px;">
+                    <p style="padding: 1rem; margin: 0;">Du må velje ein brukar fyrst!</p>
+                </div>
+            </div>
+        }
+    }
     <form action="/login" method="post">
         <div class="text-center">
             <label for="userName">Brukarnamn:</label>
@@ -18,9 +31,8 @@
         </div>
         <div style="display: none" class="text-center">
             <label class="form-label">Passord:</label>
-            <input type="password" size="20" name="password" />
+            <input type="password" size="20" name="password"/>
         </div>
-        <p></p>
         <div style="display: none" class="text-center">
             <label for="bettingGroup">Velg gruppe:</label>
             <select name="bettingGroup" id="bettingGroup" for="bettingGroup">
@@ -29,32 +41,30 @@
         </div>
         <p></p>
         <div class="text-center">
-            @{
-                if (!string.IsNullOrWhiteSpace(""))
-                {
-                                        <input type="submit" id="submitButtonId" class="btn btn-primary" value="Logg inn" />
-                }
-                        else
-                {
-                                        <input disabled="disabled" type="submit" class="btn btn-primary" value="Logg inn" />
-                }
-            }
-            
+            @*Disables button on page load so that the user has to select a user before the button is enabled.*@
+            @*This is done because the JS code does not run on startup, and thus the button is enabled*@
+            <input disabled="disabled" type="submit" id="submitButtonId" class="btn btn-primary" value="Logg inn"/>
             <p></p>
         </div>
     </form>
     <p></p>
-    <img src="https://upload.wikimedia.org/wikipedia/en/e/e3/2022_FIFA_World_Cup.svg" height="300" />
+    <img src="https://upload.wikimedia.org/wikipedia/en/e/e3/2022_FIFA_World_Cup.svg" height="300"/>
 </div>
 @*@Debug.WriteLine($"Brukernavn{TournamentModel.BrukerNavn} og gruppenamn er {TournamentModel.GruppeNavn}");*@
 <script>
+    //Gets the log in button and user selector with "getElementById" for later use in the code
+    var submitButton = document.getElementById('submitButtonId');
+    let userSelector = document.getElementById('userName');
+    
+    //Sets the "UpdateSubmitButton" function which is run by the "onclick" event listener on the "select" element.
     function UpdateSubmitButton()
     {
-        let var1 = document.getElementById('userName');
-        if (var1.value == 'unselected'){
-            document.getElementById('submitButtonId').disabled = true;
+        //If the value is unselected (which is the default value) the button will be disabled for the user.
+        //Else the button is enabled
+        if (userSelector.value == 'unselected') {
+            submitButton.disabled = true;
         } else {
-            document.getElementById('submitButtonId').disabled = false;
+            submitButton.disabled = false;
         }
     }
 

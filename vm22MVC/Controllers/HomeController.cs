@@ -49,6 +49,13 @@ namespace vm22MVC.Controllers
         public async Task<IActionResult> LoginUser(
             string userName, string password, string returnUrl, string bettingGroup)
         {
+            //If the user has not selected a user to log in as it will return a the login view with an error message.
+            if (string.IsNullOrEmpty(userName))
+            {
+                //Sets the boolean value of the viewbag to true to enable the error message.
+                ViewBag.NotSelectedUser = true;
+                return View("Login");
+            } 
             var loginValidation = ValidateLogin(userName, password);
 
             if (!loginValidation)
