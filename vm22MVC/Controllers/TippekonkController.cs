@@ -77,7 +77,7 @@ namespace vm22MVC.Controllers
             }
             //put tippemodel into json format
             var jsonResult = JsonConvert.SerializeObject(tournamentModel.TippeModels);
-            var filename = $"c:\\home\\json\\sluttspel3\\{bettingGroup}_{username}.json";
+            var filename = $"c:\\home\\json\\sluttspel4\\{bettingGroup}_{username}.json";
             
             System.IO.File.WriteAllTextAsync(filename, jsonResult);
 
@@ -103,7 +103,7 @@ namespace vm22MVC.Controllers
             var bettingGroup = new HttpContextAccessor().HttpContext?.User.Claims.Where(x => x.Type == "Group")
                 .Select(x => x.Value).FirstOrDefault();
             var turnering = new TournamentModel();
-            var filePath = $"c:\\home\\json\\sluttspel3\\{bettingGroup}_{username}.json";
+            var filePath = $"c:\\home\\json\\sluttspel4\\{bettingGroup}_{username}.json";
 
             //System.Text.Encoding.Default gives me ÆØÅ - good
             using StreamReader r = new StreamReader(filePath, System.Text.Encoding.Default);

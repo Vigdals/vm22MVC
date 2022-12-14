@@ -1,14 +1,11 @@
 ﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
-@using System.ComponentModel.DataAnnotations.Schema
-@using System.Diagnostics
-@using System.Security.Cryptography.X509Certificates
-@using getAPIstuff.Models
 
 <div class="text-center">
     <form action="/login" method="post">
         <div class="text-center">
             <label for="userName">Brukarnamn:</label>
-            <select name="userName" id="userName" for="userName">
+            <select name="userName" id="userName" for="userName" onclick="UpdateSubmitButton()">
+                <option disabled selected value="unselected">Velg bruker</option>
                 <option value="BERNT">BERNT</option>
                 <option value="DALAHAUGEN">DALAHAUGEN</option>
                 <option value="FRODEK">FRODEK</option>
@@ -32,7 +29,17 @@
         </div>
         <p></p>
         <div class="text-center">
-            <input type="submit" class="btn btn-primary" value="Logg inn" />
+            @{
+                if (!string.IsNullOrWhiteSpace(""))
+                {
+                                        <input type="submit" id="submitButtonId" class="btn btn-primary" value="Logg inn" />
+                }
+                        else
+                {
+                                        <input disabled="disabled" type="submit" class="btn btn-primary" value="Logg inn" />
+                }
+            }
+            
             <p></p>
         </div>
     </form>
@@ -40,4 +47,15 @@
     <img src="https://upload.wikimedia.org/wikipedia/en/e/e3/2022_FIFA_World_Cup.svg" height="300" />
 </div>
 @*@Debug.WriteLine($"Brukernavn{TournamentModel.BrukerNavn} og gruppenamn er {TournamentModel.GruppeNavn}");*@
+<script>
+    function UpdateSubmitButton()
+    {
+        let var1 = document.getElementById('userName');
+        if (var1.value == 'unselected'){
+            document.getElementById('submitButtonId').disabled = true;
+        } else {
+            document.getElementById('submitButtonId').disabled = false;
+        }
+    }
 
+</script>

@@ -105,8 +105,7 @@ namespace vm22MVC.Controllers
             var apiTournamentModel = new ApiCall().DoApiCall("https://api.nifs.no/tournaments/56/stages/");
             var apiTournamentReponse = apiTournamentModel.Response;
             ApiCall.CheckIfSuccess(apiTournamentReponse);
-
-
+            
             var jsonSerialized = new jsonConvertAndIteration().JsonSerialize(apiTournamentModel.StringResponse);
             var vmStages = JToken.Parse(jsonSerialized);
 
@@ -127,6 +126,15 @@ namespace vm22MVC.Controllers
             }
 
             return kampModels;
+        }
+
+        private List<PlayerModel> HentPlayerStats()
+        {
+            var playerModels = new List<PlayerModel>();
+
+            //do stuff here
+
+            return playerModels;
         }
 
         //List<TournamentModel> GetUserData()

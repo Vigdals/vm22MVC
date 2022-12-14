@@ -471,6 +471,26 @@
             "nifsKampId": 1813517,
             "userName": "BERNT",
             "Score": 0
-        }
+        },
+		    {
+        "Id": 0,
+        "Answer": "Away",
+        "Gruppe": "Sluttspill",
+        "HjemmeLag": "Argentina",
+        "BorteLag": "Kroatia",
+        "nifsKampId": 1813518,
+        "userName": "BERNT",
+        "Score": 0
+    },
+    {
+        "Id": 0,
+        "Answer": "Home",
+        "Gruppe": "Sluttspill",
+        "HjemmeLag": "Frankrike",
+        "BorteLag": "Marokko",
+        "nifsKampId": 1813519,
+        "userName": "BERNT",
+        "Score": 0
+    }
     ]
 }
