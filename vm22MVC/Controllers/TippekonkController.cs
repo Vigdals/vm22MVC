@@ -96,7 +96,7 @@ namespace vm22MVC.Controllers
 
             return RedirectToAction("Index", new { groupName = changeToGroup });
         }
-        [Authorize]
+        
         public IActionResult FinishedTipping(TournamentModel tournamentModel)
         {
             var username = new HttpContextAccessor().HttpContext?.User.Identity?.Name?.ToUpperInvariant();

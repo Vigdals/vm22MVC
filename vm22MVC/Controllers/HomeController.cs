@@ -55,7 +55,7 @@ namespace vm22MVC.Controllers
                 //Sets the boolean value of the viewbag to true to enable the error message.
                 ViewBag.NotSelectedUser = true;
                 return View("Login");
-            } 
+            }
             var loginValidation = ValidateLogin(userName, password);
 
             if (!loginValidation)
