@@ -7,7 +7,6 @@ using getAPIstuff.Api;
 using getAPI;
 using getAPIstuff.Models;
 using vm22MVC.Service;
-using System.Linq;
 
 namespace vm22MVC.Controllers
 {

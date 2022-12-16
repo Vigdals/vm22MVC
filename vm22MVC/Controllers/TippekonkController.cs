@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Net.Mail;
+using System.Net;
 using getAPI;
 using getAPIstuff.Api;
 using getAPIstuff.Models;
@@ -115,7 +116,29 @@ namespace vm22MVC.Controllers
 
             //Henter resultat for sluttspill. Lag ein type dictoinary her? I modellen? Enum?
             turnering.kampModels = HentGruppeResultat("683910");
+
+            SendEmail();
             return View(turnering);
+        }
+
+        public void SendEmail()
+        {
+            //// Set up the SMTP client
+            //SmtpClient client = new SmtpClient();
+            //client.Host = "smtp.office365.com";
+            //client.Port = 587;
+            //client.EnableSsl = true;
+            //client.Credentials = new NetworkCredential("adhvi", "");
+
+            //// Set up the message
+            //MailMessage message = new MailMessage();
+            //message.From = new MailAddress("adhvi@statsforvalteren.no");
+            //message.To.Add("vigdal@vigdal.dev");
+            //message.Subject = "Test email";
+            //message.Body = "This is a test email sent using .NET";
+
+            //// Send the email
+            //client.Send(message);
         }
 
         List<TippeModel> GetTippeModels(KeyValuePair<string, JToken?> keyValuePair, string fileName)
