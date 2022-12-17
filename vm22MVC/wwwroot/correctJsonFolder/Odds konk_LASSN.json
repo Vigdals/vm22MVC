@@ -491,6 +491,26 @@
 			"nifsKampId": 1813519,
 			"userName": "LASSN",
 			"Score": 0
-		}
+		},
+		{
+			"Id": 0,
+			"Answer": "Home",
+			"Gruppe": "Sluttspill",
+			"HjemmeLag": "Kroatia",
+			"BorteLag": "Marokko",
+			"nifsKampId": 1813520,
+			"userName": "LASSN",
+			"Score": 0
+		  },
+		  {
+			"Id": 0,
+			"Answer": "Home",
+			"Gruppe": "Sluttspill",
+			"HjemmeLag": "Argentina",
+			"BorteLag": "Frankrike",
+			"nifsKampId": 1813521,
+			"userName": "LASSN",
+			"Score": 0
+		  }
 	]
 }
